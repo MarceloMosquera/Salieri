@@ -11,16 +11,21 @@ class LoginAppModel extends BaseAppModel{
 	String nombreUsuarioABuscar
 	String contrasenia
 	Usuario usuarioLogin
+	String mensajeError
 	
-	def autorizarLogin() {
-		DBContext.repoUsuarios.compararContraseña(nombreUsuarioABuscar,contrasenia)
+	def boolean login() {
+		mensajeError = null
 		usuarioLogin= DBContext.repoUsuarios.obtenerUsuario(nombreUsuarioABuscar)
+		if (usuarioLogin == null || !usuarioLogin.validarPassword(contrasenia))
+			mensajeError = "Usuario no encontrado o Clave incorrecta"
+		(mensajeError != null)
 	}
 	
-	def clear(){
+	def limpiar(){
 		nombreUsuarioABuscar = null
 		contrasenia = null
 		usuarioLogin = null
+		mensajeError = null
 	}
 		
 }

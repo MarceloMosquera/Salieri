@@ -4,7 +4,6 @@ import edu.unsam.Salieri.Domain.Usuario
 
 interface IRepoUsuarios {
 	def void agregarUsuarioConContraseña(Usuario usuario, String contrasenia)
-	def void quitarUsuario(Usuario usuario, String contrasenia)
-	def boolean compararContraseña(String usr, String contraseniaIngresada)
+	def void quitarUsuario(Usuario usuario)
 	def Usuario obtenerUsuario(String nombre)
 }

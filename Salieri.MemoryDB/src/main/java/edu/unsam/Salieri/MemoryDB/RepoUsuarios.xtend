@@ -9,25 +9,18 @@ import java.util.HashMap
 class RepoUsuarios implements IRepoUsuarios {
 	
 	List<Usuario> todosLosUsuarios = newArrayList
-	Map<Usuario, String> usuarioContrasenia = new HashMap<Usuario, String>
 	
 	public new() {
 	}
 	
 	override void agregarUsuarioConContraseña(Usuario usuario, String contrasenia){
+		usuario.password = contrasenia
 		todosLosUsuarios.add(usuario)
-		usuarioContrasenia.put(usuario,contrasenia)
 	}
 	
-	override void quitarUsuario(Usuario usuario, String contrasenia){
+	override void quitarUsuario(Usuario usuario){
 		todosLosUsuarios.remove(usuario)
-		usuarioContrasenia.remove(usuario)
 	}
-	
-	override boolean compararContraseña(String usr, String contraseniaIngresada){
-		val Usuario usuario = this.obtenerUsuario(usr)
-		usuarioContrasenia.get(usuario).equals(contraseniaIngresada)	
-	} 
 	
 	
 	override obtenerUsuario(String nombre){

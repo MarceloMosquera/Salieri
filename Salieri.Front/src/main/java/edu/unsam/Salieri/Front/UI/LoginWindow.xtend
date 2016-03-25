@@ -1,14 +1,14 @@
 package edu.unsam.Salieri.Front.UI
 
-import org.uqbar.arena.windows.SimpleWindow
 import edu.unsam.Salieri.Front.AppModel.LoginAppModel
-import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.windows.Dialog
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
 class LoginWindow extends SimpleWindow<LoginAppModel> {
 	
@@ -22,18 +22,25 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 
 		new Button(panel) => [
 			caption = "Ok"
-//			onClick = [|
-//				modelObject.autorizarLogin
-//				this.entrar
-//			]
+			onClick [ | entrar ]
 			setAsDefault
-			disableOnError
 		]
 
+		
 		new Button(panel) => [
 			caption = "Cancelar"
-//			onClick = [|modelObject.clear]
+			onClick [ | cancelar ]
 		]
+		
+
+	}
+	
+	def cancelar() {
+		modelObject.limpiar
+	}
+	def entrar() {
+		modelObject.login
+//				this.entrar
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -42,22 +49,30 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 		new Label(panelTexto).text="Usuario"
 		new TextBox(panelTexto) =>[
 			width = 150
+			value <=> "nombreUsuarioABuscar"
 			]
 		
 		new Label(panelTexto).text="Contraseña"
 		new TextBox(panelTexto) =>[
 			width = 150
+			value <=> "contrasenia"
 			]	
+		
+		new Label(panelTexto) =>[
+			value <=> "mensajeError"
+			visible <=> "mensajeError"
+			]	
+			
 
 	}
 	
-	def void entrar() {
+//	def void entrar() {
 //		this.openDialog(
 //			new ConsultaDeRecetaWindow(this, modelObject.usuarioLogin))
-	}
-	def openDialog(Dialog<?> dialog) {
-		dialog.open
-	}
+//	}
+//	def openDialog(Dialog<?> dialog) {
+//		dialog.open
+//	}
 	
 	
 }

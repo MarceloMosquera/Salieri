@@ -12,4 +12,8 @@ class Usuario {
 	new(String elNombre){
 		nombre = elNombre
 	}
+	
+	def boolean validarPassword(String password){
+		(password != null && password.equals(password))
+	}
 }

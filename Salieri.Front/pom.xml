@@ -19,4 +19,21 @@
 		<artifactId>arena-xtend-parent</artifactId>
 		<version>3.6.1</version>
 	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>edu.unsam</groupId>
+			<artifactId>Salieri.Domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.unsam</groupId>
+			<artifactId>Salieri.MemoryDB</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.unsam</groupId>
+			<artifactId>Salieri.Repository</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

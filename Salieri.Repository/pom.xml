@@ -21,4 +21,11 @@
 		<version>2.7.3</version>
 	</parent>
 
+	<dependencies>
+		<dependency>
+			<groupId>edu.unsam</groupId>
+			<artifactId>Salieri.Domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

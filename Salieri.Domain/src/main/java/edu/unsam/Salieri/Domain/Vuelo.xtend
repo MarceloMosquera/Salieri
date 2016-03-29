@@ -22,10 +22,6 @@ class Vuelo {
 		true //temporal, super hardcodeado
 	}
 	
-	def double montoMaximo(){
-		return 100.0
-	}
-	
 	def void reservarAsiento (Asiento unAsiento){
 		
 	}

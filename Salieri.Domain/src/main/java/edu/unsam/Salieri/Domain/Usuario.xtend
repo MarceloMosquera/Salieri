@@ -4,6 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class Usuario {
+	String nick
 	String nombre
 	String password
 	

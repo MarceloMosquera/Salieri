@@ -9,6 +9,7 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.widgets.PasswordField
 
 class LoginWindow extends SimpleWindow<LoginAppModel> {
 	
@@ -19,17 +20,29 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 	
 	override protected addActions(Panel actionsPanel) {
 		val panel = new Panel(actionsPanel).layout = new HorizontalLayout
-
+		val anchoBotones = 52
+		
 		new Button(panel) => [
-			caption = "Ok"
+			caption = "Entrar"
+			width = anchoBotones
 			onClick [ | entrar ]
 			setAsDefault
 		]
 
 		
 		new Button(panel) => [
-			caption = "Cancelar"
+			width = anchoBotones
+			caption = "Resetear"
 			onClick [ | cancelar ]
+		]
+		
+		new Button(panel) => [
+			width = anchoBotones
+			caption = "Salir"
+			onClick[
+				| System.exit(0)
+			]
+		
 		]
 		
 
@@ -53,7 +66,7 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 			]
 		
 		new Label(panelTexto).text="Contraseña"
-		new TextBox(panelTexto) =>[
+		new PasswordField(panelTexto) =>[
 			width = 150
 			value <=> "contrasenia"
 			]	

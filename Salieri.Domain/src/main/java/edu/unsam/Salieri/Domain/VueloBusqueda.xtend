@@ -5,8 +5,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class VueloBusqueda {
- 	String origen
- 	String destino
+ 	Aeropuerto origen
+ 	Aeropuerto destino
  	Date fechaMin
  	Date fechaMax
  	float montoMax 	

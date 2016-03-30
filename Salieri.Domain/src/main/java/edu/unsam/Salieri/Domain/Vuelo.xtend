@@ -14,8 +14,23 @@ class Vuelo {
 	Date fechaArribo
 	List<Asiento> asientos
 	
-	new(String elNroVuelo){
+	new(String elNroVuelo,Aerolinea laAerolinea,
+		Aeropuerto elOrigen,Aeropuerto elDestino,
+		Date laFechaSalida,Date laFechaArribo
+	){
 		nroVuelo = elNroVuelo
+		aerolinea=laAerolinea
+		origen=elOrigen
+		destino=elDestino
+		fechaSalida=laFechaSalida
+		fechaArribo=laFechaArribo
+		asientos = new ArrayList
+		asientos = generarAsientos()
+		
+	}
+	
+	def List<Asiento> generarAsientos() {
+		// genera el array de asientos (hay que ver como hacemos con el enum)
 	}
 	
 	def boolean vueloConLugar(){

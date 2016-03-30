@@ -1,5 +1,6 @@
 package edu.unsam.Salieri.MemoryDB
 
+import edu.unsam.Salieri.Domain.Aeropuerto
 import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Domain.VueloBusqueda
 import edu.unsam.Salieri.Repository.IRepoVuelos
@@ -36,11 +37,11 @@ class RepoVuelos implements IRepoVuelos {
 		vuelos.filter[vuelo|vuelo.vueloConLugar].toList
 	}
 	
-	override buscarVuelosPorOrigen(String unOrigen,List<Vuelo> resultado) {
+	override buscarVuelosPorOrigen(Aeropuerto unOrigen,List<Vuelo> resultado) {
 		//Hay que definir como hacemos esto
 	}
 	
-	override buscarVuelosPorDestino(String unDestino,List<Vuelo> resultado) {
+	override buscarVuelosPorDestino(Aeropuerto unDestino,List<Vuelo> resultado) {
 		//Hay que definir como hacemos esto
 	}
 	

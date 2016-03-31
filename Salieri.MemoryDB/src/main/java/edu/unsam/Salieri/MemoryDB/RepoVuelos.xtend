@@ -24,8 +24,7 @@ class RepoVuelos implements IRepoVuelos {
 		vuelos.remove(unVuelo)
 	}
 	
-	override buscarVuelos(VueloBusqueda vueloBusqueda) {
-		
+	override buscarVuelos(VueloBusqueda vueloBusqueda) {		
 		resultado = buscarVuelosConLugar()
 		resultado = buscarVuelosPorOrigen(vueloBusqueda.origen ,resultado)
 		resultado = buscarVuelosPorDestino(vueloBusqueda.origen ,resultado)
@@ -52,8 +51,5 @@ class RepoVuelos implements IRepoVuelos {
 	override buscarVuelosPorMontoMaximo(float montoMaximo,List<Vuelo> resultado) {
 		vuelos.filter[vuelo|vuelo.asientoPorMenosDe(montoMaximo)].toList
 	}
-	
-
-	
-	
+		
 }

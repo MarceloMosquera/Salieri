@@ -4,7 +4,15 @@ class Asiento {
 
 	Reserva reserva
 	float costo
-
+	int fila
+	int ubicacion
+	//evaluar si pasar a un booleano, doble referencia, o referencia simple//
+	
+	new(int laFila, int laUbicacion){
+		fila = laFila
+		ubicacion = laUbicacion
+	}
+	
 	def void reservar(Usuario unUsuario) {
 		if (asientoDisponible) {
 			reserva = new Reserva(this, unUsuario)

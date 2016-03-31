@@ -28,28 +28,40 @@ class DBContext implements IDBContext {
 	}
 
 	new() {
-		initUsuarios()
+		init()
 	}
 
-	def void initUsuarios() {
-		repoUsuarios.agregarUsuarioConContraseña(new Usuario("adrian"), "adrian")
-		repoUsuarios.agregarUsuarioConContraseña(new Usuario("ivan"), "ivan")
-		repoUsuarios.agregarUsuarioConContraseña(new Usuario("nicolas"), "nicolas")
-		repoUsuarios.agregarUsuarioConContraseña(new Usuario("marcelo"), "marcelo")
-	}
+	def void init() {
+		val diego = new Usuario("diego")
+		val ivan = new Usuario("ivan")
+		val nicolas = new Usuario("nicolas")
+		val marcelo = new Usuario("marcelo")
+		repoUsuarios.agregarUsuarioConContraseña(diego, "diego")
+		repoUsuarios.agregarUsuarioConContraseña(ivan, "ivan")
+		repoUsuarios.agregarUsuarioConContraseña(nicolas, "nicolas")
+		repoUsuarios.agregarUsuarioConContraseña(marcelo, "marcelo")
 
-	def void initVuelos() {
-		
 		val ezeiza = new Aeropuerto("Ezeiza (EZE)", "Buenos Aires", "Argentina")
 		val marDelPlata = new Aeropuerto("Mar del Plata (MDQ)", "Buenos Aires", "Argentina")
 		val mendoza = new Aeropuerto("Mendoza (MDZ)", "Mendoza", "Argentina")
 		val guarulhos = new Aeropuerto("Aeropuerto Internacional de Guarulhos (GRU)", "São Paulo", "Brasil")
-		val n2346 = new Vuelo ("N2346", "LAN AR",ezeiza,mendoza,new Date(2016, 03, 15, 8, 15, 23),new Date(2016, 03, 15, 10, 00, 00))
-		val i9573 = new Vuelo("I9573", "Aerolinas Argentinas",marDelPlata,guarulhos,new Date(2016, 03, 16, 8, 15, 23),new Date(2016, 03, 16, 15, 00, 00))	
-		
+		val n2346 = new Vuelo("N2346", "LAN AR", ezeiza, mendoza, new Date(2016, 03, 15, 8, 15, 23),
+			new Date(2016, 03, 15, 10, 00, 00))
+		val i9573 = new Vuelo("I9573", "Aerolinas Argentinas", marDelPlata, guarulhos,
+			new Date(2016, 03, 16, 8, 15, 23), new Date(2016, 03, 16, 15, 00, 00))
+
 		repoVuelos.agregarVuelo(n2346)
 		repoVuelos.agregarVuelo(i9573)
 
+		val asiento1 = n2346.asientos.get(1)
+		val asiento2 = n2346.asientos.get(2)
+		val asiento3 = i9573.asientos.get(3)
+		val asiento4 = i9573.asientos.get(4)
+
+		n2346.reservarAsiento(asiento1, ivan)
+		n2346.reservarAsiento(asiento2, diego)
+		n2346.reservarAsiento(asiento3, nicolas)
+		n2346.reservarAsiento(asiento4, marcelo)
 	}
 
 }

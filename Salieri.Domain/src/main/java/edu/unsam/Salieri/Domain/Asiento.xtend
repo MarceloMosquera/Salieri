@@ -2,7 +2,8 @@ package edu.unsam.Salieri.Domain
 
 class Asiento {
 
-	Reserva reserva
+	//Reserva reserva
+	boolean disponible
 	float costo
 	int fila
 	int ubicacion
@@ -11,18 +12,20 @@ class Asiento {
 	new(int laFila, int laUbicacion){
 		fila = laFila
 		ubicacion = laUbicacion
+		disponible = true
 	}
 	
-	def void reservar(Usuario unUsuario) {
-		if (asientoDisponible) {
-			reserva = new Reserva(this, unUsuario)
+	def void reservar(Vuelo unVuelo, Usuario unUsuario) {
+		if (disponible) {
+			new Reserva(this, unUsuario, unVuelo)
+			disponible = false
 		} else {
 			throw new BusinessException("El asiento ya se encuentra reservado.")
 		}
 	}
 
-	def Boolean asientoDisponible() {
-		reserva == null
+	def Boolean estaDisponible() {
+		disponible
 	}
 
 	def boolean costoMenorA(float montoMax) {

@@ -3,7 +3,9 @@ package edu.unsam.Salieri.Domain
 import java.util.ArrayList
 import java.util.Date
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class Vuelo {
 	// Int id
 	String nroVuelo
@@ -49,7 +51,8 @@ class Vuelo {
 		true // temporal, super hardcodeado
 	}
 
-	def void reservarAsiento(Asiento unAsiento) {
+	def void reservarAsiento(Asiento unAsiento, Usuario unUsuario) {
+		unAsiento.reservar(this, unUsuario)
 	}
 
 	def boolean saleEntre(Date fechaMin, Date fechaMax) {
@@ -63,7 +66,7 @@ class Vuelo {
 	}
 
 	def List<Asiento> getAsientosDisponibles() {
-		asientos.filter[asiento|asiento.asientoDisponible].toList
+		asientos.filter[asiento|asiento.estaDisponible].toList
 	}
 
 }

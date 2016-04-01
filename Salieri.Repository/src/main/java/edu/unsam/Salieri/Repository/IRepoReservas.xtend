@@ -2,6 +2,7 @@ package edu.unsam.Salieri.Repository
 
 import edu.unsam.Salieri.Domain.Usuario
 import edu.unsam.Salieri.Domain.Reserva
+import java.util.List
 
 interface IRepoReservas {
 	
@@ -9,6 +10,6 @@ interface IRepoReservas {
 	
 	def void quitarReserva(Reserva unaReserva){}
 	
-	def void buscarReservaDelUsuario(Usuario unUsuario){}
+	def List<Reserva> buscarReservaDelUsuario(Usuario unUsuario){}
 	
 }

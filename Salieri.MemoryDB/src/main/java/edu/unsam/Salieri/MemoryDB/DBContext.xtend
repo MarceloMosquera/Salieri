@@ -7,11 +7,14 @@ import edu.unsam.Salieri.Repository.IRepoVuelos
 import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Domain.Aeropuerto
 import java.util.Date
+import edu.unsam.Salieri.Repository.IRepoReservas
+import edu.unsam.Salieri.Domain.Reserva
 
 class DBContext implements IDBContext {
 
 	static IRepoUsuarios _repoUsuarios = null
 	static IRepoVuelos _repoVuelos = null
+	static IRepoReservas _repoReservas = null
 
 	override IRepoUsuarios repoUsuarios() {
 		if (_repoUsuarios == null) {
@@ -25,6 +28,13 @@ class DBContext implements IDBContext {
 			_repoVuelos = new RepoVuelos()
 		}
 		_repoVuelos;
+	}
+	
+	override IRepoReservas repoReservas() {
+		if (_repoReservas == null) {
+			_repoReservas = new RepoReserva()
+		}
+		_repoReservas;
 	}
 
 	new() {
@@ -60,10 +70,12 @@ class DBContext implements IDBContext {
 		val asiento3 = i9573.asientos.get(3)
 		val asiento4 = i9573.asientos.get(4)
 
-		n2346.reservarAsiento(asiento1, ivan)
-		n2346.reservarAsiento(asiento2, diego)
-		n2346.reservarAsiento(asiento3, nicolas)
-		n2346.reservarAsiento(asiento4, marcelo)
+		repoReservas.agregarReserva(n2346.reservarAsiento(asiento1, ivan))
+		repoReservas.agregarReserva(n2346.reservarAsiento(asiento2, diego))
+		repoReservas.agregarReserva(i9573.reservarAsiento(asiento3, nicolas))
+		repoReservas.agregarReserva(i9573.reservarAsiento(asiento4, marcelo))
+		
+		
 	}
 
 }

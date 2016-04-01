@@ -5,5 +5,7 @@ interface IDBContext {
 	def IRepoUsuarios repoUsuarios()
 
 	def IRepoVuelos repoVuelos()
+	
+	def IRepoReservas repoReservas()
 
 }

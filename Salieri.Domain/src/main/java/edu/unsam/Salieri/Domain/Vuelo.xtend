@@ -53,7 +53,7 @@ class Vuelo {
 		true // temporal, super hardcodeado
 	}
 
-	def void reservarAsiento(Asiento unAsiento, Usuario unUsuario) {
+	def Reserva reservarAsiento(Asiento unAsiento, Usuario unUsuario) {
 		unAsiento.reservar(this, unUsuario)
 	}
 

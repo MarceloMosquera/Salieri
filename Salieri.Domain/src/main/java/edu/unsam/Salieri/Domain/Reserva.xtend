@@ -1,14 +1,17 @@
 package edu.unsam.Salieri.Domain
 
 import java.util.Date
+import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
 @Accessors
+@Observable
 class Reserva {
 	int id
 	Date fecha
 	Date fechaBaja
-	//List<Vuelo> escalas
+	List<Vuelo> escalas // TODO PASAR A VUELO
 	Usuario usuario
 	Asiento asiento
 	Vuelo vuelo
@@ -20,7 +23,8 @@ class Reserva {
 	new (Asiento unAsiento,Usuario unUsuario, Vuelo unVuelo) {
 		usuario = unUsuario
 		asiento = unAsiento
-		vuelo = unVuelo		
+		vuelo = unVuelo
+		escalas = newArrayList			
 	}
 
 	

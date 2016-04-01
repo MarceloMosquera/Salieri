@@ -1,5 +1,9 @@
 package edu.unsam.Salieri.Domain
 
+import org.uqbar.commons.utils.Observable
+
+@Observable
+
 class Asiento {
 
 	//Reserva reserva

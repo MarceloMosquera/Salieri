@@ -52,8 +52,9 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 		modelObject.limpiar
 	}
 	def entrar() {
-		modelObject.login
-//				this.entrar
+		//modelObject.login
+		//return new PrincipalWindow(this)
+		abrirPrincipal
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -79,13 +80,13 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 
 	}
 	
-//	def void entrar() {
-//		this.openDialog(
-//			new ConsultaDeRecetaWindow(this, modelObject.usuarioLogin))
-//	}
-//	def openDialog(Dialog<?> dialog) {
-//		dialog.open
-//	}
+	def void abrirPrincipal() {
+		this.openWindow(
+			new PrincipalWindow(this))
+	}
+def openWindow(SimpleWindow<?> w) {
+		w.open
+	}
 	
 	
 }

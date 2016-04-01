@@ -1,5 +1,8 @@
 package edu.unsam.Salieri.Domain
 
+import org.uqbar.commons.utils.Observable
+
+@Observable
 class Aeropuerto {
 	String nombre
 	String ciudad
@@ -11,4 +14,7 @@ class Aeropuerto {
 		pais = unPais
 	}
 	
+	override toString(){
+		return ciudad
+	}
 }

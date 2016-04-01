@@ -1,8 +1,10 @@
 package edu.unsam.Salieri.Domain
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
 @Accessors
+@Observable
 class Usuario {
 	String nick
 	String nombre
@@ -18,4 +20,7 @@ class Usuario {
 		(password != null && password.equals(password))
 	}
 	
+	override toString(){
+		return nombre
+	}	
 }

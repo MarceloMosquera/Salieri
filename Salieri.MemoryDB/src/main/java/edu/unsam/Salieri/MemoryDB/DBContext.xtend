@@ -36,10 +36,12 @@ class DBContext implements IDBContext {
 		val ivan = new Usuario("ivan")
 		val nicolas = new Usuario("nicolas")
 		val marcelo = new Usuario("marcelo")
-		repoUsuarios.agregarUsuarioConContraseña(diego, "diego")
-		repoUsuarios.agregarUsuarioConContraseña(ivan, "ivan")
-		repoUsuarios.agregarUsuarioConContraseña(nicolas, "nicolas")
-		repoUsuarios.agregarUsuarioConContraseña(marcelo, "marcelo")
+		repoUsuarios => [
+			agregarUsuarioConContraseña(diego, "diego")
+			agregarUsuarioConContraseña(ivan, "ivan")
+			agregarUsuarioConContraseña(nicolas, "nicolas")
+			agregarUsuarioConContraseña(marcelo, "marcelo")
+		]
 
 		val ezeiza = new Aeropuerto("Ezeiza (EZE)", "Buenos Aires", "Argentina")
 		val marDelPlata = new Aeropuerto("Mar del Plata (MDQ)", "Buenos Aires", "Argentina")

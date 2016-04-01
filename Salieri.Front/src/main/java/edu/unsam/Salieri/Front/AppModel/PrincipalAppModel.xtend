@@ -14,7 +14,6 @@ import edu.unsam.Salieri.Domain.Aeropuerto
 @Observable
 class PrincipalAppModel extends BaseAppModel{
 
-	Usuario usuarioLogin
 	List<Reserva> reservasEfectuadas
 	Reserva reservaSeleccionada = null
 	
@@ -39,7 +38,6 @@ class PrincipalAppModel extends BaseAppModel{
 		
 		reservasEfectuadas = newArrayList
 		reservasEfectuadas.add(reserva1)
-		usuarioLogin = usuarioLogueado
 		
 		var Reserva reserva2
 		var Asiento asientoReservado2 = new Asiento(5,3)

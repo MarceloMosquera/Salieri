@@ -149,7 +149,7 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 		new Label(subpanelTexto)=>[
 			text =  "Usuario : "
 		]
-		new Label(subpanelTexto).bindValueToProperty("usuarioLogin")
+		new Label(subpanelTexto).bindValueToProperty("usuarioLogeado")
 	}
 	
 }

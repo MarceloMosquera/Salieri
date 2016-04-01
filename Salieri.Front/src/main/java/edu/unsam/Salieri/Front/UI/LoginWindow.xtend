@@ -10,6 +10,8 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.PasswordField
+import org.uqbar.commons.utils.ApplicationContext
+import edu.unsam.Salieri.Domain.Usuario
 
 class LoginWindow extends SimpleWindow<LoginAppModel> {
 	
@@ -52,9 +54,10 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 		modelObject.limpiar
 	}
 	def entrar() {
-		//modelObject.login
-		//return new PrincipalWindow(this)
-		abrirPrincipal
+		if (!modelObject.login) { 
+			ApplicationContext.instance.configureSingleton(typeof(Usuario), modelObject.usuarioLogin)
+			abrirPrincipal
+		}
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -73,8 +76,8 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 			]	
 		
 		new Label(panelTexto) =>[
-			value <=> "mensajeError"
-			visible <=> "mensajeError"
+			value <=> "mensaje"
+			visible <=> "mensaje"
 			]	
 			
 
@@ -84,8 +87,8 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 		this.openWindow(
 			new PrincipalWindow(this))
 	}
-def openWindow(SimpleWindow<?> w) {
-		w.open
+	def openWindow(SimpleWindow<?> window) {
+		window.open
 	}
 	
 	

@@ -157,6 +157,9 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 		new Label(subpanelTexto).bindValueToProperty("usuarioLogeado")
 	}
 	
-
+    override close() {
+        super.close()
+		new LoginWindow(this).open
+    }
     	
 }

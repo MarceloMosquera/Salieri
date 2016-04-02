@@ -79,11 +79,10 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 			value <=> "mensaje"
 			visible <=> "mensaje"
 			]	
-			
-
 	}
 	
 	def void abrirPrincipal() {
+		this.close
 		this.openWindow(
 			new PrincipalWindow(this))
 	}

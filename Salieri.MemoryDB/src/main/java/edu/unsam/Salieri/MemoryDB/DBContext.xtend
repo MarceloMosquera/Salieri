@@ -8,7 +8,8 @@ import edu.unsam.Salieri.Repository.IRepoAeropuertos
 import edu.unsam.Salieri.Repository.IRepoReservas
 import edu.unsam.Salieri.Repository.IRepoUsuarios
 import edu.unsam.Salieri.Repository.IRepoVuelos
-import java.text.SimpleDateFormat
+import edu.unsam.Salieri.Domain.Escala
+import edu.unsam.Salieri.Util.SSDate
 
 class DBContext implements IDBContext {
 
@@ -89,13 +90,50 @@ class DBContext implements IDBContext {
 		]
 		
 		val n2346 = new Vuelo("N2346", "LAN AR", ezeiza, mendoza, 
-			new SimpleDateFormat( "yyyyMMdd HH:mm" ).parse( "20160315 8:15" ), new SimpleDateFormat( "yyyyMMdd HH:mm" ).parse( "20160315 10:00" ) ) 
+			SSDate.p("20160315 8:15" ), SSDate.p("20160315 10:00" ) ) 
 		val i9573 = new Vuelo("I9573", "Aerolinas Argentinas", marDelPlata, guarulhos,
-			new SimpleDateFormat( "yyyyMMdd HH:mm" ).parse( "20160316 8:15" ), new SimpleDateFormat( "yyyyMMdd HH:mm" ).parse( "20160316 18:00" ) )
+			SSDate.p("20160316 8:15" ), SSDate.p("20160316 18:00" ) )
 
+		var f956 = new Vuelo("F956", "Indio Ar", ezeiza, guarulhos,
+			SSDate.p("20160315 8:15" ), SSDate.p("20160316 20:00" ) )
+			
+		f956 => [
+			agregarEscala(
+				new Escala(repoAeropuertos.buscarAeropuertoPorNombre("El Calafate (FTE)"), 
+				SSDate.p("20160315 17:00" ),SSDate.p("20160315 17:30" )  
+			))
+			agregarEscala(
+				new Escala(repoAeropuertos.buscarAeropuertoPorNombre("El Bolsón (EHL)"), 
+				SSDate.p("20160316 01:00" ),SSDate.p("20160316 01:30" )  
+			))
+			agregarEscala(
+				new Escala(repoAeropuertos.buscarAeropuertoPorNombre("Dolores (VDR)"), 
+				SSDate.p("20160316 13:00" ),SSDate.p("20160316 13:30" )  
+			))
+		]
+
+		var f666 = new Vuelo("F66", "Maiden Ar", guarulhos, ezeiza, 
+			SSDate.p("20160320 8:15" ), SSDate.p("20160321 20:00" ) )
+			
+		f666 => [
+			agregarEscala(
+				new Escala(repoAeropuertos.buscarAeropuertoPorNombre("Dolores (VDR)"), 
+				SSDate.p("20160320 13:00" ),SSDate.p("20160320 13:30" )  
+			))
+			agregarEscala(
+				new Escala(repoAeropuertos.buscarAeropuertoPorNombre("El Bolsón (EHL)"), 
+				SSDate.p("20160321 01:00" ),SSDate.p("20160321 01:30" )  
+			))
+			agregarEscala(
+				new Escala(repoAeropuertos.buscarAeropuertoPorNombre("El Calafate (FTE)"), 
+				SSDate.p("20160321 17:00" ),SSDate.p("20160321 17:30" )  
+			))
+		]
 
 		repoVuelos.agregarVuelo(n2346)
 		repoVuelos.agregarVuelo(i9573)
+		repoVuelos.agregarVuelo(f956)
+		repoVuelos.agregarVuelo(f666)
 
 		val asiento1 = n2346.asientos.get(1)
 		val asiento2 = n2346.asientos.get(2)

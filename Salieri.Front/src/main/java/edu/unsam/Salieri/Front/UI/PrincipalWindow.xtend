@@ -114,7 +114,7 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 		new Column<Reserva>(gridReceta) => [
 			fixedSize = 80
 			title = "Tramos"
-			bindContentsToProperty("escalas.size")
+			bindContentsToProperty("vuelo.cantidadDeEscalas")
 			]
 			
 		new Column<Reserva>(gridReceta) => [

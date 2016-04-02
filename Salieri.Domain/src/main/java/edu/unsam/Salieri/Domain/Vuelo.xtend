@@ -9,15 +9,14 @@ import org.uqbar.commons.utils.Observable
 @Accessors
 @Observable
 class Vuelo {
-	// Int id
 	String nroVuelo
-	// Aerolinea aerolinea
 	String aerolinea
 	Aeropuerto origen
 	Aeropuerto destino
 	Date fechaSalida
 	Date fechaArribo
 	List<Asiento> asientos
+	List<Escala> escalas
 
 	new(
 		String elNroVuelo,
@@ -34,6 +33,7 @@ class Vuelo {
 		fechaSalida = laFechaSalida
 		fechaArribo = laFechaArribo
 		asientos = new ArrayList
+		escalas = new ArrayList
 		generarAsientos()
 
 	}
@@ -50,11 +50,19 @@ class Vuelo {
 	}
 
 	def boolean vueloConLugar() {
-		true // temporal, super hardcodeado
+		true // TODO: para revisar
 	}
 
 	def Reserva reservarAsiento(Asiento unAsiento, Usuario unUsuario) {
 		unAsiento.reservar(this, unUsuario)
+	}
+	
+	def int cantidadAsientosLibres(){
+		val libres = asientos.filter[asiento | asiento.estaDisponible].toList
+		libres.size 
+	}
+	def int cantidadAsientosReservados(){
+		asientos.size - cantidadAsientosLibres
 	}
 
 	def boolean saleEntre(Date fechaMin, Date fechaMax) {
@@ -70,10 +78,27 @@ class Vuelo {
 	}
 	def boolean pasaPor(Aeropuerto aerop) {
 		aerop == null || aerop.equals(Aeropuerto.aeropuertoVacio) || destino.equals(aerop)
+		|| escalas.exists[escala | escala.enAeropuerto(aerop)  ]
 	}
 
 	def List<Asiento> getAsientosDisponibles() {
 		asientos.filter[asiento|asiento.estaDisponible].toList
 	}
 
+	def agregarEscala(Escala unaEscala){
+		escalas.add(unaEscala)
+		unaEscala.orden = escalas.size
+	}
+	
+	def cantidadDeEscalas()
+	{
+		escalas.size
+	}
+	def cantidadDeEscalasEntre(Aeropuerto unAeropuerto, Aeropuerto otroAeropuerto)
+	{
+		var ordenDestino = escalas.findFirst[esc|esc.enAeropuerto(otroAeropuerto)].orden
+		var ordenOrigen = escalas.findFirst[esc|esc.enAeropuerto(unAeropuerto)].orden 
+		ordenDestino - ordenOrigen
+	}
+	
 }

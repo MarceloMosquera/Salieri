@@ -30,7 +30,7 @@ class RepoAeropuertos implements IRepoAeropuertos{
 	}
 
 	override buscarAeropuertoPorNombre(String aeropuertoNombre){
-		//aeropuertos.filter[aeropuerto | aeropuerto.nombre == aeropuertoNombre ].toList
+		aeropuertos.findFirst[aeropuerto | aeropuerto.mismoNombre(aeropuertoNombre )]
 	}
 	
 }

@@ -23,6 +23,10 @@ class Aeropuerto {
 		_aeropuertoVacio
 	}
 	
+	def boolean mismoNombre(String unNombre){
+		nombre.equalsIgnoreCase(unNombre)
+	}
+	
 	override toString(){
 		return nombre
 	}

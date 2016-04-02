@@ -85,17 +85,17 @@ class ConsultaVuelosWindow extends SimpleWindow<ConsultaVuelosAppModel> {
 			bindContentsToProperty("fechaArribo").transformer = [ fecha | new SimpleDateFormat("dd/MM/YYYY HH:mm").format(fecha)]
 			]
 		
-//		new Column<Vuelo>(gridVuelos) => [
-//			fixedSize = 80
-//			title = "Tramos"
-//			bindContentsToProperty("escalas.size")
-//			]
-//			
-//		new Column<Vuelo>(gridVuelos) => [
-//			fixedSize = 120
-//			title = "Asiento Reservado"
-//			bindContentsToProperty("asiento")
-//			]	
+		new Column<Vuelo>(gridVuelos) => [
+			fixedSize = 80
+			title = "Tramos"
+			bindContentsToProperty("cantidadDeEscalas")
+			]
+			
+		new Column<Vuelo>(gridVuelos) => [
+			fixedSize = 120
+			title = "Asientos Libres"
+			bindContentsToProperty("cantidadAsientosLibres")
+			]	
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {

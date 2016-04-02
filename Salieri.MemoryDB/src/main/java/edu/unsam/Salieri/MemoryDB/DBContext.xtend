@@ -8,6 +8,7 @@ import edu.unsam.Salieri.Repository.IRepoAeropuertos
 import edu.unsam.Salieri.Repository.IRepoReservas
 import edu.unsam.Salieri.Repository.IRepoUsuarios
 import edu.unsam.Salieri.Repository.IRepoVuelos
+import java.text.SimpleDateFormat
 import java.util.Date
 
 class DBContext implements IDBContext {
@@ -70,12 +71,29 @@ class DBContext implements IDBContext {
 			agregarAeropuerto(marDelPlata)
 			agregarAeropuerto(mendoza)
 			agregarAeropuerto(guarulhos)
+			agregarAeropuerto(new Aeropuerto("Caleta Olivia (CVI)", "Santa Cruz", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Catriel (CCT)", "Río Negro", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Caviahue (CVH)", "Neuquén", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Ceres (CRR)", "Santa Fe", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Chos Malal (HOS)", "Neuquén", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Clorinda (CLX)", "Formosa", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Comodoro Rivadavia (CRD)", "Chubut", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Córdoba (COR)", "Córdoba", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Concordia (COC)", "Entre Ríos", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Coronel Suárez (CSZ)", "Buenos Aires", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Corrientes (CNQ)", "Corrientes", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Curuzú Cuatiá (UZU)", "Corrientes", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Cutral-Co (CUT)", "Neuquén", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("Dolores (VDR)", "Buenos Aires", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("El Bolsón (EHL)", "Río Negro", "Argentina"))
+			agregarAeropuerto(new Aeropuerto("El Calafate (FTE)", "Santa Cruz", "Argentina"))
 		]
 		
-		val n2346 = new Vuelo("N2346", "LAN AR", ezeiza, mendoza, new Date(2016, 03, 15, 8, 15, 23),
-			new Date(2016, 03, 15, 10, 00, 00))
+		val n2346 = new Vuelo("N2346", "LAN AR", ezeiza, mendoza, 
+			new SimpleDateFormat( "yyyyMMdd HH:mm" ).parse( "20160315 8:15" ), new SimpleDateFormat( "yyyyMMdd HH:mm" ).parse( "20160315 10:00" ) ) 
 		val i9573 = new Vuelo("I9573", "Aerolinas Argentinas", marDelPlata, guarulhos,
-			new Date(2016, 03, 16, 8, 15, 23), new Date(2016, 03, 16, 15, 00, 00))
+			new SimpleDateFormat( "yyyyMMdd HH:mm" ).parse( "20160316 8:15" ), new SimpleDateFormat( "yyyyMMdd HH:mm" ).parse( "20160316 18:00" ) )
+
 
 		repoVuelos.agregarVuelo(n2346)
 		repoVuelos.agregarVuelo(i9573)

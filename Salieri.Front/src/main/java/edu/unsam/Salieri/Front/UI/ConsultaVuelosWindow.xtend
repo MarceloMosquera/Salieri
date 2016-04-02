@@ -3,8 +3,10 @@ package edu.unsam.Salieri.Front.UI
 import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Front.AppModel.ConsultaVuelosAppModel
 import java.awt.Color
+import java.text.SimpleDateFormat
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.bindings.ObservableProperty
+import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
@@ -17,7 +19,6 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.layout.ColumnLayout
 
 class ConsultaVuelosWindow extends SimpleWindow<ConsultaVuelosAppModel> {
 	
@@ -75,13 +76,13 @@ class ConsultaVuelosWindow extends SimpleWindow<ConsultaVuelosAppModel> {
 		new Column<Vuelo>(gridVuelos) => [
 			fixedSize = 120
 			title = "Salida"
-			bindContentsToProperty("fechaSalida")
+			bindContentsToProperty("fechaSalida").transformer = [ fecha | new SimpleDateFormat("dd/MM/YYYY HH:mm").format(fecha)]
 			]
 			
 		new Column<Vuelo>(gridVuelos) => [
 			fixedSize = 120
 			title = "Llegada"
-			bindContentsToProperty("fechaArribo")
+			bindContentsToProperty("fechaArribo").transformer = [ fecha | new SimpleDateFormat("dd/MM/YYYY HH:mm").format(fecha)]
 			]
 		
 //		new Column<Vuelo>(gridVuelos) => [

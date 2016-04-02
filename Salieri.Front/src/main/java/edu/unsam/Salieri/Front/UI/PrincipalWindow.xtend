@@ -1,21 +1,18 @@
 package edu.unsam.Salieri.Front.UI
 
+import edu.unsam.Salieri.Domain.Reserva
+import edu.unsam.Salieri.Front.AppModel.PrincipalAppModel
+import java.awt.Color
+import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.widgets.PasswordField
-import org.uqbar.arena.widgets.tables.Table
-import edu.unsam.Salieri.Domain.Reserva
-import org.uqbar.arena.widgets.tables.Column
-import edu.unsam.Salieri.Front.AppModel.PrincipalAppModel
-import java.awt.Color
-import org.uqbar.arena.layout.VerticalLayout
-import org.uqbar.arena.bindings.NotNullObservable
 
 class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 	

@@ -1,9 +1,7 @@
 package edu.unsam.Salieri.Domain
 
-import org.uqbar.commons.utils.Observable
 import java.util.List
-import java.util.ArrayList
-import javax.swing.text.Position.Bias
+import org.uqbar.commons.utils.Observable
 
 @Observable
 class Asiento {

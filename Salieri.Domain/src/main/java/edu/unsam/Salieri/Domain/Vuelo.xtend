@@ -66,10 +66,10 @@ class Vuelo {
 		asientosDisponibles.exists[asiento|asiento.costoMenorA(montoMax)]
 	}
 	def boolean saleDe(Aeropuerto aerop) {
-		aerop == null || origen.equals(aerop)
+		aerop == null || aerop.equals(Aeropuerto.aeropuertoVacio) || origen.equals(aerop)
 	}
 	def boolean pasaPor(Aeropuerto aerop) {
-		aerop == null || destino.equals(aerop)
+		aerop == null || aerop.equals(Aeropuerto.aeropuertoVacio) || destino.equals(aerop)
 	}
 
 	def List<Asiento> getAsientosDisponibles() {

@@ -6,6 +6,7 @@ import org.uqbar.commons.utils.Observable
 @Accessors
 @Observable
 class Aeropuerto {
+
 	String nombre
 	String ciudad
 	String pais
@@ -14,6 +15,12 @@ class Aeropuerto {
 		nombre = unNombre
 		ciudad = unaCiudad
 		pais = unPais
+	}
+
+	static Aeropuerto _aeropuertoVacio = new Aeropuerto("", "", "")
+	def static Aeropuerto aeropuertoVacio()
+	{
+		_aeropuertoVacio
 	}
 	
 	override toString(){

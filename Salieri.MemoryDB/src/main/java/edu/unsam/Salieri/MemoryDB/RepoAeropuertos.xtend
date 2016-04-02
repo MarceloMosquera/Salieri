@@ -11,6 +11,7 @@ class RepoAeropuertos implements IRepoAeropuertos{
 	
 	new(){
 		aeropuertos = new ArrayList
+		aeropuertos.add(Aeropuerto.aeropuertoVacio())
 	}
 	
 	override agregarAeropuerto(Aeropuerto unAeropuerto){
@@ -23,6 +24,9 @@ class RepoAeropuertos implements IRepoAeropuertos{
 	
 	override todos(){
 		aeropuertos.toList
+	}
+	override todosSinVacio(){
+		aeropuertos.filter[ aerop | !aerop.equals(Aeropuerto.aeropuertoVacio())  ].toList
 	}
 
 	override buscarAeropuertoPorNombre(String aeropuertoNombre){

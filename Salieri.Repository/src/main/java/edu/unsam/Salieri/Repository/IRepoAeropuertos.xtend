@@ -10,6 +10,7 @@ interface IRepoAeropuertos {
 	def void quitarAeropuerto(Aeropuerto unAeropuerto){}
 	
 	def List<Aeropuerto> todos(){}
+	def List<Aeropuerto> todosSinVacio(){}
 	
 	def List<Aeropuerto> buscarAeropuertoPorNombre(String aeropuertoNombre){}
 	

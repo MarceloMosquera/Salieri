@@ -16,8 +16,6 @@ class BaseAppModel {
     	ApplicationContext.instance.getSingleton(typeof(Usuario))
 	}
 	
-	def List<Reserva> reservasEfectuadas(){
-		this.DBContext().repoReservas.buscarReservaDelUsuario(usuarioLogeado())
-	}
+	
 	
 }

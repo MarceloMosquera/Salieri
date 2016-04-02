@@ -6,7 +6,6 @@ import java.util.ArrayList
 import javax.swing.text.Position.Bias
 
 @Observable
-
 class Asiento {
 
 	//Reserva reserva
@@ -45,7 +44,7 @@ class Asiento {
 	}
 
 	def boolean costoMenorA(float montoMax) {
-		costo < montoMax
+		montoMax == 0 || (costo < montoMax)
 	}
 	
 	override toString(){

@@ -55,19 +55,26 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 		new Button(panelHorizonal2) => [
 			caption = "Busqueda de vuelos"
 			width = 350
-//			onClick [ | entrar ]
+			onClick [ | buscarVuelos ]
 			background = Color.BLUE
 		]
 		
 		new Button(panelHorizonal2) => [
 			caption = "Log de consultas hechas"
 			width = 350
-//			onClick [ | entrar ]
+			onClick [ | consultaLogs ]
 			setAsDefault
 			background = Color.ORANGE
 		]
 	}
 	
+	def buscarVuelos() {
+		new ConsultaVuelosWindow(this).open
+	}
+	
+	def consultaLogs() {
+		null
+	}
 		
 	def createGrillaReservasEfectuadas(Panel mainPanel) {
 //		new Label(mainPanel).bindValueToProperty("labelResultado")

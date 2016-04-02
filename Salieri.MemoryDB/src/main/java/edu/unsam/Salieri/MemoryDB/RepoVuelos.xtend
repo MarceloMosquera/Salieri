@@ -9,11 +9,9 @@ import java.util.Date
 import java.util.List
 
 class RepoVuelos implements IRepoVuelos {
-	List<Vuelo> resultado
 	List<Vuelo> vuelos
 	new(){
 		vuelos = new ArrayList
-		resultado = new ArrayList
 	}
 	
 	override agregarVuelo(Vuelo unVuelo) {
@@ -25,9 +23,9 @@ class RepoVuelos implements IRepoVuelos {
 	}
 	
 	override buscarVuelos(VueloBusqueda vueloBusqueda) {		
-		resultado = buscarVuelosConLugar()
+		var resultado = buscarVuelosConLugar()
 		resultado = buscarVuelosPorOrigen(vueloBusqueda.origen ,resultado)
-		resultado = buscarVuelosPorDestino(vueloBusqueda.origen ,resultado)
+		resultado = buscarVuelosPorDestino(vueloBusqueda.destino ,resultado)
 		resultado = buscarVuelosPorRangoDeFechas(vueloBusqueda.fechaMin,vueloBusqueda.fechaMax,resultado)
 		resultado = buscarVuelosPorMontoMaximo(vueloBusqueda.montoMax ,resultado)
 	}
@@ -36,20 +34,20 @@ class RepoVuelos implements IRepoVuelos {
 		vuelos.filter[vuelo|vuelo.vueloConLugar].toList
 	}
 	
-	override buscarVuelosPorOrigen(Aeropuerto unOrigen,List<Vuelo> resultado) {
-		//Hay que definir como hacemos esto
+	override buscarVuelosPorOrigen(Aeropuerto unOrigen,List<Vuelo> lista) {
+		lista.filter[vuelo|vuelo.saleDe(unOrigen)].toList
 	}
 	
-	override buscarVuelosPorDestino(Aeropuerto unDestino,List<Vuelo> resultado) {
-		//Hay que definir como hacemos esto
+	override buscarVuelosPorDestino(Aeropuerto unDestino,List<Vuelo> lista) {
+		lista.filter[vuelo|vuelo.pasaPor(unDestino)].toList 
 	}
 	
-	override buscarVuelosPorRangoDeFechas(Date fechaMin, Date fechaMax,List<Vuelo> resultado) {
-		vuelos.filter[vuelo|vuelo.saleEntre(fechaMin,fechaMax)].toList 
+	override buscarVuelosPorRangoDeFechas(Date fechaMin, Date fechaMax,List<Vuelo> lista) {
+		lista.filter[vuelo|vuelo.saleEntre(fechaMin,fechaMax)].toList 
 	}
 	
-	override buscarVuelosPorMontoMaximo(float montoMaximo,List<Vuelo> resultado) {
-		vuelos.filter[vuelo|vuelo.asientoPorMenosDe(montoMaximo)].toList
+	override buscarVuelosPorMontoMaximo(float montoMaximo,List<Vuelo> lista) {
+		lista.filter[vuelo|vuelo.asientoPorMenosDe(montoMaximo)].toList
 	}
 		
 }

@@ -19,4 +19,8 @@ class PrincipalAppModel extends BaseAppModel{
 	new() {
 	}
 	
+	def List<Reserva> reservasEfectuadas(){
+		this.DBContext().repoReservas.buscarReservaDelUsuario(usuarioLogeado())
+	}
+	
 }

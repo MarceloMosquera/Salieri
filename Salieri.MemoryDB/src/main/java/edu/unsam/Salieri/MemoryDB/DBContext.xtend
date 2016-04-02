@@ -1,20 +1,21 @@
 package edu.unsam.Salieri.MemoryDB
 
+import edu.unsam.Salieri.Domain.Aeropuerto
 import edu.unsam.Salieri.Domain.Usuario
+import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Repository.IDBContext
+import edu.unsam.Salieri.Repository.IRepoAeropuertos
+import edu.unsam.Salieri.Repository.IRepoReservas
 import edu.unsam.Salieri.Repository.IRepoUsuarios
 import edu.unsam.Salieri.Repository.IRepoVuelos
-import edu.unsam.Salieri.Domain.Vuelo
-import edu.unsam.Salieri.Domain.Aeropuerto
 import java.util.Date
-import edu.unsam.Salieri.Repository.IRepoReservas
-import edu.unsam.Salieri.Domain.Reserva
 
 class DBContext implements IDBContext {
 
 	static IRepoUsuarios _repoUsuarios = null
 	static IRepoVuelos _repoVuelos = null
 	static IRepoReservas _repoReservas = null
+	static IRepoAeropuertos _repoAeropuertos = null
 
 	override IRepoUsuarios repoUsuarios() {
 		if (_repoUsuarios == null) {
@@ -35,6 +36,13 @@ class DBContext implements IDBContext {
 			_repoReservas = new RepoReserva()
 		}
 		_repoReservas;
+	}
+	
+	override IRepoAeropuertos repoAeropuertos() {
+		if (_repoAeropuertos == null) {
+			_repoAeropuertos = new RepoAeropuertos()
+		}
+		_repoAeropuertos;
 	}
 
 	new() {
@@ -57,6 +65,13 @@ class DBContext implements IDBContext {
 		val marDelPlata = new Aeropuerto("Mar del Plata (MDQ)", "Buenos Aires", "Argentina")
 		val mendoza = new Aeropuerto("Mendoza (MDZ)", "Mendoza", "Argentina")
 		val guarulhos = new Aeropuerto("Aeropuerto Internacional de Guarulhos (GRU)", "São Paulo", "Brasil")
+		repoAeropuertos => [
+			agregarAeropuerto(ezeiza)
+			agregarAeropuerto(marDelPlata)
+			agregarAeropuerto(mendoza)
+			agregarAeropuerto(guarulhos)
+		]
+		
 		val n2346 = new Vuelo("N2346", "LAN AR", ezeiza, mendoza, new Date(2016, 03, 15, 8, 15, 23),
 			new Date(2016, 03, 15, 10, 00, 00))
 		val i9573 = new Vuelo("I9573", "Aerolinas Argentinas", marDelPlata, guarulhos,

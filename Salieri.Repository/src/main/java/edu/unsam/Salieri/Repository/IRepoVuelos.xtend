@@ -16,12 +16,12 @@ interface IRepoVuelos {
 	
 	def List<Vuelo> buscarVuelosConLugar()
 	
-	def List<Vuelo> buscarVuelosPorOrigen(Aeropuerto unOrigen,List<Vuelo> resultado)
+	def List<Vuelo> buscarVuelosPorOrigen(Aeropuerto unOrigen,List<Vuelo> lista)
 	
-	def List<Vuelo> buscarVuelosPorDestino(Aeropuerto unDestino,List<Vuelo> resultado)
+	def List<Vuelo> buscarVuelosPorDestino(Aeropuerto unDestino,List<Vuelo> lista)
 	
-	def List<Vuelo> buscarVuelosPorRangoDeFechas(Date fechaMin, Date fechaMax,List<Vuelo> resultado)
+	def List<Vuelo> buscarVuelosPorRangoDeFechas(Date fechaMin, Date fechaMax,List<Vuelo> lista)
 	
-	def List<Vuelo> buscarVuelosPorMontoMaximo(float montoMaximo,List<Vuelo> resultado)
+	def List<Vuelo> buscarVuelosPorMontoMaximo(float montoMaximo,List<Vuelo> lista)
 
 }

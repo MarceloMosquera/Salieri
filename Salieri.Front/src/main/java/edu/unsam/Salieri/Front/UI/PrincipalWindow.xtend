@@ -13,6 +13,7 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.windows.MessageBox
 
 class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 	
@@ -36,7 +37,7 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 		new Button(panelHorizonal1) => [
 			caption = "Cancelar Reserva"
 			width = 150
-//			onClick [ | entrar ]
+			onClick [ | modelObject.cancelarReserva ]
 			background = Color.darkGray
 			bindEnabled(elementSelected)
 		]
@@ -156,4 +157,6 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 		new Label(subpanelTexto).bindValueToProperty("usuarioLogeado")
 	}
 	
+
+    	
 }

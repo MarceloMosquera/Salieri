@@ -1,7 +1,7 @@
 package edu.unsam.Salieri.Domain
 
+import edu.unsam.Salieri.Util.SSDate
 import java.util.Date
-import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -9,27 +9,33 @@ import org.uqbar.commons.utils.Observable
 @Observable
 class Reserva {
 	int id
-	Date fecha
-	Date fechaBaja
-	List<Vuelo> escalas // TODO PASAR A VUELO
+	SSDate fecha
+	SSDate fechaBaja
+//	List<Vuelo> escalas // TODO PASAR A VUELO
 	Usuario usuario
 	Asiento asiento
 	Vuelo vuelo
-	//new (Asiento unAsiento, Usuario unUsuario) {}
-	
-	
-	//Resolver como se maneja el tema de las escalas y asientos.
-	
-	new (Asiento unAsiento,Usuario unUsuario, Vuelo unVuelo) {
+
+	def void cancelar() {
+		asiento.setDisponible(true)
+		fechaBaja = new SSDate()
+
+	}
+
+	new(Asiento unAsiento, Usuario unUsuario, Vuelo unVuelo) {
 		usuario = unUsuario
 		asiento = unAsiento
 		vuelo = unVuelo
-		escalas = newArrayList			
+		fecha = new SSDate()
+//		escalas = newArrayList			
 	}
 
-	
-	def boolean reservaDelUsuario(Usuario unUsuario){
-		usuario.equals(unUsuario)
+	def boolean reservaDelUsuario(Usuario unUsuario) {
+		if (!asiento.disponible) {
+			usuario.equals(unUsuario)
+		} else {
+			false
+		}
 	}
-	
+
 }

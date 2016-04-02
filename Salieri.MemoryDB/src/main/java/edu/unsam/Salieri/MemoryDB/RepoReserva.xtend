@@ -21,6 +21,7 @@ class RepoReserva implements IRepoReservas{
 	}
 	
 	override  quitarReserva(Reserva unaReserva){
+		unaReserva.cancelar()
 		reservas.remove(unaReserva)
 	}
 	

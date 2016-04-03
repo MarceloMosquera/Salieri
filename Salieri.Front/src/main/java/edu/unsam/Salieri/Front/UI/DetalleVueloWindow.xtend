@@ -12,6 +12,7 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.Button
 import java.awt.Color
+import edu.unsam.Salieri.Util.SSDate
 
 class DetalleVueloWindow extends TransactionalDialog<DetalleVueloAppModel> {
 
@@ -33,7 +34,7 @@ class DetalleVueloWindow extends TransactionalDialog<DetalleVueloAppModel> {
 			bindValueToProperty("vueloSeleccionado.origen")
 		]
 		new Label(panel1A) => [
-			bindValueToProperty("vueloSeleccionado.fechaSalida")
+			bindValueToProperty("vueloSeleccionadoFechaSalida")
 		]
 		val panel1B = new Panel(panel1).setLayout(new VerticalLayout)		
 		new Label(panel1B).text = "Llegada"
@@ -41,7 +42,7 @@ class DetalleVueloWindow extends TransactionalDialog<DetalleVueloAppModel> {
 			bindValueToProperty("vueloSeleccionado.destino")
 		]
 		new Label(panel1B) => [
-			bindValueToProperty("vueloSeleccionado.fechaArribo")
+			bindValueToProperty("vueloSeleccionadoFechaArribo")
 		]
 		val panel1C = new Panel(panel1).setLayout(new VerticalLayout)		
 		new Label(panel1C).text = "Usuario"
@@ -56,7 +57,7 @@ class DetalleVueloWindow extends TransactionalDialog<DetalleVueloAppModel> {
 			bindValueToProperty("vueloSeleccionado.origen")
 		]
 		new Label(panel2A) => [
-			bindValueToProperty("vueloSeleccionado.fechaSalida")
+			bindValueToProperty("vueloSeleccionadoFechaSalida")
 		]
 
 		val panel2B = new Panel(panel1).setLayout(new VerticalLayout)		
@@ -75,7 +76,7 @@ class DetalleVueloWindow extends TransactionalDialog<DetalleVueloAppModel> {
 		new Column<Escala>(tablaTramos).setTitle("Destino intermedio").setFixedSize(150).
 			bindContentsToProperty("aeropuerto")
 		new Column<Escala>(tablaTramos).setTitle("Llegada").setFixedSize(150).
-			bindContentsToProperty("fechaLlegada")
+			bindContentsToProperty("fechaLlegada").transformer = [ fecha | SSDate.toShow(fecha)]
 		//crear asientos
 		(0 .. 9).forEach [ i |
 			val filaPanel = new Panel(panel2B)

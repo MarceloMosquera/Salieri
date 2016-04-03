@@ -54,7 +54,7 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 		modelObject.limpiar
 	}
 	def entrar() {
-		if (!modelObject.login) { 
+		if (modelObject.login) { 
 			ApplicationContext.instance.configureSingleton(typeof(Usuario), modelObject.usuarioLogin)
 			abrirPrincipal
 		}

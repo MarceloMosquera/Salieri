@@ -2,6 +2,7 @@ package edu.unsam.Salieri.Front.UI
 
 import edu.unsam.Salieri.Domain.Reserva
 import edu.unsam.Salieri.Front.AppModel.PrincipalAppModel
+import edu.unsam.Salieri.Util.SSDate
 import java.awt.Color
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.HorizontalLayout
@@ -13,7 +14,6 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.windows.MessageBox
 
 class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 	
@@ -103,13 +103,13 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 		new Column<Reserva>(gridReceta) => [
 			fixedSize = 120
 			title = "Salida"
-			bindContentsToProperty("vuelo.fechaSalida")
+			bindContentsToProperty("vuelo.fechaSalida").transformer = [ fecha | SSDate.toShow(fecha)]
 			]
 			
 		new Column<Reserva>(gridReceta) => [
 			fixedSize = 120
 			title = "Llegada"
-			bindContentsToProperty("vuelo.fechaArribo")
+			bindContentsToProperty("vuelo.fechaArribo").transformer = [ fecha | SSDate.toShow(fecha)]
 			]
 		
 		new Column<Reserva>(gridReceta) => [
@@ -154,7 +154,7 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 		new Label(subpanelTexto)=>[
 			text =  "Usuario : "
 		]
-		new Label(subpanelTexto).bindValueToProperty("usuarioLogeado")
+		new Label(subpanelTexto).bindValueToProperty("usuarioLogueado")
 	}
 	
     override close() {

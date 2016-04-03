@@ -2,8 +2,9 @@ package edu.unsam.Salieri.Front.UI
 
 import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Front.AppModel.ConsultaVuelosAppModel
+import edu.unsam.Salieri.Front.AppModel.DetalleVueloAppModel
+import edu.unsam.Salieri.Util.SSDate
 import java.awt.Color
-import java.text.SimpleDateFormat
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.layout.ColumnLayout
@@ -15,12 +16,11 @@ import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import edu.unsam.Salieri.Front.AppModel.DetalleVueloAppModel
-import org.uqbar.arena.windows.Dialog
 
 class ConsultaVuelosWindow extends SimpleWindow<ConsultaVuelosAppModel> {
 	
@@ -84,13 +84,13 @@ class ConsultaVuelosWindow extends SimpleWindow<ConsultaVuelosAppModel> {
 		new Column<Vuelo>(gridVuelos) => [
 			fixedSize = 120
 			title = "Salida"
-			bindContentsToProperty("fechaSalida").transformer = [ fecha | new SimpleDateFormat("dd/MM/YYYY HH:mm").format(fecha)]
+			bindContentsToProperty("fechaSalida").transformer = [ fecha | SSDate.toShow(fecha)]
 			]
 			
 		new Column<Vuelo>(gridVuelos) => [
 			fixedSize = 120
 			title = "Llegada"
-			bindContentsToProperty("fechaArribo").transformer = [ fecha | new SimpleDateFormat("dd/MM/YYYY HH:mm").format(fecha)]
+			bindContentsToProperty("fechaArribo").transformer = [ fecha | SSDate.toShow(fecha)]
 			]
 		
 		new Column<Vuelo>(gridVuelos) => [

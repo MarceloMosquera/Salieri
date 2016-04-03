@@ -16,8 +16,8 @@ class Usuario {
 		nombre = elNombre
 	}
 	
-	def boolean validarPassword(String password){
-		(password != null && password.equals(password))
+	def boolean esPasswordValida(String unaPassword){
+		(password != null) && (password.equals(unaPassword))
 	}
 	
 	override toString(){

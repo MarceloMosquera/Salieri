@@ -1,8 +1,8 @@
 package edu.unsam.Salieri.Front.AppModel
 
 import edu.unsam.Salieri.Domain.Asiento
-import edu.unsam.Salieri.Domain.Usuario
 import edu.unsam.Salieri.Domain.Vuelo
+import edu.unsam.Salieri.Util.SSDate
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -11,10 +11,8 @@ import org.uqbar.commons.utils.Observable
 class DetalleVueloAppModel extends BaseAppModel {
 	Vuelo vueloSeleccionado
 	Asiento asientoSeleccionado
-	Usuario usuarioLogueado
 	new (Vuelo elVueloSeleccionado){
 		vueloSeleccionado = elVueloSeleccionado
-		usuarioLogueado = super.usuarioLogeado()
 	}
 	
 	def String nombreVuelo(){
@@ -22,8 +20,16 @@ class DetalleVueloAppModel extends BaseAppModel {
 	} 
 	
 	def void reservarAsiento(){
-		vueloSeleccionado.reservarAsiento(asientoSeleccionado,usuarioLogueado)
+		vueloSeleccionado.reservarAsiento(asientoSeleccionado, usuarioLogueado)
 	}
+	
+	def getVueloSeleccionadoFechaSalida() {
+        return SSDate.toShow(vueloSeleccionado.fechaSalida);
+    }
+    
+    def getVueloSeleccionadoFechaArribo() {
+        return SSDate.toShow(vueloSeleccionado.fechaArribo);
+    }
 	
 	
 }

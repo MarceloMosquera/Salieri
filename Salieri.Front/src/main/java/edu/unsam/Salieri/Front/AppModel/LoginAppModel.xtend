@@ -14,11 +14,20 @@ class LoginAppModel extends BaseAppModel{
 	String mensaje
 	
 	def boolean login() {
-		mensaje = null
-		usuarioLogin= DBContext.repoUsuarios.obtenerUsuario(nombreUsuarioABuscar)
-		if (usuarioLogin == null || !usuarioLogin.validarPassword(contrasenia))
-			mensaje = "Usuario no encontrado o Clave incorrecta"
-		return (mensaje != null)
+		mensaje = ""
+		if(	(nombreUsuarioABuscar == null) || (contrasenia ==null)
+			||(nombreUsuarioABuscar == "") || (contrasenia =="")
+		) {
+			mensaje = "Debe ingresar un usuario y una contraseña"
+		} else {
+			usuarioLogin= DBContext.repoUsuarios.obtenerUsuario(nombreUsuarioABuscar)
+			if (usuarioLogin == null) {
+				mensaje = "Usuario no encontrado"
+			} else if (!usuarioLogin.esPasswordValida(contrasenia)){
+				mensaje = "contraseña incorrecta"
+			}
+		}
+		return (mensaje.equals(""))
 	}
 	
 	def limpiar(){

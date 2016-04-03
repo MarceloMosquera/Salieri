@@ -9,7 +9,7 @@ class BaseAppModel {
     	ApplicationContext.instance.getSingleton(typeof(IDBContext))
 	}
 	
-	def Usuario usuarioLogeado() {
+	def Usuario usuarioLogueado() {
     	ApplicationContext.instance.getSingleton(typeof(Usuario))
 	}
 	

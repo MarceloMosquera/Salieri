@@ -3,9 +3,9 @@ package edu.unsam.Salieri.Front.AppModel
 import edu.unsam.Salieri.Domain.Reserva
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Observable
-import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.model.ObservableUtils
+import org.uqbar.commons.utils.Dependencies
+import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
@@ -17,7 +17,7 @@ class PrincipalAppModel extends BaseAppModel{
 	}
 	
 	def List<Reserva> reservasEfectuadas(){
-		this.DBContext().repoReservas.buscarReservaDelUsuario(usuarioLogeado())
+		this.DBContext().repoReservas.buscarReservaDelUsuario(usuarioLogueado())
 	}
 
 @Dependencies("reservasEfectuadas,reservaSeleccionada")
@@ -28,4 +28,6 @@ class PrincipalAppModel extends BaseAppModel{
 		ObservableUtils.firePropertyChanged(this, "reservasEfectuadas", reservasEfectuadas())
 	}
 	
+    
+
 }

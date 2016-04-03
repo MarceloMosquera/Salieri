@@ -5,9 +5,6 @@ import java.util.Date
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import java.text.DateFormat;
-import java.text.SimpleDateFormat
-import edu.unsam.Salieri.Util.SSDate
 
 @Accessors
 @Observable
@@ -107,13 +104,6 @@ class Vuelo {
 	def int maxAsientos(){
 		asientos.size
 	}
-    def getFechaSalida() {
-        return SSDate.toShow(fechaSalida);
-    }
-    
-    def getFechaArribo() {
-        return SSDate.toShow(fechaArribo);
-    }
    def  asientoDeFila(int i){
     	asientos.filter[asiento|asiento.fila.equals(i)]
     }

@@ -1,7 +1,6 @@
 package edu.unsam.Salieri.Domain
 
 import edu.unsam.Salieri.Util.SSDate
-import java.util.Date
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 

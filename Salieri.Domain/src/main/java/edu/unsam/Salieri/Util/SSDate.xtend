@@ -10,6 +10,6 @@ class SSDate extends Date {
 	
 	
 	def static String toShow(Date fecha){
-		new SimpleDateFormat( "dd/mm/yyyy HH:mm" ).format( fecha )
+		new SimpleDateFormat( "dd/MM/yyyy HH:mm" ).format( fecha )
 	}
 }

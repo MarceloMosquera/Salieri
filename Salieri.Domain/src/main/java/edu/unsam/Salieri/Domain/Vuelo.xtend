@@ -104,13 +104,18 @@ class Vuelo {
 		ordenDestino - ordenOrigen
 	}
 	
-	
+	def int maxAsientos(){
+		asientos.size
+	}
     def getFechaSalida() {
         return SSDate.toShow(fechaSalida);
     }
     
     def getFechaArribo() {
         return SSDate.toShow(fechaArribo);
+    }
+   def  asientoDeFila(int i){
+    	asientos.filter[asiento|asiento.fila.equals(i)]
     }
 
 }

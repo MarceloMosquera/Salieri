@@ -19,6 +19,8 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import edu.unsam.Salieri.Front.AppModel.DetalleVueloAppModel
+import org.uqbar.arena.windows.Dialog
 
 class ConsultaVuelosWindow extends SimpleWindow<ConsultaVuelosAppModel> {
 	
@@ -42,8 +44,14 @@ class ConsultaVuelosWindow extends SimpleWindow<ConsultaVuelosAppModel> {
 		new Button(panelHorizonal1) => [
 			caption = "Reservar"
 			width = 150
-//			onClick [ | entrar ]
-			background = Color.darkGray
+			onClick [|
+//				modelObject.guardarConsulta(vueloSeleccionado)
+				this.openDialog(
+					new DetalleVueloWindow(
+						this,
+						new DetalleVueloAppModel(modelObject.vueloSeleccionado)
+					))
+			]
 			bindEnabled(elementSelected)
 		]
 		
@@ -147,6 +155,10 @@ class ConsultaVuelosWindow extends SimpleWindow<ConsultaVuelosAppModel> {
 
 	}
 	
+		def openDialog(Dialog<?> dialog) {
+		dialog.onAccept[|]
+		dialog.open
+	}
 
 	
 }

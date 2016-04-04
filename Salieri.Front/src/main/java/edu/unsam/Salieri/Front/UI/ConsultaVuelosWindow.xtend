@@ -92,7 +92,13 @@ class ConsultaVuelosWindow extends SimpleWindow<ConsultaVuelosAppModel> {
 			title = "Llegada"
 			bindContentsToProperty("fechaArribo").transformer = [ fecha | SSDate.toShow(fecha)]
 			]
-		
+			
+		new Column<Vuelo>(gridVuelos) => [
+			fixedSize = 120
+			title = "Precio"
+			bindContentsToProperty("obtenerPrecio")
+			]
+			
 		new Column<Vuelo>(gridVuelos) => [
 			fixedSize = 80
 			title = "Tramos"

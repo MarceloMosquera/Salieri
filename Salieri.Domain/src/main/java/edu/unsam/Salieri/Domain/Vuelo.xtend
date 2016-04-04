@@ -17,6 +17,7 @@ class Vuelo {
 	Date fechaArribo
 	List<Asiento> asientos
 	List<Escala> escalas
+	Tarifa tarifa
 
 	new(
 		String elNroVuelo,
@@ -24,7 +25,8 @@ class Vuelo {
 		Aeropuerto elOrigen,
 		Aeropuerto elDestino,
 		Date laFechaSalida,
-		Date laFechaArribo
+		Date laFechaArribo, 
+		float laTarifa
 	) {
 		nroVuelo = elNroVuelo
 		aerolinea = laAerolinea
@@ -32,6 +34,7 @@ class Vuelo {
 		destino = elDestino
 		fechaSalida = laFechaSalida
 		fechaArribo = laFechaArribo
+		tarifa = new Tarifa(laTarifa, this)
 		asientos = new ArrayList
 		escalas = new ArrayList
 		generarAsientos()
@@ -70,9 +73,10 @@ class Vuelo {
 		&& (fechaMax== null || fechaSalida.before(fechaMax))
 	}
 
-	def boolean asientoPorMenosDe(float montoMax) {
-		asientosDisponibles.exists[asiento|asiento.costoMenorA(montoMax)]
+	def boolean porMenosDe(float montoMax) {
+		montoMax == 0 ||  tarifa.obtenerPrecio() <= montoMax 
 	}
+	
 	def boolean saleDe(Aeropuerto aerop) {
 		aerop == null || aerop.equals(Aeropuerto.aeropuertoVacio) || origen.equals(aerop)
 	}
@@ -107,5 +111,9 @@ class Vuelo {
    def  asientoDeFila(int i){
     	asientos.filter[asiento|asiento.fila.equals(i)]
     }
+    
+    def float obtenerPrecio (){
+		return tarifa.obtenerPrecio
+	}
 
 }

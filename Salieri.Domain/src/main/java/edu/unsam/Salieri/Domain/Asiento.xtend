@@ -10,7 +10,6 @@ class Asiento {
 
 	//Reserva reserva
 	boolean disponible
-	float costo
 	int fila
 	int ubicacion
 	List<String> ubicacionesPosibles
@@ -43,9 +42,6 @@ class Asiento {
 		disponible
 	}
 
-	def boolean costoMenorA(float montoMax) {
-		montoMax == 0 || (costo < montoMax)
-	}
 	
 	override toString(){
 		(fila +1) + ubicacionesPosibles.get(ubicacion).substring(0,1)

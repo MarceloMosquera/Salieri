@@ -1,6 +1,10 @@
 package edu.unsam.Salieri.MemoryDB
 
 import edu.unsam.Salieri.Domain.Aeropuerto
+import edu.unsam.Salieri.Domain.Descuento.Descuento
+import edu.unsam.Salieri.Domain.Descuento.DescuentoPorcentaje
+import edu.unsam.Salieri.Domain.Descuento.DescuentoRegla72HsAntes
+import edu.unsam.Salieri.Domain.Escala
 import edu.unsam.Salieri.Domain.Usuario
 import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Repository.IDBContext
@@ -8,8 +12,9 @@ import edu.unsam.Salieri.Repository.IRepoAeropuertos
 import edu.unsam.Salieri.Repository.IRepoReservas
 import edu.unsam.Salieri.Repository.IRepoUsuarios
 import edu.unsam.Salieri.Repository.IRepoVuelos
-import edu.unsam.Salieri.Domain.Escala
 import edu.unsam.Salieri.Util.SSDate
+import edu.unsam.Salieri.Domain.Descuento.DescuentoReglaSiempre
+import edu.unsam.Salieri.Domain.Descuento.DescuentoMonto
 
 class DBContext implements IDBContext {
 
@@ -90,12 +95,12 @@ class DBContext implements IDBContext {
 		]
 		
 		val n2346 = new Vuelo("N2346", "LAN AR", ezeiza, mendoza, 
-			SSDate.p("20160315 8:15" ), SSDate.p("20160315 10:00" ) ) 
+			SSDate.p("20160315 8:15" ), SSDate.p("20160315 10:00" ) , 500) 
 		val i9573 = new Vuelo("I9573", "Aerolinas Argentinas", marDelPlata, guarulhos,
-			SSDate.p("20160316 8:15" ), SSDate.p("20160316 18:00" ) )
+			SSDate.p("20160316 8:15" ), SSDate.p("20160316 18:00" ) , 1000)
 
 		var f956 = new Vuelo("F956", "Indio Ar", ezeiza, guarulhos,
-			SSDate.p("20160315 8:15" ), SSDate.p("20160316 20:00" ) )
+			SSDate.p("20160315 8:15" ), SSDate.p("20160316 20:00" ) , 2000)
 			
 		f956 => [
 			agregarEscala(
@@ -111,9 +116,16 @@ class DBContext implements IDBContext {
 				SSDate.p("20160316 13:00" ),SSDate.p("20160316 13:30" )  
 			))
 		]
+		
+		f956.tarifa.agregarDescuento(
+			new Descuento(
+				new DescuentoReglaSiempre(), 
+				new DescuentoMonto(100)
+			)
+		)
 
 		var f666 = new Vuelo("F66", "Maiden Ar", guarulhos, ezeiza, 
-			SSDate.p("20160320 8:15" ), SSDate.p("20160321 20:00" ) )
+			SSDate.p("20160320 8:15" ), SSDate.p("20160321 20:00" ) , 3000)
 			
 		f666 => [
 			agregarEscala(
@@ -129,6 +141,14 @@ class DBContext implements IDBContext {
 				SSDate.p("20160321 17:00" ),SSDate.p("20160321 17:30" )  
 			))
 		]
+		
+		f666.tarifa.agregarDescuento(
+			new Descuento(
+				new DescuentoRegla72HsAntes(), 
+				new DescuentoPorcentaje(0.20f)
+			)
+		)
+		
 
 		repoVuelos.agregarVuelo(n2346)
 		repoVuelos.agregarVuelo(i9573)

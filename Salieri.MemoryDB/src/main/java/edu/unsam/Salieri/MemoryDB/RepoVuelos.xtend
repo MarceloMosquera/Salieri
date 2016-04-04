@@ -47,7 +47,7 @@ class RepoVuelos implements IRepoVuelos {
 	}
 	
 	override buscarVuelosPorMontoMaximo(float montoMaximo,List<Vuelo> lista) {
-		lista.filter[vuelo|vuelo.asientoPorMenosDe(montoMaximo)].toList
+		lista.filter[vuelo|vuelo.porMenosDe(montoMaximo)].toList
 	}
 		
 }

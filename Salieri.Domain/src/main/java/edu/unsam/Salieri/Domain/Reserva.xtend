@@ -26,7 +26,8 @@ class Reserva {
 		asiento = unAsiento
 		vuelo = unVuelo
 		fecha = new SSDate()
-//		escalas = newArrayList			
+		fechaBaja = null
+//		escalas = newArrayList		
 	}
 
 	def boolean reservaDelUsuario(Usuario unUsuario) {

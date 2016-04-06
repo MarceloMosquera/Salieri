@@ -24,10 +24,15 @@ class PrincipalAppModel extends BaseAppModel{
 	def void cancelarReserva(){
 		this.DBContext().repoReservas.quitarReserva(reservaSeleccionada)
 		reservaSeleccionada = null
-		//no esta funcionando el dependencies, por eso disparamos el observer a mano
 		ObservableUtils.firePropertyChanged(this, "reservasEfectuadas", reservasEfectuadas())
 	}
 	
     
 
+@Dependencies("reservasEfectuadas,reservaSeleccionada")
+	def void actualizarLista(){
+		ObservableUtils.firePropertyChanged(this, "reservasEfectuadas", reservasEfectuadas())
+	}
+	
+	
 }

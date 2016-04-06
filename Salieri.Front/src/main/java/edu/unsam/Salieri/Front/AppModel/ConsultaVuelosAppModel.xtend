@@ -6,6 +6,8 @@ import edu.unsam.Salieri.Domain.VueloBusqueda
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.ObservableUtils
+import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
 
 @Accessors
@@ -24,11 +26,15 @@ class ConsultaVuelosAppModel extends BaseAppModel{
 		this.DBContext().repoAeropuertos.todos()
 	}
 	
-//	@Dependencies("vueloBusqueda")
-//	def List<Vuelo> vuelosEncontrados(){
-//		this.DBContext().repoVuelos.buscarVuelos(vueloBusqueda)
-//	}
+
 	def buscar() {
 		vuelosEncontrados = this.DBContext().repoVuelos.buscarVuelos(vueloBusqueda)
 	}
+//no funciona	
+	@Dependencies("vuelosEncontrados")
+	def void actualizarLista(){
+		//no esta funcionando el dependencies, por eso disparamos el observer a mano
+		ObservableUtils.firePropertyChanged(this, "vuelosEncontrados", buscar())
+	}
+	
 }

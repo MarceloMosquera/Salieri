@@ -14,6 +14,8 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.windows.Dialog
+import edu.unsam.Salieri.Front.AppModel.ConsultaVuelosAppModel
 
 class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 	
@@ -67,7 +69,18 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 	}
 	
 	def buscarVuelos() {
-		new ConsultaVuelosWindow(this).open
+//		new ConsultaVuelosWindow(this).open
+//		super.close
+this.openDialog(new ConsultaVuelosWindow(
+					this,
+					new ConsultaVuelosAppModel())
+					)
+					
+	}
+	
+	def openDialog(Dialog<?> dialog) {
+		dialog.onAccept[|modelObject.actualizarLista]
+		dialog.open
 	}
 	
 	def consultaLogs() {

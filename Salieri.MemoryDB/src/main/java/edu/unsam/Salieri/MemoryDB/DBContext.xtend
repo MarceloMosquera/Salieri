@@ -15,6 +15,7 @@ import edu.unsam.Salieri.Repository.IRepoVuelos
 import edu.unsam.Salieri.Util.SSDate
 import edu.unsam.Salieri.Domain.Descuento.DescuentoReglaSiempre
 import edu.unsam.Salieri.Domain.Descuento.DescuentoMonto
+import edu.unsam.Salieri.Domain.Reserva
 
 class DBContext implements IDBContext {
 
@@ -160,12 +161,17 @@ class DBContext implements IDBContext {
 		val asiento3 = i9573.asientos.get(3)
 		val asiento4 = i9573.asientos.get(4)
 
-		repoReservas.agregarReserva(n2346.reservarAsiento(asiento1, ivan))
-		repoReservas.agregarReserva(n2346.reservarAsiento(asiento2, diego))
-		repoReservas.agregarReserva(i9573.reservarAsiento(asiento3, nicolas))
-		repoReservas.agregarReserva(i9573.reservarAsiento(asiento4, marcelo))
+		agregarReserva(n2346.reservarAsiento(asiento1, ivan))
+		agregarReserva(n2346.reservarAsiento(asiento2, diego))
+		agregarReserva(i9573.reservarAsiento(asiento3, nicolas))
+		agregarReserva(i9573.reservarAsiento(asiento4, marcelo))
 		
 		
+	}
+	
+	
+	override void agregarReserva(Reserva reserva){
+		repoReservas.agregarReserva(reserva)
 	}
 
 }

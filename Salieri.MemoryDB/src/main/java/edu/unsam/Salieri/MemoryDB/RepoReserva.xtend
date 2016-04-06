@@ -22,11 +22,10 @@ class RepoReserva implements IRepoReservas{
 	
 	override  quitarReserva(Reserva unaReserva){
 		unaReserva.cancelar()
-		reservas.remove(unaReserva)
 	}
 	
 	override buscarReservaDelUsuario(Usuario unUsuario){
-		reservas.filter[reserva|reserva.reservaDelUsuario(unUsuario)].toList
+		reservas.filter[reserva|reserva.reservaDelUsuario(unUsuario) && reserva.fechaBaja == null].toList
 	}
 	
 }

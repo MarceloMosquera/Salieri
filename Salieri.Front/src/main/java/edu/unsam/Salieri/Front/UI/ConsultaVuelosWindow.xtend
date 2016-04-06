@@ -21,46 +21,54 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.aop.windows.TransactionalDialog
 
-class ConsultaVuelosWindow extends SimpleWindow<ConsultaVuelosAppModel> {
-	
-	new(WindowOwner parent) {
-		super(parent, new ConsultaVuelosAppModel)
+class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
+
+	new(WindowOwner owner, ConsultaVuelosAppModel model) {
+		super(owner, model)
+//		super(parent, new ConsultaVuelosAppModel)
 		title = "Consulta de Vuelos"
 	}
-	
+
 	override protected addActions(Panel actionsPanel) {
 		val panel = new Panel(actionsPanel).layout = new HorizontalLayout
 
 		this.createGrillaVuelosEncontrados(panel)
 		this.createBotones(panel)
 	}
-	
-	
+
 	def createBotones(Panel panel) {
 		val elementSelected = new NotNullObservable("vueloSeleccionado")
-		
+
 		var panelHorizonal1 = new Panel(panel).layout = new HorizontalLayout
 		new Button(panelHorizonal1) => [
 			caption = "Reservar"
 			width = 150
 			onClick [|
 //				modelObject.guardarConsulta(vueloSeleccionado)
-				this.openDialog(
-					new DetalleVueloWindow(
-						this,
-						new DetalleVueloAppModel(modelObject.vueloSeleccionado)
-					))
+				this.openDialog(new DetalleVueloWindow(
+					this,
+					new DetalleVueloAppModel(modelObject.vueloSeleccionado)
+				))
 			]
 			bindEnabled(elementSelected)
 		]
 		
+		new Button(panelHorizonal1) => [
+			caption = "Volver"
+			width = 150
+			onClick [|
+//				modelObject.guardarConsulta(vueloSeleccionado)
+				accept
+			]
+		]
+
 	}
-	
-		
+
 	def createGrillaVuelosEncontrados(Panel mainPanel) {
-		new Label(mainPanel)=>[
-			text =  "Vuelos"
+		new Label(mainPanel) => [
+			text = "Vuelos"
 		]
 		val gridVuelos = new Table(mainPanel, typeof(Vuelo)) => [
 			height = 200
@@ -74,97 +82,96 @@ class ConsultaVuelosWindow extends SimpleWindow<ConsultaVuelosAppModel> {
 			title = "Origen"
 			bindContentsToProperty("origen")
 		]
-		
+
 		new Column<Vuelo>(gridVuelos) => [
 			fixedSize = 150
 			title = "Destino"
 			bindContentsToProperty("destino")
 		]
-		
+
 		new Column<Vuelo>(gridVuelos) => [
 			fixedSize = 120
 			title = "Salida"
-			bindContentsToProperty("fechaSalida").transformer = [ fecha | SSDate.toShow(fecha)]
-			]
-			
+			bindContentsToProperty("fechaSalida").transformer = [fecha|SSDate.toShow(fecha)]
+		]
+
 		new Column<Vuelo>(gridVuelos) => [
 			fixedSize = 120
 			title = "Llegada"
-			bindContentsToProperty("fechaArribo").transformer = [ fecha | SSDate.toShow(fecha)]
-			]
-			
+			bindContentsToProperty("fechaArribo").transformer = [fecha|SSDate.toShow(fecha)]
+		]
+
 		new Column<Vuelo>(gridVuelos) => [
 			fixedSize = 120
 			title = "Precio"
 			bindContentsToProperty("obtenerPrecio")
-			]
-			
+		]
+
 		new Column<Vuelo>(gridVuelos) => [
 			fixedSize = 80
 			title = "Tramos"
 			bindContentsToProperty("cantidadDeEscalas")
-			]
-			
+		]
+
 		new Column<Vuelo>(gridVuelos) => [
 			fixedSize = 120
 			title = "Asientos Libres"
 			bindContentsToProperty("cantidadAsientosLibres")
-			]	
+		]
 	}
-	
+
 	override protected createFormPanel(Panel mainPanel) {
 		val panelTexto = new Panel(mainPanel)
-		panelTexto.layout = new HorizontalLayout 
+		panelTexto.layout = new HorizontalLayout
 
 		val searchFormPanel = new Panel(panelTexto)
-		searchFormPanel.layout = new ColumnLayout(2)//new HorizontalLayout 
-		
-		new Label(searchFormPanel).text="Origen"
+		searchFormPanel.layout = new ColumnLayout(2) // new HorizontalLayout 
+		new Label(searchFormPanel).text = "Origen"
 		new Selector<String>(searchFormPanel) => [
 			allowNull = true
 			bindValueToProperty = "vueloBusqueda.origen"
 			bindItems(new ObservableProperty("aeropuertosOrigen"))
 		]
 
-		new Label(searchFormPanel).text="Destino"
+		new Label(searchFormPanel).text = "Destino"
 		new Selector<String>(searchFormPanel) => [
 			allowNull = true
 			bindValueToProperty = "vueloBusqueda.destino"
 			bindItems(new ObservableProperty("aeropuertosDestino"))
 		]
 
-		new Label(searchFormPanel).text="Fecha Desde"
-		new TextBox(searchFormPanel) =>[
+		new Label(searchFormPanel).text = "Fecha Desde"
+		new TextBox(searchFormPanel) => [
 			width = 150
 			value <=> "vueloBusqueda.fechaMin"
-			]	
-		
-		new Label(searchFormPanel).text="Fecha Hasta"
-		new TextBox(searchFormPanel) =>[
+		]
+
+		new Label(searchFormPanel).text = "Fecha Hasta"
+		new TextBox(searchFormPanel) => [
 			width = 150
 			value <=> "vueloBusqueda.fechaMax"
-			//transformer = new DateAdapter
-			]	
+		// transformer = new DateAdapter
+		]
 
-		new Label(searchFormPanel).text="$ maximo"
-		new TextBox(searchFormPanel) =>[
+		new Label(searchFormPanel).text = "$ maximo"
+		new TextBox(searchFormPanel) => [
 			width = 150
 			value <=> "vueloBusqueda.montoMax"
-			]
+		]
 
 		new Button(searchFormPanel) => [
 			caption = "Buscar"
 			width = 150
-			onClick [ | modelObject.buscar ]
+			onClick [|modelObject.buscar]
 			background = Color.darkGray
 		]
 
 	}
-	
-		def openDialog(Dialog<?> dialog) {
-		dialog.onAccept[|]
+
+	def openDialog(Dialog<?> dialog) {
+		dialog.onAccept[|modelObject.actualizarLista]
 		dialog.open
 	}
 
-	
+
 }

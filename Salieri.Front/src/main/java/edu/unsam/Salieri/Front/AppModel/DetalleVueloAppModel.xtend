@@ -5,6 +5,8 @@ import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Util.SSDate
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import edu.unsam.Salieri.Domain.Reserva
+import org.uqbar.commons.model.ObservableUtils
 
 @Observable
 @Accessors
@@ -20,7 +22,7 @@ class DetalleVueloAppModel extends BaseAppModel {
 	} 
 	
 	def void reservarAsiento(){
-		vueloSeleccionado.reservarAsiento(asientoSeleccionado, usuarioLogueado)
+		this.DBContext().agregarReserva(vueloSeleccionado.reservarAsiento(asientoSeleccionado, usuarioLogueado))
 	}
 	
 	def getVueloSeleccionadoFechaSalida() {
@@ -30,6 +32,23 @@ class DetalleVueloAppModel extends BaseAppModel {
     def getVueloSeleccionadoFechaArribo() {
         return SSDate.toShow(vueloSeleccionado.fechaArribo);
     }
-	
-	
+    
+    def Boolean asientoFalso(){
+    	false
+    }
+    
+    
+    def String hayAsientoSeleccionado(){
+    	if(asientoSeleccionado == null){
+    		""
+    	}else{
+    		asientoSeleccionado.toString
+    	}
+    }
+
+	def String setAsientoSeleccionado(){
+		ObservableUtils.firePropertyChanged(this, "asientoSeleccionado", hayAsientoSeleccionado())
+		asientoSeleccionado.toString
+	}
+
 }

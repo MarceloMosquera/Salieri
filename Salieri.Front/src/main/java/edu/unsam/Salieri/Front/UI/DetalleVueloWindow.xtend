@@ -13,6 +13,8 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.Button
 import java.awt.Color
 import edu.unsam.Salieri.Util.SSDate
+import org.uqbar.arena.bindings.NotNullObservable
+import org.uqbar.arena.windows.Dialog
 
 class DetalleVueloWindow extends TransactionalDialog<DetalleVueloAppModel> {
 
@@ -88,15 +90,18 @@ class DetalleVueloWindow extends TransactionalDialog<DetalleVueloAppModel> {
 			val filaPanel = new Panel(panelAsientos)
 			filaPanel.layout = new HorizontalLayout
 			modelObject.vueloSeleccionado.asientoDeFila(i).forEach [ asiento |
+//				val asientoDiponible = new NotNullObservable("this.disponible")
 				new Button(filaPanel) => [
 					if (asiento.disponible) {
 						background = Color.GREEN
 					} else {
 						background = Color.RED
+						bindEnabledToProperty("asientoFalso")
 					}
 					caption = asiento.toString
 					onClick [|modelObject.asientoSeleccionado = asiento]
 				]
+				
 			]
 		]
 		// Nos falla el doble binding
@@ -105,13 +110,12 @@ class DetalleVueloWindow extends TransactionalDialog<DetalleVueloAppModel> {
 		val panel3A = new Panel(panelIzquierdoLinea3).setLayout(new VerticalLayout)
 		new Label(panel3A) => [
 			text = "Asiento seleccionado: "
+			
 		]
-		if (modelObject.asientoSeleccionado == null) {
-			new Label(panel3A).text = "__"
-		} else {
-			new Label(panel3A).text = "Falla el p... binding"
-			//new Label(panel3A).text <=> modelObject.asientoSeleccionado.toString()
-		}
+			new Label(panel3A)=>[
+				bindValueToProperty("hayAsientoSeleccionado")
+			]
+
 		val panel3B = new Panel(panelIzquierdoLinea3).setLayout(new VerticalLayout)
 		new Label(panel3B) => [
 			text = "Monto a pagar: "
@@ -119,16 +123,32 @@ class DetalleVueloWindow extends TransactionalDialog<DetalleVueloAppModel> {
 		if (modelObject.asientoSeleccionado == null) {
 			new Label(panel3B).text = "$ __"
 		} else {
-			new Label(panel3B).text = "$ "+"Falla el p... binding"
-			//new Label(panel3B) <=> modelObject.asientoSeleccionado.toString()
+			//new Label(panel3B).text = "$ "+"Falla el p... binding"
+			new Label(panel3B).text = modelObject.asientoSeleccionado.toString()
 		}
 		
+		val elementSelected = new NotNullObservable("asientoSeleccionado")
 		val panelIzquierdoLinea4 = new Panel(panelColunmaIzquierda).setLayout(new HorizontalLayout)
 		new Button(panelIzquierdoLinea4) => [
 			//width = 150
 			caption = "Reservar"
-			//onClick [ | reservarAsiento() ]
+			onClick [ | modelObject.reservarAsiento()
+				accept
+			]
+			
+			bindEnabled(elementSelected)
+			
+			
 		]
+		
+		
+		
+	}
+	
+	
+	def openDialog(Dialog<?> dialog) {
+		dialog.onAccept[|]
+		dialog.open
 	}
 
 //		super.createMainTemplate(mainPanel)

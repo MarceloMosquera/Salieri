@@ -19,7 +19,6 @@ class TestsReservas {
 	RepoAeropuertos repoAeropuertos
 	RepoUsuarios repoUsuarios
 	RepoVuelos repoVuelos
-
 	Usuario unUsuario
 	Vuelo unVuelo
 

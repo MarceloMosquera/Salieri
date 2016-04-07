@@ -11,10 +11,6 @@ class TestsUsuarios {
 	Usuario usuario1
 	Usuario usuario2
 
-//(expected=typeof(Exception))
-//Assert.assertEquals(imc,unUsuarioConIMCExacto.getIMC(), 1 )
-//System.out.println(repoUsuarios.todosLosUsuarios.size)
-
 	@Before
 	def void init() {
 		repoUsuarios = new RepoUsuarios()

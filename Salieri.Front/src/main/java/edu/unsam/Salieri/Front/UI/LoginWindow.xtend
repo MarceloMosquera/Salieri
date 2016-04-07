@@ -41,7 +41,7 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 		new Button(panel) => [
 			width = anchoBotones
 			caption = "Resetear"
-			onClick [ | cancelar ]
+			onClick [ | resetear ]
 		]
 		
 		new Button(panel) => [
@@ -76,7 +76,7 @@ class LoginWindow extends SimpleWindow<LoginAppModel> {
 			]	
 	}
 	
-	def cancelar() {
+	def resetear() {
 		modelObject.limpiar
 	}
 	def entrar() {

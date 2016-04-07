@@ -12,6 +12,5 @@ interface IDBContext {
 
 	def IRepoAeropuertos repoAeropuertos()
 	
-	def void agregarReserva(Reserva reserva)
 
 }

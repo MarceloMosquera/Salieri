@@ -22,6 +22,7 @@ import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.aop.windows.TransactionalDialog
+import org.uqbar.arena.layout.VerticalLayout
 
 class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 
@@ -41,8 +42,14 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 	def createBotones(Panel panel) {
 		val elementSelected = new NotNullObservable("vueloSeleccionado")
 
-		var panelHorizonal1 = new Panel(panel).layout = new HorizontalLayout
-		new Button(panelHorizonal1) => [
+
+		var panelVertical1 = new Panel(panel).layout = new VerticalLayout
+
+		new Label(panelVertical1 ) => [
+			text = "Acciones"
+		]
+		
+		new Button(panelVertical1) => [
 			caption = "Reservar"
 			width = 150
 			onClick [|
@@ -55,7 +62,7 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 			bindEnabled(elementSelected)
 		]
 		
-		new Button(panelHorizonal1) => [
+		new Button(panelVertical1) => [
 			caption = "Volver"
 			width = 150
 			onClick [|
@@ -67,10 +74,13 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 	}
 
 	def createGrillaVuelosEncontrados(Panel mainPanel) {
-		new Label(mainPanel) => [
+		var panelVertical1 = new Panel(mainPanel).layout = new VerticalLayout
+//		var panelHorizonal1 = new Panel(mainPanel).layout = new HorizontalLayout
+		
+		new Label(panelVertical1 ) => [
 			text = "Vuelos"
 		]
-		val gridVuelos = new Table(mainPanel, typeof(Vuelo)) => [
+		val gridVuelos = new Table(panelVertical1 , typeof(Vuelo)) => [
 			height = 200
 			numberVisibleRows = 6
 			bindItemsToProperty("vuelosEncontrados")
@@ -124,7 +134,8 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 		val panelTexto = new Panel(mainPanel)
 		panelTexto.layout = new HorizontalLayout
 
-		val searchFormPanel = new Panel(panelTexto)
+		val searchFormPanel = new Panel(panelTexto).layout = new VerticalLayout
+		
 		searchFormPanel.layout = new ColumnLayout(2) // new HorizontalLayout 
 		new Label(searchFormPanel).text = "Origen"
 		new Selector<String>(searchFormPanel) => [

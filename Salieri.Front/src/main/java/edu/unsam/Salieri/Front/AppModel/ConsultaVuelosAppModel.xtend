@@ -28,6 +28,7 @@ class ConsultaVuelosAppModel extends BaseAppModel{
 	
 
 	def buscar() {
+		vuelosEncontrados = null
 		vuelosEncontrados = this.DBContext().repoVuelos.buscarVuelos(vueloBusqueda)
 	}
 //no funciona	

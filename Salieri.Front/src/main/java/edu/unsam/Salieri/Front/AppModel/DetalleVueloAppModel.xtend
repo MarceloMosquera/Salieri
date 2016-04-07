@@ -22,7 +22,7 @@ class DetalleVueloAppModel extends BaseAppModel {
 	} 
 	
 	def void reservarAsiento(){
-		this.DBContext().agregarReserva(vueloSeleccionado.reservarAsiento(asientoSeleccionado, usuarioLogueado))
+		this.DBContext().repoReservas().agregarReserva(vueloSeleccionado.reservarAsiento(asientoSeleccionado, usuarioLogueado))
 	}
 	
 	def getVueloSeleccionadoFechaSalida() {

@@ -161,17 +161,12 @@ class DBContext implements IDBContext {
 		val asiento3 = i9573.asientos.get(3)
 		val asiento4 = i9573.asientos.get(4)
 
-		agregarReserva(n2346.reservarAsiento(asiento1, ivan))
-		agregarReserva(n2346.reservarAsiento(asiento2, diego))
-		agregarReserva(i9573.reservarAsiento(asiento3, nicolas))
-		agregarReserva(i9573.reservarAsiento(asiento4, marcelo))
+		repoReservas.agregarReserva(n2346.reservarAsiento(asiento1, ivan))
+		repoReservas.agregarReserva(n2346.reservarAsiento(asiento2, diego))
+		repoReservas.agregarReserva(i9573.reservarAsiento(asiento3, nicolas))
+		repoReservas.agregarReserva(i9573.reservarAsiento(asiento4, marcelo))
 		
 		
-	}
-	
-	
-	override void agregarReserva(Reserva reserva){
-		repoReservas.agregarReserva(reserva)
 	}
 
 }

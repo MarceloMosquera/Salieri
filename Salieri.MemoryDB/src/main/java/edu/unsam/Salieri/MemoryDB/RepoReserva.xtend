@@ -25,7 +25,7 @@ class RepoReserva implements IRepoReservas{
 	}
 	
 	override buscarReservaDelUsuario(Usuario unUsuario){
-		reservas.filter[reserva|reserva.reservaDelUsuario(unUsuario) && reserva.fechaBaja == null].toList
+		reservas.filter[reserva|reserva.reservaDelUsuario(unUsuario) ].toList
 	}
 	
 }

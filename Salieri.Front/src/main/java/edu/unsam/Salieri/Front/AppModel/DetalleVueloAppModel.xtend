@@ -22,7 +22,7 @@ class DetalleVueloAppModel extends BaseAppModel {
 	} 
 	
 	def void reservarAsiento(){
-		this.DBContext().repoReservas().agregarReserva(vueloSeleccionado.reservarAsiento(asientoSeleccionado, usuarioLogueado))
+		this.DBContext().repoReservas().agregarReserva(new Reserva( asientoSeleccionado, usuarioLogueado, vueloSeleccionado))
 	}
 	
 	def getVueloSeleccionadoFechaSalida() {
@@ -37,18 +37,19 @@ class DetalleVueloAppModel extends BaseAppModel {
     	false
     }
     
-    
-    def String hayAsientoSeleccionado(){
-    	if(asientoSeleccionado == null){
+    def String montoAPagar(){
+    	if(asientoSeleccionado == null)
+    	{
     		""
     	}else{
-    		asientoSeleccionado.toString
+    		"$ " + vueloSeleccionado.tarifa.obtenerPrecio().toString
     	}
     }
+    
+    def getAsientoSeleccionado(){
+    	ObservableUtils.firePropertyChanged(this, "montoAPagar", montoAPagar()) 
+    	asientoSeleccionado
+    }
 
-	def String setAsientoSeleccionado(){
-		ObservableUtils.firePropertyChanged(this, "asientoSeleccionado", hayAsientoSeleccionado())
-		asientoSeleccionado.toString
-	}
 
 }

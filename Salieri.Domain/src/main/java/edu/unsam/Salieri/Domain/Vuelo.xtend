@@ -53,12 +53,10 @@ class Vuelo {
 	}
 
 	def boolean vueloConLugar() {
-		true // TODO: para revisar
+		asientos.exists[asiento | asiento.estaDisponible]
 	}
 
-	def Reserva reservarAsiento(Asiento unAsiento, Usuario unUsuario) {
-		unAsiento.reservar(this, unUsuario)
-	}
+	
 	
 	def int cantidadAsientosLibres(){
 		val libres = asientos.filter[asiento | asiento.estaDisponible].toList

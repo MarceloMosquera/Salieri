@@ -16,6 +16,7 @@ import edu.unsam.Salieri.Util.SSDate
 import edu.unsam.Salieri.Domain.Descuento.DescuentoReglaSiempre
 import edu.unsam.Salieri.Domain.Descuento.DescuentoMonto
 import edu.unsam.Salieri.Domain.Reserva
+import java.util.Date
 
 class DBContext implements IDBContext {
 
@@ -96,7 +97,7 @@ class DBContext implements IDBContext {
 		]
 		
 		val n2346 = new Vuelo("N2346", "LAN AR", ezeiza, mendoza, 
-			SSDate.p("20160315 8:15" ), SSDate.p("20160315 10:00" ) , 500) 
+			new Date(), SSDate.p("20160630 10:00" ) , 500) 
 		val i9573 = new Vuelo("I9573", "Aerolinas Argentinas", marDelPlata, guarulhos,
 			SSDate.p("20160316 8:15" ), SSDate.p("20160316 18:00" ) , 1000)
 
@@ -161,10 +162,10 @@ class DBContext implements IDBContext {
 		val asiento3 = i9573.asientos.get(3)
 		val asiento4 = i9573.asientos.get(4)
 
-		repoReservas.agregarReserva(n2346.reservarAsiento(asiento1, ivan))
-		repoReservas.agregarReserva(n2346.reservarAsiento(asiento2, diego))
-		repoReservas.agregarReserva(i9573.reservarAsiento(asiento3, nicolas))
-		repoReservas.agregarReserva(i9573.reservarAsiento(asiento4, marcelo))
+		repoReservas.agregarReserva(new Reserva(asiento1, ivan, n2346))
+		repoReservas.agregarReserva(new Reserva(asiento2, diego, n2346))
+		repoReservas.agregarReserva(new Reserva(asiento3, nicolas, i9573))
+		repoReservas.agregarReserva(new Reserva(asiento4, marcelo, i9573))
 		
 		
 	}

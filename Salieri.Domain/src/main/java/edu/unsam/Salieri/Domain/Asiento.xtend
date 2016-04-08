@@ -23,16 +23,12 @@ class Asiento {
 	}
 	
 	def iniciarUbicaciones() {
-		ubicacionesPosibles = newArrayList
-		ubicacionesPosibles.add("Pasillo")
-		ubicacionesPosibles.add("Centro")
-		ubicacionesPosibles.add("Ventana")
+		ubicacionesPosibles = #["Pasillo", "Centro", "Ventana"]
 	}
 	
-	def Reserva reservar(Vuelo unVuelo, Usuario unUsuario) {
+	def void reservar() {
 		if (disponible) {
 			disponible = false
-			return new Reserva(this, unUsuario, unVuelo)
 		} else {
 			throw new BusinessException("El asiento ya se encuentra reservado.")
 		}

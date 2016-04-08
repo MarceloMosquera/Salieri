@@ -29,13 +29,13 @@ class ConsultaVuelosAppModel extends BaseAppModel{
 
 	def buscar() {
 		vuelosEncontrados = null
-		vuelosEncontrados = this.DBContext().repoVuelos.buscarVuelos(vueloBusqueda)
+		vuelosEncontrados = vueloBusqueda.buscarVuelos(this.DBContext().repoVuelos.todos())
 	}
-//no funciona	
+
 	@Dependencies("vuelosEncontrados")
 	def void actualizarLista(){
-		//no esta funcionando el dependencies, por eso disparamos el observer a mano
 		ObservableUtils.firePropertyChanged(this, "vuelosEncontrados", buscar())
+				ObservableUtils.firePropertyChanged(this, "vueloSeleccionado", getVueloSeleccionado())
 	}
 	
 }

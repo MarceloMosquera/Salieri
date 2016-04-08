@@ -110,22 +110,20 @@ class DetalleVueloWindow extends TransactionalDialog<DetalleVueloAppModel> {
 		val panel3A = new Panel(panelIzquierdoLinea3).setLayout(new VerticalLayout)
 		new Label(panel3A) => [
 			text = "Asiento seleccionado: "
-			
-		]
+		]		
 			new Label(panel3A)=>[
-				bindValueToProperty("hayAsientoSeleccionado")
+				bindValueToProperty("asientoSeleccionado")
 			]
 
 		val panel3B = new Panel(panelIzquierdoLinea3).setLayout(new VerticalLayout)
 		new Label(panel3B) => [
 			text = "Monto a pagar: "
 		]
-		if (modelObject.asientoSeleccionado == null) {
-			new Label(panel3B).text = "$ __"
-		} else {
-			//new Label(panel3B).text = "$ "+"Falla el p... binding"
-			new Label(panel3B).text = modelObject.asientoSeleccionado.toString()
-		}
+		
+			new Label(panel3B)=>[
+				bindValueToProperty("montoAPagar")
+			]
+		
 		
 		val elementSelected = new NotNullObservable("asientoSeleccionado")
 		val panelIzquierdoLinea4 = new Panel(panelColunmaIzquierda).setLayout(new HorizontalLayout)

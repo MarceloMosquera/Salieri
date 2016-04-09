@@ -20,15 +20,13 @@ class Tarifa {
 	}
 	
 	def float obtenerPrecio (){
-		var seed = precio
-		descuentos.fold ( seed, [ acum, desc |
+		descuentos.fold ( precio, [ acum, desc |
 			if (desc.regla.seDebeAplicar(vuelo)) {
 				desc.monto.obtenerPrecioConDescuento(acum)
 			} else {
 				acum
 			}
 		] )
-		return seed
 	}
 	def agregarDescuento(Descuento unDescuento) {
 		descuentos.add(unDescuento)		

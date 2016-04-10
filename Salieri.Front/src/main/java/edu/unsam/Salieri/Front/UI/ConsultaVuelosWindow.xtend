@@ -5,10 +5,12 @@ import edu.unsam.Salieri.Front.AppModel.ConsultaVuelosAppModel
 import edu.unsam.Salieri.Front.AppModel.DetalleVueloAppModel
 import edu.unsam.Salieri.Util.SSDate
 import java.awt.Color
+import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
@@ -17,12 +19,9 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
-import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.aop.windows.TransactionalDialog
-import org.uqbar.arena.layout.VerticalLayout
 
 class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 
@@ -56,7 +55,7 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 //				modelObject.guardarConsulta(vueloSeleccionado)
 				this.openDialog(new DetalleVueloWindow(
 					this,
-					new DetalleVueloAppModel(modelObject.vueloSeleccionado)
+					new DetalleVueloAppModel(modelObject.vueloSeleccionado, modelObject.vueloBusqueda.montoMax )
 				))
 			]
 			bindEnabled(elementSelected)
@@ -109,12 +108,6 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 			fixedSize = 120
 			title = "Llegada"
 			bindContentsToProperty("fechaArribo").transformer = [fecha|SSDate.toShow(fecha)]
-		]
-
-		new Column<Vuelo>(gridVuelos) => [
-			fixedSize = 120
-			title = "Precio"
-			bindContentsToProperty("obtenerPrecio")
 		]
 
 		new Column<Vuelo>(gridVuelos) => [

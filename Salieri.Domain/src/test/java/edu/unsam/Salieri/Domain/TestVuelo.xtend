@@ -1,8 +1,5 @@
 package edu.unsam.Salieri.Domain
 
-import edu.unsam.Salieri.Domain.Descuento.Descuento
-import edu.unsam.Salieri.Domain.Descuento.DescuentoPorcentaje
-import edu.unsam.Salieri.Domain.Descuento.DescuentoRegla72HsAntes
 import edu.unsam.Salieri.Util.SSDate
 import org.junit.Assert
 import org.junit.Before
@@ -31,12 +28,12 @@ class TestVuelo {
 			))
 		]
 		
-		f666.tarifa.agregarDescuento(
-			new Descuento(
-				new DescuentoRegla72HsAntes(), 
-				new DescuentoPorcentaje(0.20f)
-			)
-		)
+//		f666.tarifa.agregarDescuento(
+//			new Descuento(
+//				new DescuentoRegla72HsAntes(), 
+//				new DescuentoPorcentaje(0.20f)
+//			)
+//		)
 	}
 
 	@Test
@@ -61,7 +58,7 @@ class TestVuelo {
 	def void testCantidadAsientosLibres() {
 		val asiento1 = f666.asientos.get(1)
 		val ivan = new Usuario("ivan") 
-		val reserva = new Reserva(asiento1, ivan, f666)
+		new Reserva(asiento1, ivan, f666)
 		Assert.assertEquals(29, f666.cantidadAsientosLibres())
 	}	
 	
@@ -70,7 +67,7 @@ class TestVuelo {
 	def void testCantidadAsientosReservados() {
 		val asiento1 = f666.asientos.get(1)
 		val ivan = new Usuario("ivan") 
-		val reserva = new Reserva(asiento1, ivan, f666)
+		new Reserva(asiento1, ivan, f666)
 		Assert.assertEquals(1, f666.cantidadAsientosReservados())
 	}	
 	

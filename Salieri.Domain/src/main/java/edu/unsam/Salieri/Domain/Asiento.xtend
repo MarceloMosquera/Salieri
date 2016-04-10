@@ -12,10 +12,14 @@ class Asiento {
 	int fila
 	int ubicacion
 	List<String> ubicacionesPosibles= #["Pasillo", "Centro", "Ventana"]
+	Tarifa tarifa
+	Vuelo vuelo
 	
-	new(int laFila, int laUbicacion){
+	new(int laFila, int laUbicacion, Vuelo elVuelo){
 		fila = laFila
 		ubicacion = laUbicacion
+		vuelo = elVuelo
+		tarifa = new Tarifa(vuelo.tarifaDefault, vuelo)
 		disponible = true
 	}
 	
@@ -31,9 +35,21 @@ class Asiento {
 		disponible
 	}
 
+    def float obtenerPrecio (){
+		return tarifa.obtenerPrecio
+	}
+
+	def boolean estaEnFila(int laFila)
+	{
+		fila.equals(laFila)	
+	}
+	def boolean estaEnUbicacion(int laUbicacion)
+	{
+		ubicacion.equals(laUbicacion)
+	}
 	
 	override toString(){
-		(fila +1) + ubicacionesPosibles.get(ubicacion).substring(0,1)
+		(fila) + ubicacionesPosibles.get(ubicacion).substring(0,1)
 	}
 
 }

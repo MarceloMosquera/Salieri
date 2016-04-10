@@ -86,13 +86,13 @@ class DetalleVueloWindow extends TransactionalDialog<DetalleVueloAppModel> {
 		// crear asientos
 		val panelColunmaDerecha = new Panel(panel0).setLayout(new VerticalLayout)
 		val panelAsientos = new Panel(panelColunmaDerecha).setLayout(new VerticalLayout)
-		(0 .. 9).forEach [ i |
+		(1 .. 10).forEach [ i |
 			val filaPanel = new Panel(panelAsientos)
 			filaPanel.layout = new HorizontalLayout
-			modelObject.vueloSeleccionado.asientoDeFila(i).forEach [ asiento |
+			modelObject.vueloSeleccionado.obtenerAsientosDeFila(i).forEach [ asiento |
 //				val asientoDiponible = new NotNullObservable("this.disponible")
 				new Button(filaPanel) => [
-					if (asiento.disponible) {
+					if (asiento.estaDisponible && (modelObject.montoMax == 0 || asiento.obtenerPrecio() <= modelObject.montoMax) ) {
 						background = Color.GREEN
 					} else {
 						background = Color.RED

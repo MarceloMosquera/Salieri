@@ -119,13 +119,14 @@ class DBContext implements IDBContext {
 			))
 		]
 		
-		f956.tarifa.agregarDescuento(
-			new Descuento(
-				new DescuentoReglaSiempre(), 
-				new DescuentoMonto(100)
+		f956.obtenerAsientosDeFila(1).forEach[ asiento |  
+			asiento.tarifa.agregarDescuento(
+				new Descuento(
+					new DescuentoReglaSiempre(), 
+					new DescuentoMonto(100)
+				)
 			)
-		)
-
+		]
 		var f666 = new Vuelo("F66", "Maiden Ar", guarulhos, ezeiza, 
 			SSDate.p("20160320 8:15" ), SSDate.p("20160321 20:00" ) , 3000)
 			
@@ -144,23 +145,24 @@ class DBContext implements IDBContext {
 			))
 		]
 		
-		f666.tarifa.agregarDescuento(
-			new Descuento(
-				new DescuentoRegla72HsAntes(), 
-				new DescuentoPorcentaje(0.20f)
+		f666.obtenerAsientosDeFila(2).forEach[ asiento |  
+			asiento.tarifa.agregarDescuento(
+				new Descuento(
+					new DescuentoRegla72HsAntes(), 
+					new DescuentoPorcentaje(0.20f)
+				)
 			)
-		)
-		
+		]
 
 		repoVuelos.agregarVuelo(n2346)
 		repoVuelos.agregarVuelo(i9573)
 		repoVuelos.agregarVuelo(f956)
 		repoVuelos.agregarVuelo(f666)
 
-		val asiento1 = n2346.asientos.get(1)
-		val asiento2 = n2346.asientos.get(2)
-		val asiento3 = i9573.asientos.get(3)
-		val asiento4 = i9573.asientos.get(4)
+		val asiento1 = n2346.obtenerAsiento(1, 0)
+		val asiento2 = n2346.obtenerAsiento(1, 1)
+		val asiento3 = i9573.obtenerAsiento(1, 2)
+		val asiento4 = i9573.obtenerAsiento(2, 0)
 
 		repoReservas.agregarReserva(new Reserva(asiento1, ivan, n2346))
 		repoReservas.agregarReserva(new Reserva(asiento2, diego, n2346))

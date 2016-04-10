@@ -12,9 +12,11 @@ import org.uqbar.commons.model.ObservableUtils
 @Accessors
 class DetalleVueloAppModel extends BaseAppModel {
 	Vuelo vueloSeleccionado
+	float montoMax
 	Asiento asientoSeleccionado
-	new (Vuelo elVueloSeleccionado){
+	new (Vuelo elVueloSeleccionado, float elMontoMax){
 		vueloSeleccionado = elVueloSeleccionado
+		montoMax = elMontoMax
 	}
 	
 	def String nombreVuelo(){
@@ -42,7 +44,7 @@ class DetalleVueloAppModel extends BaseAppModel {
     	{
     		""
     	}else{
-    		"$ " + vueloSeleccionado.tarifa.obtenerPrecio().toString
+    		"$ " + asientoSeleccionado.obtenerPrecio().toString
     	}
     }
     

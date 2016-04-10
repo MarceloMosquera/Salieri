@@ -1,18 +1,14 @@
 package edu.unsam.Salieri.Tests
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
-import edu.unsam.Salieri.MemoryDB.RepoReserva
-import edu.unsam.Salieri.MemoryDB.RepoAeropuertos
-import edu.unsam.Salieri.MemoryDB.RepoUsuarios
-import edu.unsam.Salieri.MemoryDB.RepoVuelos
+import edu.unsam.Salieri.Domain.Aeropuerto
+import edu.unsam.Salieri.Domain.Escala
 import edu.unsam.Salieri.Domain.Usuario
 import edu.unsam.Salieri.Domain.Vuelo
-import edu.unsam.Salieri.Domain.Aeropuerto
+import edu.unsam.Salieri.MemoryDB.RepoAeropuertos
+import edu.unsam.Salieri.MemoryDB.RepoReserva
+import edu.unsam.Salieri.MemoryDB.RepoUsuarios
+import edu.unsam.Salieri.MemoryDB.RepoVuelos
 import edu.unsam.Salieri.Util.SSDate
-import edu.unsam.Salieri.Domain.Escala
-import edu.unsam.Salieri.Domain.Reserva
 
 class TestsReservas {
 	RepoReserva repoReserva
@@ -99,13 +95,13 @@ class TestsReservas {
 //	@Before
 //	def void init() {}
 	
-	@Test
-	def void  agregarReserva(){
-		//val unaReserva = new Reserva (Asiento unAsiento, Usuario unUsuario, Vuelo unVuelo)
-		val f666 = new Vuelo("f666", "LAN AR", ezeiza, mendoza, SSDate.p("20160315 8:15"), SSDate.p("20160315 10:00"), 500)
-		val asiento1 = f666.asientos.get(1)
-		agregarReserva(Reserva unaReserva)
-	}
+//	@Test
+//	def void  agregarReserva(){
+//		//val unaReserva = new Reserva (Asiento unAsiento, Usuario unUsuario, Vuelo unVuelo)
+//		val f666 = new Vuelo("f666", "LAN AR", ezeiza, mendoza, SSDate.p("20160315 8:15"), SSDate.p("20160315 10:00"), 500)
+//		val asiento1 = f666.asientos.get(1)
+//		agregarReserva(Reserva unaReserva)
+//	}
 	
 //	@Test
 //	def void   quitarReserva(Reserva unaReserva){}

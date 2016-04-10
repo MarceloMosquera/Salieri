@@ -41,7 +41,7 @@ class Vuelo {
 
 	}
 
-	def void generarAsientos() {
+	private def void generarAsientos() {
 		var int i
 		var int j
 		asientos = new ArrayList

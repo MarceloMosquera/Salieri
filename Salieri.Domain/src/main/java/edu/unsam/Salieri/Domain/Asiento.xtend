@@ -8,22 +8,15 @@ import org.uqbar.commons.utils.Observable
 @Observable
 class Asiento {
 
-	//Reserva reserva
 	boolean disponible
 	int fila
 	int ubicacion
-	List<String> ubicacionesPosibles
-	//evaluar si pasar a un booleano, doble referencia, o referencia simple//
+	List<String> ubicacionesPosibles= #["Pasillo", "Centro", "Ventana"]
 	
 	new(int laFila, int laUbicacion){
 		fila = laFila
 		ubicacion = laUbicacion
 		disponible = true
-		iniciarUbicaciones
-	}
-	
-	def iniciarUbicaciones() {
-		ubicacionesPosibles = #["Pasillo", "Centro", "Ventana"]
 	}
 	
 	def void reservar() {

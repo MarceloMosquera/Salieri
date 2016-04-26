@@ -1,25 +1,40 @@
 package edu.unsam.Salieri.Domain
 
-import edu.unsam.Salieri.Util.SSDate
 import java.util.Date
+import javax.persistence.CascadeType
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.OneToMany
+import javax.persistence.OneToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
+@Entity
 class Reserva {
-	int id
+	@Id
+	@GeneratedValue
+	public Long id
+	@Column
 	Date fecha
+	@Column
 	Date fechaBaja
+	@OneToMany()
 	Usuario usuario
+	@OneToOne(cascade=CascadeType.ALL)
 	Asiento asiento
+	@OneToMany()
 	Vuelo vuelo
-
 	def void cancelar() {
 		asiento.setDisponible(true)
 		fechaBaja = new Date()
 	}
-
+	
+	new(){}
+	
 	new(Asiento unAsiento, Usuario unUsuario, Vuelo unVuelo) {
 		usuario = unUsuario
 		asiento = unAsiento
@@ -28,7 +43,8 @@ class Reserva {
 		fechaBaja = null
 		asiento.reservar()
 	}
-
+	
+//1 kilo de papas, comprar fideos, masa de tarta x2// NO ME ODIES MARCE!!!!!
 	def boolean reservaDelUsuario(Usuario unUsuario) {
 		(!asiento.disponible) && (!estaDadoDeBaja) && usuario.equals(unUsuario)
 	}

@@ -3,21 +3,42 @@ package edu.unsam.Salieri.Domain
 import java.util.ArrayList
 import java.util.Date
 import java.util.List
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
+@Entity
 class Vuelo {
+		@Id
+	@GeneratedValue
+	private Long id
+	
+	@Column(length=10)
 	String nroVuelo
+	@Column(length=20)
 	String aerolinea
+	//??
 	Aeropuerto origen
+	//??
 	Aeropuerto destino
+	@Column
 	Date fechaSalida
+	@Column
 	Date fechaArribo
+	@OneToMany()
 	List<Asiento> asientos
+	//??
 	List<Escala> escalas
+	@Column()
 	float tarifaDefault
+
+	new(){}
 
 	new(
 		String elNroVuelo,
@@ -38,7 +59,6 @@ class Vuelo {
 		asientos = new ArrayList
 		escalas = new ArrayList
 		generarAsientos()
-
 	}
 
 	private def void generarAsientos() {

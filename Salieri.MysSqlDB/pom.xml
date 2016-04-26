@@ -15,6 +15,11 @@
 	</properties>
 
 	<dependencies>
+	  	<dependency>
+  		<groupId>edu.unsam</groupId>
+  		<artifactId>Salieri.Domain</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
 		<dependency>
 			<groupId>org.uqbar-project</groupId>
 			<artifactId>uqbar-domain</artifactId>

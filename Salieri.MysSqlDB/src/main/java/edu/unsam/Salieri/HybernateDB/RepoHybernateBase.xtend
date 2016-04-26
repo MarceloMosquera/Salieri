@@ -14,7 +14,7 @@ import org.hibernate.HibernateException
 import org.hibernate.SessionFactory
 import org.hibernate.cfg.AnnotationConfiguration
 
-abstract class RepoHybernateBase {
+abstract class RepoHybernateBase<T> {
 	
 	protected static final SessionFactory sessionFactory = new AnnotationConfiguration().configure()
 		.addAnnotatedClass(Aerolinea)

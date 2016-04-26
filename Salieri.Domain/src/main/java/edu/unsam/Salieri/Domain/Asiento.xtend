@@ -1,19 +1,35 @@
 package edu.unsam.Salieri.Domain
 
 import java.util.List
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.OneToMany
+import javax.persistence.OneToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
+@Entity
 class Asiento {
-
+			@Id
+	@GeneratedValue
+	private Long id
+	@Column
 	boolean disponible
+	@Column
 	int fila
+	@Column
 	int ubicacion
 	List<String> ubicacionesPosibles= #["Pasillo", "Centro", "Ventana"]
+	@OneToOne
 	Tarifa tarifa
+	@OneToMany
 	Vuelo vuelo
+	
+	new(){}
 	
 	new(int laFila, int laUbicacion, Vuelo elVuelo){
 		fila = laFila
@@ -51,5 +67,6 @@ class Asiento {
 	override toString(){
 		(fila) + ubicacionesPosibles.get(ubicacion).substring(0,1)
 	}
+	
 
 }

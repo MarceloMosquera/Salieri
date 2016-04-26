@@ -1,15 +1,22 @@
 package edu.unsam.Salieri.Domain
 
+import javax.persistence.Column
+import javax.persistence.Entity
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
+@Entity
 class Aeropuerto {
-
+	@Column
 	String nombre
+	@Column
 	String ciudad
+	@Column
 	String pais
+	
+	new(){}
 	
 	new(String unNombre, String unaCiudad, String unPais){
 		nombre = unNombre

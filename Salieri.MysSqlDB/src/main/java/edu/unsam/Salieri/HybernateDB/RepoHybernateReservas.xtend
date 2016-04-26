@@ -2,9 +2,9 @@ package edu.unsam.Salieri.HybernateDB
 
 import edu.unsam.Salieri.Domain.Reserva
 import org.hibernate.Criteria
-import org.hibernate.criterion.Restrictions
-import org.hibernate.HibernateException
 import org.hibernate.FetchMode
+import org.hibernate.HibernateException
+import org.hibernate.criterion.Restrictions
 
 class RepoHybernateReservas extends RepoHybernateBase<Reserva> {
 
@@ -12,7 +12,7 @@ class RepoHybernateReservas extends RepoHybernateBase<Reserva> {
 		typeof(Reserva)
 	}
 
-	// Marce, este comentario es porque no se que hace este metodo en la reserva
+	//TODO : ver como implementar esta query
 	override addQueryByExample(Criteria criteria, Reserva reserva) {
 	}
 	

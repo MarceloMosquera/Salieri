@@ -5,8 +5,7 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.OneToMany
-import javax.persistence.OneToOne
+import javax.persistence.ManyToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -14,7 +13,7 @@ import org.uqbar.commons.utils.Observable
 @Observable
 @Entity
 class Asiento {
-			@Id
+	@Id
 	@GeneratedValue
 	private Long id
 	@Column
@@ -23,10 +22,13 @@ class Asiento {
 	int fila
 	@Column
 	int ubicacion
-	List<String> ubicacionesPosibles= #["Pasillo", "Centro", "Ventana"]
-	@OneToOne
+	
+	transient static List<String> ubicacionesPosibles= #["Pasillo", "Centro", "Ventana"]
+	
+	@ManyToOne
 	Tarifa tarifa
-	@OneToMany
+	
+	@ManyToOne
 	Vuelo vuelo
 	
 	new(){}
@@ -35,7 +37,7 @@ class Asiento {
 		fila = laFila
 		ubicacion = laUbicacion
 		vuelo = elVuelo
-		tarifa = new Tarifa(vuelo.tarifaDefault, vuelo)
+		tarifa = new Tarifa(vuelo.tarifaDefault)
 		disponible = true
 	}
 	
@@ -52,7 +54,7 @@ class Asiento {
 	}
 
     def float obtenerPrecio (){
-		return tarifa.obtenerPrecio
+		return tarifa.obtenerPrecio(vuelo)
 	}
 
 	def boolean estaEnFila(int laFila)

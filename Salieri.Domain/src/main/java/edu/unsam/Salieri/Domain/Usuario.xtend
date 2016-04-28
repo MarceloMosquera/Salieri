@@ -14,6 +14,8 @@ class Usuario {
 	@Id
 	@GeneratedValue
 	public Long id
+	
+// length TODO
 	@Column
 	String nick
 	@Column

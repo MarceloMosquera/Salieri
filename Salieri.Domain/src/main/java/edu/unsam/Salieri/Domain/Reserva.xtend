@@ -6,7 +6,7 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.OneToMany
+import javax.persistence.ManyToOne
 import javax.persistence.OneToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
@@ -18,16 +18,22 @@ class Reserva {
 	@Id
 	@GeneratedValue
 	public Long id
+	
 	@Column
 	Date fecha
+
 	@Column
 	Date fechaBaja
-	@OneToMany()
+
+	@ManyToOne
 	Usuario usuario
-	@OneToOne(cascade=CascadeType.ALL)
+
+	@ManyToOne
 	Asiento asiento
-	@OneToMany()
+
+	@ManyToOne
 	Vuelo vuelo
+
 	def void cancelar() {
 		asiento.setDisponible(true)
 		fechaBaja = new Date()

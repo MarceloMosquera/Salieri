@@ -13,13 +13,13 @@
 		</property>
 
 		<property name="hibernate.connection.url">
-			jdbc:mysql://localhost/politics2
+			jdbc:mysql://localhost/salieri
 		</property>
 		<property name="hibernate.connection.username">
 			root
 		</property>
 		<property name="hibernate.connection.password">
-			laura
+			mysql
 		</property>
 
 		<property name="show_sql">true</property>

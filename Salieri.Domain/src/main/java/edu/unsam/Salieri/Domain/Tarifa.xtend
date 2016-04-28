@@ -4,12 +4,13 @@ import edu.unsam.Salieri.Domain.Descuento.Descuento
 import java.util.ArrayList
 import java.util.List
 import javax.persistence.Column
+import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.ManyToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
+@Entity
 @Accessors
 @Observable
 class Tarifa {
@@ -20,20 +21,15 @@ class Tarifa {
 	@Column
 	float precio
 	
-	@ManyToOne()
-	Vuelo vuelo
-	
-	
 	List<Descuento> descuentos = new ArrayList
 	
 	new(){}
 	
-	new (float unPrecio, Vuelo unVuelo) {
+	new (float unPrecio) {
 		precio = unPrecio
-		vuelo = unVuelo
 	}
 	
-	def float obtenerPrecio (){
+	def float obtenerPrecio (Vuelo vuelo){
 		descuentos.fold ( precio, [ acum, desc |
 			if (desc.regla.seDebeAplicar(vuelo)) {
 				desc.monto.obtenerPrecioConDescuento(acum)

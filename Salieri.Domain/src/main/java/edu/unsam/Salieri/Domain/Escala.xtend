@@ -2,12 +2,14 @@ package edu.unsam.Salieri.Domain
 
 import java.util.Date
 import javax.persistence.Column
+import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.OneToMany
+import javax.persistence.ManyToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
+@Entity
 @Accessors
 @Observable
 class Escala {
@@ -16,7 +18,7 @@ class Escala {
 	private Long id
 	@Column
 	int orden
-	@OneToMany()
+	@ManyToOne
 	Aeropuerto aeropuerto
 	@Column
 	Date fechaSalida

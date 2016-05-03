@@ -1,18 +1,7 @@
-*.class
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-src/test/generated-recurces/
-src/main/generated-recurces/
+src/test/generated-sources/
+src/main/generated-sources/
+src/test/xtend-gen/
+src/main/xtend-gen/
 .project
 .classpath
 /target/

@@ -26,7 +26,7 @@ class Asiento {
 	transient static List<String> ubicacionesPosibles= #["Pasillo", "Centro", "Ventana"]
 	
 	@ManyToOne
-	Tarifa tarifa
+	ITarifa tarifa
 	
 	@ManyToOne
 	Vuelo vuelo
@@ -37,7 +37,7 @@ class Asiento {
 		fila = laFila
 		ubicacion = laUbicacion
 		vuelo = elVuelo
-		tarifa = new Tarifa(vuelo.tarifaDefault)
+		tarifa = new TarifaComun(vuelo.tarifaDefault)
 		disponible = true
 	}
 	

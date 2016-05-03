@@ -1,22 +1,10 @@
 package edu.unsam.Salieri.HybernateDB
 
-import edu.unsam.Salieri.Domain.Aeropuerto
-import edu.unsam.Salieri.Domain.Descuento.Descuento
-import edu.unsam.Salieri.Domain.Descuento.DescuentoMonto
-import edu.unsam.Salieri.Domain.Descuento.DescuentoPorcentaje
-import edu.unsam.Salieri.Domain.Descuento.DescuentoRegla72HsAntes
-import edu.unsam.Salieri.Domain.Descuento.DescuentoReglaSiempre
-import edu.unsam.Salieri.Domain.Escala
-import edu.unsam.Salieri.Domain.Reserva
-import edu.unsam.Salieri.Domain.Usuario
-import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Repository.IDBContext
 import edu.unsam.Salieri.Repository.IRepoAeropuertos
 import edu.unsam.Salieri.Repository.IRepoReservas
 import edu.unsam.Salieri.Repository.IRepoUsuarios
 import edu.unsam.Salieri.Repository.IRepoVuelos
-import edu.unsam.Salieri.Util.SSDate
-import java.util.Date
 
 class DBContextSql implements IDBContext {
 	

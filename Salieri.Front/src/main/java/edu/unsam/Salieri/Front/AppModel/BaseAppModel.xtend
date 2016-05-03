@@ -12,7 +12,4 @@ class BaseAppModel {
 	def Usuario usuarioLogueado() {
     	ApplicationContext.instance.getSingleton(typeof(Usuario))
 	}
-	
-	
-	
 }

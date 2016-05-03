@@ -1,10 +1,8 @@
 package edu.unsam.Salieri.MemoryDB
 
 import edu.unsam.Salieri.Domain.Aeropuerto
-import edu.unsam.Salieri.Domain.Descuento.Descuento
-import edu.unsam.Salieri.Domain.Descuento.DescuentoPorcentaje
-import edu.unsam.Salieri.Domain.Descuento.DescuentoRegla72HsAntes
 import edu.unsam.Salieri.Domain.Escala
+import edu.unsam.Salieri.Domain.Reserva
 import edu.unsam.Salieri.Domain.Usuario
 import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Repository.IDBContext
@@ -13,9 +11,6 @@ import edu.unsam.Salieri.Repository.IRepoReservas
 import edu.unsam.Salieri.Repository.IRepoUsuarios
 import edu.unsam.Salieri.Repository.IRepoVuelos
 import edu.unsam.Salieri.Util.SSDate
-import edu.unsam.Salieri.Domain.Descuento.DescuentoReglaSiempre
-import edu.unsam.Salieri.Domain.Descuento.DescuentoMonto
-import edu.unsam.Salieri.Domain.Reserva
 import java.util.Date
 
 class DBContext implements IDBContext {
@@ -119,14 +114,14 @@ class DBContext implements IDBContext {
 			))
 		]
 		
-		f956.obtenerAsientosDeFila(1).forEach[ asiento |  
-			asiento.tarifa.agregarDescuento(
-				new Descuento(
-					new DescuentoReglaSiempre(), 
-					new DescuentoMonto(100)
-				)
-			)
-		]
+//		f956.obtenerAsientosDeFila(1).forEach[ asiento |  
+//			asiento.tarifa.agregarDescuento(
+//				new Descuento(
+//					new DescuentoReglaSiempre(), 
+//					new DescuentoMonto(100)
+//				)
+//			)
+//		]
 		var f666 = new Vuelo("F66", "Maiden Ar", guarulhos, ezeiza, 
 			SSDate.p("20160320 8:15" ), SSDate.p("20160321 20:00" ) , 3000)
 			
@@ -145,14 +140,14 @@ class DBContext implements IDBContext {
 			))
 		]
 		
-		f666.obtenerAsientosDeFila(2).forEach[ asiento |  
-			asiento.tarifa.agregarDescuento(
-				new Descuento(
-					new DescuentoRegla72HsAntes(), 
-					new DescuentoPorcentaje(0.20f)
-				)
-			)
-		]
+//		f666.obtenerAsientosDeFila(2).forEach[ asiento |  
+//			asiento.tarifa.agregarDescuento(
+//				new Descuento(
+//					new DescuentoRegla72HsAntes(), 
+//					new DescuentoPorcentaje(0.20f)
+//				)
+//			)
+//		]
 
 		repoVuelos.agregarVuelo(n2346)
 		repoVuelos.agregarVuelo(i9573)

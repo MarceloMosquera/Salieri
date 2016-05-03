@@ -4,8 +4,11 @@ import edu.unsam.Salieri.Domain.Aerolinea
 import edu.unsam.Salieri.Domain.Aeropuerto
 import edu.unsam.Salieri.Domain.Asiento
 import edu.unsam.Salieri.Domain.Escala
+import edu.unsam.Salieri.Domain.ITarifa
 import edu.unsam.Salieri.Domain.Reserva
-import edu.unsam.Salieri.Domain.Tarifa
+import edu.unsam.Salieri.Domain.TarifaBandaNegativa
+import edu.unsam.Salieri.Domain.TarifaComun
+import edu.unsam.Salieri.Domain.TarifaEspecial
 import edu.unsam.Salieri.Domain.Usuario
 import edu.unsam.Salieri.Domain.Vuelo
 import java.util.List
@@ -22,7 +25,11 @@ abstract class RepoHybernateBase<T> {
 		.addAnnotatedClass(Asiento)
 		.addAnnotatedClass(Escala)
 		.addAnnotatedClass(Reserva)
-		.addAnnotatedClass(Tarifa)
+		.addAnnotatedClass(ITarifa)
+		.addAnnotatedClass(TarifaEspecial)
+		.addAnnotatedClass(TarifaBandaNegativa)
+		.addAnnotatedClass(TarifaComun)
+		
 		.addAnnotatedClass(Usuario)
 		.addAnnotatedClass(Vuelo)
 		.buildSessionFactory()

@@ -1,8 +1,10 @@
 package edu.unsam.Salieri.Domain
 
 import java.util.Date
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.ManyToOne
@@ -18,6 +20,7 @@ class Escala {
 	private Long id
 	@Column
 	int orden
+	//TODO
 	@ManyToOne
 	Aeropuerto aeropuerto
 	@Column

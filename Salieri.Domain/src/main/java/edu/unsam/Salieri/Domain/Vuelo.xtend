@@ -27,7 +27,7 @@ class Vuelo {
 	
 	@Column(length=20)
 	String aerolinea
-	
+
 	@ManyToOne
 	Aeropuerto origen
 	

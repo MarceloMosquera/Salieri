@@ -18,8 +18,10 @@ class Aeropuerto {
 
 	@Column
 	String nombre
+	
 	@Column
 	String ciudad
+	
 	@Column
 	String pais
 

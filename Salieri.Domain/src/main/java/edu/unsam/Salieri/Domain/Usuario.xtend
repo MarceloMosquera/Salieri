@@ -15,12 +15,11 @@ class Usuario {
 	@GeneratedValue
 	public Long id
 	
-// length TODO
-	@Column
+	@Column(length=20)
 	String nick
-	@Column
+	@Column(length=50)
 	String nombre
-	@Column
+	@Column(length=10)
 	String password
 
 	new() {

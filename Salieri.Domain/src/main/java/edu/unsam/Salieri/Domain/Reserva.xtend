@@ -4,10 +4,10 @@ import java.util.Date
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.ManyToOne
-import javax.persistence.OneToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -50,7 +50,6 @@ class Reserva {
 		asiento.reservar()
 	}
 	
-//1 kilo de papas, comprar fideos, masa de tarta x2// NO ME ODIES MARCE!!!!!
 	def boolean reservaDelUsuario(Usuario unUsuario) {
 		(!asiento.disponible) && (!estaDadoDeBaja) && usuario.equals(unUsuario)
 	}

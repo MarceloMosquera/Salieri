@@ -15,7 +15,7 @@ class SalieriBootstrap implements Bootstrap {
 	DBContextSql context = new DBContextSql
 
 	override isPending() {
-		true
+		false
 	}
 
 	override run() {
@@ -84,10 +84,11 @@ class SalieriBootstrap implements Bootstrap {
 				SSDate.p("20160316 13:00"),
 				SSDate.p("20160316 13:30")
 			))
-			obtenerAsientosDeFila(1).forEach [ asiento |
-				asiento.tarifa = new TarifaEspecial(tarifaDefault, 100)
-
-			]
+//			TODO: Explota en la busqueda cuando tiene tarifa.
+//			obtenerAsientosDeFila(1).forEach [ asiento |
+//				asiento.tarifa = new TarifaEspecial(tarifaDefault, 100)
+//
+//			]
 		]
 
 		var f666 = new Vuelo("F66", "Maiden Ar", guarulhos, ezeiza, SSDate.p("20160320 8:15"),

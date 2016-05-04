@@ -1,10 +1,14 @@
 package edu.unsam.Salieri.Domain
 
 import java.util.List
+import javax.persistence.CascadeType
+import javax.persistence.CollectionTable
 import javax.persistence.Column
+import javax.persistence.ElementCollection
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
@@ -23,9 +27,14 @@ class Asiento {
 	@Column
 	int ubicacion
 	
+	@ElementCollection
+	@CollectionTable(name="ubicacionesPosibles", joinColumns=@JoinColumn(name="asiento_id"))
+	@Column(name="ubicacionesPosibles")
 	transient static List<String> ubicacionesPosibles= #["Pasillo", "Centro", "Ventana"]
 	
-	@ManyToOne
+	
+// TODO: arreglar error de inicializacion de tarifas	
+	@ManyToOne(cascade=CascadeType.ALL)
 	ITarifa tarifa
 	
 	@ManyToOne

@@ -40,10 +40,10 @@ class Vuelo {
 	@Column
 	Date fechaArribo
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	List<Asiento> asientos
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	List<Escala> escalas
 	
 	@Column()

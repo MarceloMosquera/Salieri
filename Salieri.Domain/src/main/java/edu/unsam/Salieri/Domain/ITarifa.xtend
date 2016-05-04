@@ -17,7 +17,7 @@ import org.uqbar.commons.utils.Observable
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="tipoTarifa", discriminatorType=DiscriminatorType.INTEGER)
-@DiscriminatorValue("0")
+//@DiscriminatorValue("0")
 abstract class ITarifa {
 
 	@Id

@@ -17,18 +17,11 @@ import org.uqbar.commons.utils.Observable
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="tipoTarifa", discriminatorType=DiscriminatorType.INTEGER)
-//@DiscriminatorValue("0")
 abstract class ITarifa {
 
 	@Id
 	@GeneratedValue
 	private Long id
-
-	@Column
-	public float precioBase
-
-	@Column
-	public float descuentoTarifa
 
 	def float obtenerPrecio(Vuelo vuelo)
 
@@ -40,13 +33,18 @@ abstract class ITarifa {
 @DiscriminatorValue("1")
 class TarifaEspecial extends ITarifa {
 
-	new(float precio, float descuento) {
-		precioBase = precio
+	@Column
+	float descuentoTarifa
+
+	new() {
+	}
+
+	new(float descuento) {
 		descuentoTarifa = descuento
 	}
 
 	override obtenerPrecio(Vuelo vuelo) {
-		precioBase - descuentoTarifa
+		vuelo.tarifaDefault - descuentoTarifa
 	}
 
 }
@@ -60,15 +58,11 @@ class TarifaBandaNegativa extends ITarifa {
 	new() {
 	}
 
-	new(float precio) {
-		precioBase = precio
-	}
-
 	override obtenerPrecio(Vuelo vuelo) {
 		if (seDebeAplicar(vuelo)) {
-			(precioBase * 0.8).floatValue
+			(vuelo.tarifaDefault * 0.8).floatValue
 		} else {
-			(precioBase * 0.9).floatValue
+			(vuelo.tarifaDefault * 0.9).floatValue
 		}
 	}
 
@@ -91,12 +85,9 @@ class TarifaComun extends ITarifa {
 	new() {
 	}
 
-	new(float precio) {
-		precioBase = precio
-	}
 
 	override obtenerPrecio(Vuelo vuelo) {
-		precioBase
+		vuelo.tarifaDefault
 	}
 
 }

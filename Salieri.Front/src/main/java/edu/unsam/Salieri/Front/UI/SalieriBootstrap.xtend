@@ -85,10 +85,10 @@ class SalieriBootstrap implements Bootstrap {
 				SSDate.p("20160316 13:30")
 			))
 //			TODO: Explota en la busqueda cuando tiene tarifa.
-//			obtenerAsientosDeFila(1).forEach [ asiento |
-//				asiento.tarifa = new TarifaEspecial(tarifaDefault, 100)
-//
-//			]
+			obtenerAsientosDeFila(1).forEach [ asiento |
+				asiento.tarifa = new TarifaEspecial(100)
+
+			]
 		]
 
 		var f666 = new Vuelo("F66", "Maiden Ar", guarulhos, ezeiza, SSDate.p("20160320 8:15"),

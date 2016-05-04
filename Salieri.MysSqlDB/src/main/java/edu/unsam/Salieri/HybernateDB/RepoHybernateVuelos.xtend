@@ -26,7 +26,7 @@ class RepoHybernateVuelos extends RepoHybernateBase<Vuelo> implements IRepoVuelo
 	}
 	
 	override todos() {
-	allInstances
+	allInstances.toList
 	}
 
 }

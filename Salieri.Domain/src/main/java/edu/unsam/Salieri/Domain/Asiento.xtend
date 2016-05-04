@@ -46,7 +46,7 @@ class Asiento {
 		fila = laFila
 		ubicacion = laUbicacion
 		vuelo = elVuelo
-		tarifa = new TarifaComun(vuelo.tarifaDefault)
+		tarifa = new TarifaComun()
 		disponible = true
 	}
 	

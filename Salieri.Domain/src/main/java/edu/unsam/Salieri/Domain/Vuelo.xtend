@@ -2,7 +2,9 @@ package edu.unsam.Salieri.Domain
 
 import java.util.ArrayList
 import java.util.Date
+import java.util.HashSet
 import java.util.List
+import java.util.Set
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -44,7 +46,7 @@ class Vuelo {
 	List<Asiento> asientos
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	List<Escala> escalas
+	Set<Escala> escalas
 	
 	@Column()
 	float tarifaDefault
@@ -68,7 +70,7 @@ class Vuelo {
 		fechaArribo = laFechaArribo
 		tarifaDefault = laTarifa
 		asientos = new ArrayList
-		escalas = new ArrayList
+		escalas = new HashSet
 		generarAsientos()
 	}
 
@@ -127,6 +129,7 @@ class Vuelo {
 		escalas.add(unaEscala)
 		unaEscala.orden = escalas.size
 	}
+	
 	
 	def cantidadDeEscalas()
 	{

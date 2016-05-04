@@ -22,6 +22,7 @@ abstract class RepoHybernateBase<T> {
 	protected static final SessionFactory sessionFactory = new AnnotationConfiguration().configure()
 		.addAnnotatedClass(Aerolinea)
 		.addAnnotatedClass(Aeropuerto)
+		.addAnnotatedClass(Vuelo)
 		.addAnnotatedClass(Asiento)
 		.addAnnotatedClass(Escala)
 		.addAnnotatedClass(Reserva)
@@ -31,7 +32,6 @@ abstract class RepoHybernateBase<T> {
 		.addAnnotatedClass(TarifaComun)
 		
 		.addAnnotatedClass(Usuario)
-		.addAnnotatedClass(Vuelo)
 		.buildSessionFactory()
 
 	def List<T> allInstances() {

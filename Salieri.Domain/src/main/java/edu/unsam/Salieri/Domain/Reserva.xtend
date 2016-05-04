@@ -28,7 +28,7 @@ class Reserva {
 	@ManyToOne
 	Usuario usuario
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	Asiento asiento
 
 	@ManyToOne

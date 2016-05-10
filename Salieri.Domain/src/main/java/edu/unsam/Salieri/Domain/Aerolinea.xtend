@@ -26,6 +26,5 @@ class Aerolinea {
 		nombre = unNombre
 	}
 	
-	//commit de prueba
 
 }

@@ -11,7 +11,6 @@ import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -51,6 +50,7 @@ class Vuelo {
 	
 	@Column()
 	float tarifaDefault
+
 
 	new(){}
 
@@ -111,7 +111,7 @@ class Vuelo {
 
 	def boolean porMenosDe(float montoMax) {
 		montoMax == 0 ||
-		asientos.exists[ asi | asi.obtenerPrecio() <= montoMax ]  
+		asientos.exists[ asi | asi.obtenerPrecio() <= montoMax ] 
 	}
 	
 	def boolean saleDe(Aeropuerto aerop) {

@@ -7,7 +7,6 @@ import java.util.List
 import org.hibernate.Criteria
 import org.hibernate.FetchMode
 import org.hibernate.HibernateException
-import org.hibernate.criterion.Projections
 import org.hibernate.criterion.Restrictions
 
 class RepoHybernateReservas extends RepoHybernateBase<Reserva> implements IRepoReservas {
@@ -20,7 +19,7 @@ class RepoHybernateReservas extends RepoHybernateBase<Reserva> implements IRepoR
 	override addQueryByExample(Criteria criteria, Reserva reserva) {
 	}
 	
-		def Reserva searchById(Long id) {
+	def Reserva searchById(Long id) {
 		val session = openSession
 		try {
 			session.createCriteria(Reserva)

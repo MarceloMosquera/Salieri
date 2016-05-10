@@ -25,7 +25,7 @@ class RepoHybernateUsuarios extends RepoHybernateBase<Usuario> implements IRepoU
 	}
 	
 	override quitarUsuario(Usuario usuario) {
-//TODO: cuando se saca el usuario hay que borrar sus reservas??
+	//TODO: cuando se saca el usuario hay que borrar sus reservas??
 	}
 	
 	//TODO: Mejorar el query con .uniqueResult

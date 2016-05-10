@@ -22,7 +22,8 @@ class RepoHybernateAeropuertos extends RepoHybernateBase<Aeropuerto> implements 
 	override agregarAeropuerto(Aeropuerto unAeropuerto) {
 		create(unAeropuerto)
 	}
-//TODO: implementar
+	
+	//TODO: implementar
 	override quitarAeropuerto(Aeropuerto unAeropuerto) {
 	
 	}
@@ -36,7 +37,7 @@ class RepoHybernateAeropuertos extends RepoHybernateBase<Aeropuerto> implements 
 	}
 
 	override Aeropuerto buscarAeropuertoPorNombre(String aeropuertoNombre) {
-				val aeropuertoEjemplo =new Aeropuerto(aeropuertoNombre,"","")
+		val aeropuertoEjemplo =new Aeropuerto(aeropuertoNombre,"","")
 		val session = sessionFactory.openSession
 		try {
 			val criteria = session.createCriteria(getEntityType)
@@ -48,5 +49,17 @@ class RepoHybernateAeropuertos extends RepoHybernateBase<Aeropuerto> implements 
 			session.close
 		}
 	}
-
+	
+		def searchById(Long id) {
+		val session = openSession
+		try {
+			session.createCriteria(Aeropuerto)
+				.add(Restrictions.eq("id", id))
+				.uniqueResult as Aeropuerto
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
 }

@@ -33,7 +33,6 @@ class Asiento {
 	transient static List<String> ubicacionesPosibles= #["Pasillo", "Centro", "Ventana"]
 	
 	
-// TODO: arreglar error de inicializacion de tarifas	
 	@ManyToOne(cascade=CascadeType.ALL)
 	ITarifa tarifa
 	

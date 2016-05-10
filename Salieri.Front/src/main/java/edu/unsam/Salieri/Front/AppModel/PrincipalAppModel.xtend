@@ -20,6 +20,7 @@ class PrincipalAppModel extends BaseAppModel{
 		this.DBContext().repoReservas.buscarReservaDelUsuario(usuarioLogueado())
 	}
 
+//TODO: No funciona cancelar
 @Dependencies("reservasEfectuadas,reservaSeleccionada")
 	def void cancelarReserva(){
 		this.DBContext().repoReservas.quitarReserva(reservaSeleccionada)

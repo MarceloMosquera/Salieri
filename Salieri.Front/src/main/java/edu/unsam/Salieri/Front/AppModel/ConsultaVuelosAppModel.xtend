@@ -12,30 +12,32 @@ import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
-class ConsultaVuelosAppModel extends BaseAppModel{
+class ConsultaVuelosAppModel extends BaseAppModel {
 
- 	String mensaje
+	String mensaje
 	VueloBusqueda vueloBusqueda = new VueloBusqueda
 	List<Vuelo> vuelosEncontrados = new ArrayList<Vuelo>
 	Vuelo vueloSeleccionado = null
-	
-	def List<Aeropuerto> aeropuertosOrigen(){
-		this.DBContext().repoAeropuertos.todos()
-	}
-	def List<Aeropuerto> aeropuertosDestino(){
-		this.DBContext().repoAeropuertos.todos()
-	}
-	
 
+	def List<Aeropuerto> aeropuertosOrigen() {
+		this.DBContext().repoAeropuertos.todos()
+	}
+
+	def List<Aeropuerto> aeropuertosDestino() {
+		this.DBContext().repoAeropuertos.todos()
+	}
+
+	// TODO: no funciona origen y destino
 	def buscar() {
 		vuelosEncontrados = null
 		vuelosEncontrados = vueloBusqueda.buscarVuelos(this.DBContext().repoVuelos.todos())
 	}
 
 	@Dependencies("vuelosEncontrados")
-	def void actualizarLista(){
+	def void actualizarLista() {
 		ObservableUtils.firePropertyChanged(this, "vuelosEncontrados", buscar())
-				ObservableUtils.firePropertyChanged(this, "vueloSeleccionado", getVueloSeleccionado())
+		ObservableUtils.firePropertyChanged(this, "vueloSeleccionado", getVueloSeleccionado())
 	}
-	
+
+
 }

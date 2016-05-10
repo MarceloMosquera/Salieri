@@ -20,7 +20,6 @@ class Escala {
 	private Long id
 	@Column
 	int orden
-	//TODO
 	@ManyToOne
 	Aeropuerto aeropuerto
 	@Column

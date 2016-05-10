@@ -23,7 +23,7 @@ class RepoHybernateReservas extends RepoHybernateBase<Reserva> implements IRepoR
 		val session = openSession
 		try {
 			session.createCriteria(Reserva)
-				.setFetchMode("usuario", FetchMode.JOIN)
+				.setFetchMode("usuario", FetchMode.SELECT)
 				.add(Restrictions.eq("id", id))
 				.uniqueResult as Reserva
 		} catch (HibernateException e) {
@@ -45,8 +45,8 @@ class RepoHybernateReservas extends RepoHybernateBase<Reserva> implements IRepoR
 		val session = openSession
 		try {
 			session.createCriteria(Reserva)
-				.setFetchMode("usuario", FetchMode.JOIN)
-				.add(Restrictions.eq("id", unUsuario.id)).list
+				.setFetchMode("usuario", FetchMode.DEFAULT)
+				.add(Restrictions.eq("usuario.id", unUsuario.id)).list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
 		} finally {

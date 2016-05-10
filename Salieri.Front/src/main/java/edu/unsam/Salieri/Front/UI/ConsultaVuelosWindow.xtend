@@ -27,7 +27,6 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 
 	new(WindowOwner owner, ConsultaVuelosAppModel model) {
 		super(owner, model)
-//		super(parent, new ConsultaVuelosAppModel)
 		title = "Consulta de Vuelos"
 	}
 
@@ -74,7 +73,6 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 
 	def createGrillaVuelosEncontrados(Panel mainPanel) {
 		var panelVertical1 = new Panel(mainPanel).layout = new VerticalLayout
-//		var panelHorizonal1 = new Panel(mainPanel).layout = new HorizontalLayout
 		
 		new Label(panelVertical1 ) => [
 			text = "Vuelos"
@@ -154,7 +152,6 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 		new TextBox(searchFormPanel) => [
 			width = 150
 			value <=> "vueloBusqueda.fechaMax"
-		// transformer = new DateAdapter
 		]
 
 		new Label(searchFormPanel).text = "$ maximo"

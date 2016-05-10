@@ -18,83 +18,76 @@ import org.uqbar.arena.windows.Dialog
 import edu.unsam.Salieri.Front.AppModel.ConsultaVuelosAppModel
 
 class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
-	
+
 	new(WindowOwner parent) {
 		super(parent, new PrincipalAppModel)
 		title = "Pantalla principal"
 	}
-	
+
 	override protected addActions(Panel actionsPanel) {
 		val panel = new Panel(actionsPanel).layout = new VerticalLayout
 
 		this.createGrillaReservasEfectuadas(panel)
 		this.createBotones(panel)
-		
+
 	}
-	
+
 	def createBotones(Panel panel) {
 		val elementSelected = new NotNullObservable("reservaSeleccionada")
-		
+
 		var panelHorizonal1 = new Panel(panel).layout = new HorizontalLayout
 		new Button(panelHorizonal1) => [
 			caption = "Cancelar Reserva"
 			width = 150
-			onClick [ | modelObject.cancelarReserva ]
+			onClick [|modelObject.cancelarReserva]
 			background = Color.darkGray
 			bindEnabled(elementSelected)
 		]
-		
-		
+
 		var panelHorizonal2 = new Panel(panel).layout = new HorizontalLayout
-		
-		new Label(panelHorizonal2)=>[
-			text =  ""
+
+		new Label(panelHorizonal2) => [
+			text = ""
 			width = 30
 		]
-		
+
 		new Button(panelHorizonal2) => [
 			caption = "Busqueda de vuelos"
 			width = 350
-			onClick [ | buscarVuelos ]
+			onClick [|buscarVuelos]
 			background = Color.BLUE
 		]
-		
+
 		new Button(panelHorizonal2) => [
 			caption = "Log de consultas hechas"
 			width = 350
-			onClick [ | consultaLogs ]
+			onClick [|consultaLogs]
 			setAsDefault
 			background = Color.ORANGE
 		]
 	}
-	
+
 	def buscarVuelos() {
-//		new ConsultaVuelosWindow(this).open
-//		super.close
-this.openDialog(new ConsultaVuelosWindow(
-					this,
-					new ConsultaVuelosAppModel())
-					)
-					
+		this.openDialog(
+			new ConsultaVuelosWindow(this, new ConsultaVuelosAppModel())
+		)
+
 	}
-	
+
 	def openDialog(Dialog<?> dialog) {
 		dialog.onAccept[|modelObject.actualizarLista]
 		dialog.open
 	}
-	
+
 	def consultaLogs() {
 		null
 	}
-		
-	def createGrillaReservasEfectuadas(Panel mainPanel) {
-//		new Label(mainPanel).bindValueToProperty("labelResultado")
 
-		new Label(mainPanel)=>[
-			text =  "Reservas Efectuadas"
+	def createGrillaReservasEfectuadas(Panel mainPanel) {
+		new Label(mainPanel) => [
+			text = "Reservas Efectuadas"
 		]
 		val gridReceta = new Table(mainPanel, typeof(Reserva)) => [
-//			width = 2000
 			height = 200
 			numberVisibleRows = 3
 			bindItemsToProperty("reservasEfectuadas")
@@ -106,73 +99,53 @@ this.openDialog(new ConsultaVuelosWindow(
 			title = "Origen"
 			bindContentsToProperty("vuelo.origen")
 		]
-		
+
 		new Column<Reserva>(gridReceta) => [
 			fixedSize = 150
 			title = "Destino"
 			bindContentsToProperty("vuelo.destino")
 		]
-		
+
 		new Column<Reserva>(gridReceta) => [
 			fixedSize = 120
 			title = "Salida"
-			bindContentsToProperty("vuelo.fechaSalida").transformer = [ fecha | SSDate.toShow(fecha)]
-			]
-			
+			bindContentsToProperty("vuelo.fechaSalida").transformer = [fecha|SSDate.toShow(fecha)]
+		]
+
 		new Column<Reserva>(gridReceta) => [
 			fixedSize = 120
 			title = "Llegada"
-			bindContentsToProperty("vuelo.fechaArribo").transformer = [ fecha | SSDate.toShow(fecha)]
-			]
-		
+			bindContentsToProperty("vuelo.fechaArribo").transformer = [fecha|SSDate.toShow(fecha)]
+		]
+
 		new Column<Reserva>(gridReceta) => [
 			fixedSize = 80
 			title = "Tramos"
 			bindContentsToProperty("vuelo.cantidadDeEscalas")
-			]
-			
+		]
+
 		new Column<Reserva>(gridReceta) => [
 			fixedSize = 120
 			title = "Asiento Reservado"
 			bindContentsToProperty("asiento")
-			]	
-//			new Column<Reserva>(gridReceta) => [
-//			fixedSize = 150
-//			title = "Salida"
-//			bindContentsToProperty("salida")
-//			bindBackground("acceso").transformer = [ Object recibe |
-//				if ((recibe as RecetaAcceso).usuarioCarga.equals(modelObject.usuarioLogIn)) {
-//					Color.GREEN
-//				} else if (modelObject.usuarioLogIn.grupos.exists[u|
-//					u.participantes.exists [ p |
-//						p.nombre.toLowerCase.contains(
-//							(recibe as RecetaAcceso).usuarioCarga.nombre.toLowerCase
-//						)
-//					]]) {
-//					Color.BLUE
-//				} else {
-//					Color.LIGHT_GRAY
-//				}
-//			]
-		
-
+		]
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
 		val panelTexto = new Panel(mainPanel)
-		
+
 		val subpanelTexto = new Panel(panelTexto)
 		subpanelTexto.layout = new HorizontalLayout
-		
-		new Label(subpanelTexto)=>[
-			text =  "Usuario : "
+
+		new Label(subpanelTexto) => [
+			text = "Usuario : "
 		]
 		new Label(subpanelTexto).bindValueToProperty("usuarioLogueado")
 	}
-	
-    override close() {
-        super.close()
+
+	override close() {
+		super.close()
 		new LoginWindow(this).open
-    }
-    	
+	}
+
 }

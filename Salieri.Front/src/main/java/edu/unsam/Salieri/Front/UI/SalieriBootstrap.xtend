@@ -84,7 +84,6 @@ class SalieriBootstrap implements Bootstrap {
 				SSDate.p("20160316 13:00"),
 				SSDate.p("20160316 13:30")
 			))
-//			TODO: Explota en la busqueda cuando tiene tarifa.
 			obtenerAsientosDeFila(1).forEach [ asiento |
 				asiento.tarifa = new TarifaEspecial(100)
 
@@ -115,17 +114,20 @@ class SalieriBootstrap implements Bootstrap {
 		context.repoVuelos.agregarVuelo(n2346)
 		context.repoVuelos.agregarVuelo(i9573)
 		context.repoVuelos.agregarVuelo(f956)
+		context.repoVuelos.agregarVuelo(f666)
 
 		val asiento1 = n2346.obtenerAsiento(1, 0)
 		val asiento2 = n2346.obtenerAsiento(1, 1)
 		val asiento3 = i9573.obtenerAsiento(1, 2)
 		val asiento4 = i9573.obtenerAsiento(2, 0)
-
+		val asiento5 = f956.obtenerAsiento(1,0)
+		val asiento6 = n2346.obtenerAsiento(2,1)
 		context.repoReservas.agregarReserva(new Reserva(asiento1, ivan, n2346))
+		context.repoReservas.agregarReserva(new Reserva(asiento5, ivan, f956))
 		context.repoReservas.agregarReserva(new Reserva(asiento2, diego, n2346))
 		context.repoReservas.agregarReserva(new Reserva(asiento3, nicolas, i9573))
+		context.repoReservas.agregarReserva(new Reserva(asiento6, nicolas, n2346))
 		context.repoReservas.agregarReserva(new Reserva(asiento4, marcelo, i9573))
-
 	}
 
 }

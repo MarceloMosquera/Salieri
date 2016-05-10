@@ -7,6 +7,7 @@ import java.util.List
 import org.hibernate.Criteria
 import org.hibernate.FetchMode
 import org.hibernate.HibernateException
+import org.hibernate.criterion.Projections
 import org.hibernate.criterion.Restrictions
 
 class RepoHybernateReservas extends RepoHybernateBase<Reserva> implements IRepoReservas {
@@ -45,8 +46,9 @@ class RepoHybernateReservas extends RepoHybernateBase<Reserva> implements IRepoR
 		val session = openSession
 		try {
 			session.createCriteria(Reserva)
-				.setFetchMode("usuario", FetchMode.DEFAULT)
+				.setFetchMode("vuelo", FetchMode.JOIN)
 				.add(Restrictions.eq("usuario.id", unUsuario.id)).list
+				
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
 		} finally {

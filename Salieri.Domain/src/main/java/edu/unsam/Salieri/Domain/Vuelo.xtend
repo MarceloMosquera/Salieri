@@ -46,7 +46,7 @@ class Vuelo {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	List<Asiento> asientos
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	Set<Escala> escalas
 	
 	@Column()

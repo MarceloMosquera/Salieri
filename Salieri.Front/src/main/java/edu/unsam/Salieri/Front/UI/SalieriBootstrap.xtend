@@ -34,11 +34,13 @@ class SalieriBootstrap implements Bootstrap {
 			agregarUsuarioConContraseña(marcelo, "marcelo")
 		]
 
+		val vacio = new Aeropuerto("", "", "")
 		val ezeiza = new Aeropuerto("Ezeiza (EZE)", "Buenos Aires", "Argentina")
 		val marDelPlata = new Aeropuerto("Mar del Plata (MDQ)", "Buenos Aires", "Argentina")
 		val mendoza = new Aeropuerto("Mendoza (MDZ)", "Mendoza", "Argentina")
 		val guarulhos = new Aeropuerto("Aeropuerto Internacional de Guarulhos (GRU)", "São Paulo", "Brasil")
 		context.repoAeropuertos => [
+			agregarAeropuerto(vacio)
 			agregarAeropuerto(ezeiza)
 			agregarAeropuerto(marDelPlata)
 			agregarAeropuerto(mendoza)

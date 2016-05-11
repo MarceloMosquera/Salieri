@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import org.hibernate.annotations.Fetch
+import org.hibernate.annotations.FetchMode
 
 @Accessors
 @Observable
@@ -46,6 +48,7 @@ class Vuelo {
 	List<Asiento> asientos
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	Set<Escala> escalas
 	
 	@Column()

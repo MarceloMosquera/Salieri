@@ -118,10 +118,10 @@ class Vuelo {
 	}
 	
 	def boolean saleDe(Aeropuerto aerop) {
-		aerop == null || aerop.equals(Aeropuerto.aeropuertoVacio) || origen.equals(aerop)
+		aerop == null || aerop.nombre.equals("") || origen.nombre.equals(aerop.nombre)
 	}
 	def boolean pasaPor(Aeropuerto aerop) {
-		aerop == null || aerop.equals(Aeropuerto.aeropuertoVacio) || destino.equals(aerop)
+		aerop == null || aerop.nombre.equals("") || destino.nombre.equals(aerop.nombre)
 		|| escalas.exists[escala | escala.enAeropuerto(aerop)  ]
 	}
 

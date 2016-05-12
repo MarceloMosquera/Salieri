@@ -36,7 +36,7 @@ class Escala {
 	}
 
 	def boolean enAeropuerto(Aeropuerto unAeropuerto) {
-		aeropuerto.equals(unAeropuerto)
+		aeropuerto.nombre.equals(unAeropuerto.nombre)
 	}
 
 }

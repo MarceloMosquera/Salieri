@@ -27,7 +27,6 @@ class ConsultaVuelosAppModel extends BaseAppModel {
 		this.DBContext().repoAeropuertos.todos()
 	}
 
-	// TODO: no funciona origen y destino
 	def buscar() {
 		vuelosEncontrados = null
 		vuelosEncontrados = vueloBusqueda.buscarVuelos(this.DBContext().repoVuelos.todos())

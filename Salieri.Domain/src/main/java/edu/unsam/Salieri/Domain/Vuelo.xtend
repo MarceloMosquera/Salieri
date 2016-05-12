@@ -44,7 +44,8 @@ class Vuelo {
 	@Column
 	Date fechaArribo
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	List<Asiento> asientos
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)

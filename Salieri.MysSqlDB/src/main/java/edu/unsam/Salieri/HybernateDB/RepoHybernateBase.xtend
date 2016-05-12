@@ -39,7 +39,7 @@ abstract class RepoHybernateBase<T> {
 		try {
 			return session.createCriteria(getEntityType).list()
 		} finally {
-//			session.close
+			session.close
 		}
 	}
 	

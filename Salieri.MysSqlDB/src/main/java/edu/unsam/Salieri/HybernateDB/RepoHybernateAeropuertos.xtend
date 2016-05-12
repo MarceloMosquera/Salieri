@@ -23,9 +23,7 @@ class RepoHybernateAeropuertos extends RepoHybernateBase<Aeropuerto> implements 
 		create(unAeropuerto)
 	}
 	
-	//TODO: implementar
 	override quitarAeropuerto(Aeropuerto unAeropuerto) {
-	
 	}
 
 	override List<Aeropuerto> todos() {
@@ -33,7 +31,6 @@ class RepoHybernateAeropuertos extends RepoHybernateBase<Aeropuerto> implements 
 	}
 
 	override List<Aeropuerto> todosSinVacio() {
-		//TODO: Implemetntar todosSinVacio
 	}
 
 	override Aeropuerto buscarAeropuertoPorNombre(String aeropuertoNombre) {

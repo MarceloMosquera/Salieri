@@ -35,7 +35,7 @@ class Reserva {
 	Vuelo vuelo
 
 	def void cancelar() {
-		asiento.setDisponible(true)
+		asiento.liberar()
 		fechaBaja = new Date()
 	}
 	

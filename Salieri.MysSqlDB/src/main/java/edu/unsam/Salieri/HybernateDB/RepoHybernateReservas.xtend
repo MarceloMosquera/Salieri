@@ -17,7 +17,6 @@ class RepoHybernateReservas extends RepoHybernateBase<Reserva> implements IRepoR
 		typeof(Reserva)
 	}
 
-	// TODO : ver como implementar esta query
 	override addQueryByExample(Criteria criteria, Reserva reserva) {
 	}
 
@@ -38,8 +37,7 @@ class RepoHybernateReservas extends RepoHybernateBase<Reserva> implements IRepoR
 	}
 
 	override void quitarReserva(Reserva unaReserva) {
-		unaReserva.fechaBaja = new Date()
-		unaReserva.asiento.liberar()
+		unaReserva.cancelar()
 		update(unaReserva)
 	}
 

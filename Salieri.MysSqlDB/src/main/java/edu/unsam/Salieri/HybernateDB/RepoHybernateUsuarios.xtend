@@ -28,14 +28,13 @@ class RepoHybernateUsuarios extends RepoHybernateBase<Usuario> implements IRepoU
 	//TODO: cuando se saca el usuario hay que borrar sus reservas??
 	}
 	
-	//TODO: Mejorar el query con .uniqueResult
 	override obtenerUsuario(String nombre) {
 		val usuarioEjemplo =new Usuario(nombre)
-		val session = sessionFactory.openSession
+		val session = openSession
 		try {
-			val criteria = session.createCriteria(getEntityType)
-			this.addQueryByExample(criteria, usuarioEjemplo)
-			return criteria.list().head
+			session.createCriteria(getEntityType)
+			.add(Restrictions.eq("nombre", usuarioEjemplo.nombre)).
+				uniqueResult as Usuario
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
 		} finally {

@@ -49,6 +49,13 @@ class Asiento {
 		disponible = true
 	}
 	
+	def void liberar() {
+		if (disponible) {
+			throw new BusinessException("El asiento ya se encuentra liberada.")
+		}
+		disponible = true
+	}
+	
 	def void reservar() {
 		if (disponible) {
 			disponible = false

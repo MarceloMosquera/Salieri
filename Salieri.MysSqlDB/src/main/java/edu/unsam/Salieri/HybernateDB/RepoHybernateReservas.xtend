@@ -39,6 +39,7 @@ class RepoHybernateReservas extends RepoHybernateBase<Reserva> implements IRepoR
 
 	override void quitarReserva(Reserva unaReserva) {
 		unaReserva.fechaBaja = new Date()
+		unaReserva.asiento.liberar()
 		update(unaReserva)
 	}
 

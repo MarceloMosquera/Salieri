@@ -10,6 +10,7 @@ import edu.unsam.Salieri.Util.SSDate
 import java.util.Date
 import org.uqbar.arena.bootstrap.Bootstrap
 import edu.unsam.Salieri.Domain.TarifaEspecial
+import edu.unsam.Salieri.Domain.TarifaBandaNegativa
 
 class SalieriBootstrap implements Bootstrap {
 	DBContextSql context = new DBContextSql
@@ -19,7 +20,9 @@ class SalieriBootstrap implements Bootstrap {
 	}
 
 	override run() {
+		if (isPending) {			
 		init
+		}
 	}
 
 	def void init() {
@@ -64,52 +67,57 @@ class SalieriBootstrap implements Bootstrap {
 		]
 
 		val n2346 = new Vuelo("N2346", "LAN AR", ezeiza, mendoza, new Date(), SSDate.p("20160630 10:00"), 500)
-		val i9573 = new Vuelo("I9573", "Aerolinas Argentinas", marDelPlata, guarulhos, SSDate.p("20160316 8:15"),
-			SSDate.p("20160316 18:00"), 1000)
+		val i9573 = new Vuelo("I9573", "Aerolinas Argentinas", marDelPlata, guarulhos, SSDate.p("20160516 8:15"),
+			SSDate.p("20160516 18:00"), 1000)
 
-		var f956 = new Vuelo("F956", "Indio Ar", ezeiza, guarulhos, SSDate.p("20160315 8:15"),
-			SSDate.p("20160316 20:00"), 2000)
+		var f956 = new Vuelo("F956", "Indio Ar", ezeiza, guarulhos, SSDate.p("20160515 8:15"),
+			SSDate.p("20160516 20:00"), 2000)
 
 		f956 => [
 			agregarEscala(new Escala(
 				context.repoAeropuertos.buscarAeropuertoPorNombre("El Calafate (FTE)"),
-				SSDate.p("20160315 17:00"),
-				SSDate.p("20160315 17:30")
+				SSDate.p("20160515 17:00"),
+				SSDate.p("20160515 17:30")
 			))
 			agregarEscala(new Escala(
 				context.repoAeropuertos.buscarAeropuertoPorNombre("El Bolsón (EHL)"),
-				SSDate.p("20160316 01:00"),
-				SSDate.p("20160316 01:30")
+				SSDate.p("20160516 01:00"),
+				SSDate.p("20160516 01:30")
 			))
 			agregarEscala(new Escala(
 				context.repoAeropuertos.buscarAeropuertoPorNombre("Dolores (VDR)"),
-				SSDate.p("20160316 13:00"),
-				SSDate.p("20160316 13:30")
+				SSDate.p("20160516 13:00"),
+				SSDate.p("20160516 13:30")
 			))
 			obtenerAsientosDeFila(1).forEach [ asiento |
 				asiento.tarifa = new TarifaEspecial(100)
 
 			]
+			obtenerAsientosDeFila(4).forEach [ asiento |
+				asiento.tarifa = new TarifaBandaNegativa
+
+			]
+						
 		]
 
-		var f666 = new Vuelo("F66", "Maiden Ar", guarulhos, ezeiza, SSDate.p("20160320 8:15"),
-			SSDate.p("20160321 20:00"), 3000)
+		var f666 = new Vuelo("F66", "Maiden Ar", guarulhos, ezeiza, SSDate.p("20160520 8:15"),
+			SSDate.p("20160521 20:00"), 3000)
 
 		f666 => [
 			agregarEscala(new Escala(
 				context.repoAeropuertos.buscarAeropuertoPorNombre("Dolores (VDR)"),
-				SSDate.p("20160320 13:00"),
-				SSDate.p("20160320 13:30")
+				SSDate.p("20160520 13:00"),
+				SSDate.p("20160520 13:30")
 			))
 			agregarEscala(new Escala(
 				context.repoAeropuertos.buscarAeropuertoPorNombre("El Bolsón (EHL)"),
-				SSDate.p("20160321 01:00"),
-				SSDate.p("20160321 01:30")
+				SSDate.p("20160521 01:00"),
+				SSDate.p("20160521 01:30")
 			))
 			agregarEscala(new Escala(
 				context.repoAeropuertos.buscarAeropuertoPorNombre("El Calafate (FTE)"),
-				SSDate.p("20160321 17:00"),
-				SSDate.p("20160321 17:30")
+				SSDate.p("20160521 17:00"),
+				SSDate.p("20160521 17:30")
 			))
 		]
 

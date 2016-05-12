@@ -56,6 +56,12 @@ abstract class RepoHybernateBase<T> {
 		}
 	}
 	
+//	def createIfNotExist(T t){
+//		val todos= allInstances
+//		if(!todos.contains(t)){
+//			create(t)	
+//		}
+//	}
 	def void create(T t) {
 		val session = sessionFactory.openSession
 		try {
@@ -69,6 +75,7 @@ abstract class RepoHybernateBase<T> {
 			session.close
 		}
 	}
+
 
 	def void update(T t) {
 		val session = sessionFactory.openSession

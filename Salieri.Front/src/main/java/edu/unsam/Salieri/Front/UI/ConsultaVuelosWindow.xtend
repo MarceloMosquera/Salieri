@@ -36,91 +36,9 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 		this.createGrillaVuelosEncontrados(panel)
 		this.createBotones(panel)
 	}
-
-	def createBotones(Panel panel) {
-		val elementSelected = new NotNullObservable("vueloSeleccionado")
-
-
-		var panelVertical1 = new Panel(panel).layout = new VerticalLayout
-
-		new Label(panelVertical1 ) => [
-			text = "Acciones"
-		]
-		
-		new Button(panelVertical1) => [
-			caption = "Reservar"
-			width = 150
-			onClick [|
-//				modelObject.guardarConsulta(vueloSeleccionado)
-				this.openDialog(new DetalleVueloWindow(
-					this,
-					new DetalleVueloAppModel(modelObject.vueloSeleccionado, modelObject.vueloBusqueda.montoMax )
-				))
-			]
-			bindEnabled(elementSelected)
-		]
-		
-		new Button(panelVertical1) => [
-			caption = "Volver"
-			width = 150
-			onClick [|
-//				modelObject.guardarConsulta(vueloSeleccionado)
-				accept
-			]
-		]
-
-	}
-
-	def createGrillaVuelosEncontrados(Panel mainPanel) {
-		var panelVertical1 = new Panel(mainPanel).layout = new VerticalLayout
-		
-		new Label(panelVertical1 ) => [
-			text = "Vuelos"
-		]
-		val gridVuelos = new Table(panelVertical1 , typeof(Vuelo)) => [
-			height = 200
-			numberVisibleRows = 6
-			bindItemsToProperty("vuelosEncontrados")
-			bindValueToProperty("vueloSeleccionado")
-		]
-
-		new Column<Vuelo>(gridVuelos) => [
-			fixedSize = 150
-			title = "Origen"
-			bindContentsToProperty("origen")
-		]
-
-		new Column<Vuelo>(gridVuelos) => [
-			fixedSize = 150
-			title = "Destino"
-			bindContentsToProperty("destino")
-		]
-
-		new Column<Vuelo>(gridVuelos) => [
-			fixedSize = 120
-			title = "Salida"
-			bindContentsToProperty("fechaSalida").transformer = [fecha|SSDate.toShow(fecha)]
-		]
-
-		new Column<Vuelo>(gridVuelos) => [
-			fixedSize = 120
-			title = "Llegada"
-			bindContentsToProperty("fechaArribo").transformer = [fecha|SSDate.toShow(fecha)]
-		]
-
-		new Column<Vuelo>(gridVuelos) => [
-			fixedSize = 80
-			title = "Tramos"
-			bindContentsToProperty("cantidadDeEscalas")
-		]
-
-		new Column<Vuelo>(gridVuelos) => [
-			fixedSize = 120
-			title = "Asientos Libres"
-			bindContentsToProperty("cantidadAsientosLibres")
-		]
-	}
-
+	
+	
+	
 	override protected createFormPanel(Panel mainPanel) {
 		val panelTexto = new Panel(mainPanel)
 		panelTexto.layout = new HorizontalLayout
@@ -168,6 +86,100 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 		]
 
 	}
+
+	
+
+	def createGrillaVuelosEncontrados(Panel mainPanel) {
+		var panelVertical1 = new Panel(mainPanel).layout = new VerticalLayout
+		
+		new Label(panelVertical1 ) => [
+			text = "Vuelos"
+		]
+		val gridVuelos = new Table(panelVertical1 , typeof(Vuelo)) => [
+			height = 200
+			numberVisibleRows = 6
+			bindItemsToProperty("vuelosEncontrados")
+			bindValueToProperty("vueloSeleccionado")
+		]
+		
+		new Column<Vuelo>(gridVuelos) => [
+			fixedSize = 150
+			title = "Nombre"
+			bindContentsToProperty("nroVuelo")
+		]
+		
+		new Column<Vuelo>(gridVuelos) => [
+			fixedSize = 150
+			title = "Origen"
+			bindContentsToProperty("origen")
+		]
+
+		new Column<Vuelo>(gridVuelos) => [
+			fixedSize = 150
+			title = "Destino"
+			bindContentsToProperty("destino")
+		]
+
+		new Column<Vuelo>(gridVuelos) => [
+			fixedSize = 120
+			title = "Salida"
+			bindContentsToProperty("fechaSalida").transformer = [fecha|SSDate.toShow(fecha)]
+		]
+
+		new Column<Vuelo>(gridVuelos) => [
+			fixedSize = 120
+			title = "Llegada"
+			bindContentsToProperty("fechaArribo").transformer = [fecha|SSDate.toShow(fecha)]
+		]
+
+		new Column<Vuelo>(gridVuelos) => [
+			fixedSize = 80
+			title = "Tramos"
+			bindContentsToProperty("cantidadDeEscalas")
+		]
+
+		new Column<Vuelo>(gridVuelos) => [
+			fixedSize = 120
+			title = "Asientos Libres"
+			bindContentsToProperty("cantidadAsientosLibres")
+		]
+	}
+	
+	def createBotones(Panel panel) {
+		val elementSelected = new NotNullObservable("vueloSeleccionado")
+
+
+		var panelVertical1 = new Panel(panel).layout = new VerticalLayout
+
+		new Label(panelVertical1 ) => [
+			text = "Acciones"
+		]
+		
+		new Button(panelVertical1) => [
+			caption = "Reservar"
+			width = 150
+			onClick [|
+//				modelObject.guardarConsulta(vueloSeleccionado)
+				this.openDialog(new DetalleVueloWindow(
+					this,
+					new DetalleVueloAppModel(modelObject.vueloSeleccionado, modelObject.vueloBusqueda.montoMax )
+				))
+			]
+			bindEnabled(elementSelected)
+		]
+		
+		new Button(panelVertical1) => [
+			caption = "Volver"
+			width = 150
+			onClick [|
+//				modelObject.guardarConsulta(vueloSeleccionado)
+				accept
+			]
+		]
+
+	}
+
+	
 
 	def openDialog(Dialog<?> dialog) {
 		dialog.onAccept[|modelObject.actualizarLista]

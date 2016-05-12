@@ -32,6 +32,74 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 
 	}
 
+	override protected createFormPanel(Panel mainPanel) {
+		val panelTexto = new Panel(mainPanel)
+
+		val subpanelTexto = new Panel(panelTexto)
+		subpanelTexto.layout = new HorizontalLayout
+
+		new Label(subpanelTexto) => [
+			text = "Usuario : "
+		]
+		new Label(subpanelTexto).bindValueToProperty("usuarioLogueado")
+	}
+	
+
+	def createGrillaReservasEfectuadas(Panel mainPanel) {
+		new Label(mainPanel) => [
+			text = "Reservas Efectuadas"
+		]
+		val gridReceta = new Table(mainPanel, typeof(Reserva)) => [
+			height = 200
+			numberVisibleRows = 6
+			bindItemsToProperty("reservasEfectuadas")
+			bindValueToProperty("reservaSeleccionada")
+		]
+
+		new Column<Reserva>(gridReceta) => [
+			fixedSize = 150
+			title = "Vuelo"
+			bindContentsToProperty("vuelo.nroVuelo")
+		]
+		
+		new Column<Reserva>(gridReceta) => [
+			fixedSize = 150
+			title = "Origen"
+			bindContentsToProperty("vuelo.origen")
+		]
+
+		new Column<Reserva>(gridReceta) => [
+			fixedSize = 150
+			title = "Destino"
+			bindContentsToProperty("vuelo.destino")
+		]
+
+		new Column<Reserva>(gridReceta) => [
+			fixedSize = 120
+			title = "Salida"
+			bindContentsToProperty("vuelo.fechaSalida").transformer = [fecha|SSDate.toShow(fecha)]
+		]
+
+		new Column<Reserva>(gridReceta) => [
+			fixedSize = 120
+			title = "Llegada"
+			bindContentsToProperty("vuelo.fechaArribo").transformer = [fecha|SSDate.toShow(fecha)]
+		]
+
+		new Column<Reserva>(gridReceta) => [
+			fixedSize = 80
+			title = "Tramos"
+			bindContentsToProperty("vuelo.cantidadDeEscalas")
+		]
+
+		new Column<Reserva>(gridReceta) => [
+			fixedSize = 120
+			title = "Asiento Reservado"
+			bindContentsToProperty("asiento")
+		]
+	}
+
+	
 	def createBotones(Panel panel) {
 		val elementSelected = new NotNullObservable("reservaSeleccionada")
 
@@ -81,66 +149,6 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 
 	def consultaLogs() {
 		null
-	}
-
-	def createGrillaReservasEfectuadas(Panel mainPanel) {
-		new Label(mainPanel) => [
-			text = "Reservas Efectuadas"
-		]
-		val gridReceta = new Table(mainPanel, typeof(Reserva)) => [
-			height = 200
-			numberVisibleRows = 3
-			bindItemsToProperty("reservasEfectuadas")
-			bindValueToProperty("reservaSeleccionada")
-		]
-
-		new Column<Reserva>(gridReceta) => [
-			fixedSize = 150
-			title = "Origen"
-			bindContentsToProperty("vuelo.origen")
-		]
-
-		new Column<Reserva>(gridReceta) => [
-			fixedSize = 150
-			title = "Destino"
-			bindContentsToProperty("vuelo.destino")
-		]
-
-		new Column<Reserva>(gridReceta) => [
-			fixedSize = 120
-			title = "Salida"
-			bindContentsToProperty("vuelo.fechaSalida").transformer = [fecha|SSDate.toShow(fecha)]
-		]
-
-		new Column<Reserva>(gridReceta) => [
-			fixedSize = 120
-			title = "Llegada"
-			bindContentsToProperty("vuelo.fechaArribo").transformer = [fecha|SSDate.toShow(fecha)]
-		]
-
-		new Column<Reserva>(gridReceta) => [
-			fixedSize = 80
-			title = "Tramos"
-			bindContentsToProperty("vuelo.cantidadDeEscalas")
-		]
-
-		new Column<Reserva>(gridReceta) => [
-			fixedSize = 120
-			title = "Asiento Reservado"
-			bindContentsToProperty("asiento")
-		]
-	}
-
-	override protected createFormPanel(Panel mainPanel) {
-		val panelTexto = new Panel(mainPanel)
-
-		val subpanelTexto = new Panel(panelTexto)
-		subpanelTexto.layout = new HorizontalLayout
-
-		new Label(subpanelTexto) => [
-			text = "Usuario : "
-		]
-		new Label(subpanelTexto).bindValueToProperty("usuarioLogueado")
 	}
 
 	override close() {

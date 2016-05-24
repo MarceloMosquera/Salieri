@@ -1,6 +1,8 @@
 package edu.unsam.Salieri.Front.AppModel
 
 import edu.unsam.Salieri.Domain.Aeropuerto
+import edu.unsam.Salieri.Domain.Consulta
+import edu.unsam.Salieri.Domain.Usuario
 import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Domain.VueloBusqueda
 import java.util.ArrayList
@@ -30,13 +32,22 @@ class ConsultaVuelosAppModel extends BaseAppModel {
 	def buscar() {
 		vuelosEncontrados = null
 		vuelosEncontrados = vueloBusqueda.buscarVuelos(this.DBContext().repoVuelos.todos())
+		guardarConsulta(vueloBusqueda,usuarioLogueado)
+	}
+	
+	def buscarSinConsulta() {
+		vuelosEncontrados = null
+		vuelosEncontrados = vueloBusqueda.buscarVuelos(this.DBContext().repoVuelos.todos())
 	}
 
 	@Dependencies("vuelosEncontrados")
 	def void actualizarLista() {
-		ObservableUtils.firePropertyChanged(this, "vuelosEncontrados", buscar())
+		ObservableUtils.firePropertyChanged(this, "vuelosEncontrados", buscarSinConsulta())
 		ObservableUtils.firePropertyChanged(this, "vueloSeleccionado", getVueloSeleccionado())
 	}
 
+	def guardarConsulta(VueloBusqueda vueloBusqueda,Usuario usuario){
+		this.DBContext().repoLogConsultas.agregarConsulta(new Consulta(vueloBusqueda,usuario))
+	}
 
 }

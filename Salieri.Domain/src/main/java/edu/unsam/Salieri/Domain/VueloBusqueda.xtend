@@ -13,6 +13,7 @@ class VueloBusqueda {
 	Date fechaMin
 	Date fechaMax
 	float montoMax
+	List<Vuelo> vuelosConsultados
 
 	def buscarVuelos(List<Vuelo> losVuelos) {
 		var resultado = buscarVuelosConLugar(losVuelos)
@@ -20,6 +21,7 @@ class VueloBusqueda {
 		resultado = buscarVuelosPorDestino(destino, resultado)
 		resultado = buscarVuelosPorRangoDeFechas(fechaMin, fechaMax, resultado)
 		resultado = buscarVuelosPorMontoMaximo(montoMax, resultado)
+		vuelosConsultados = resultado
 	}
 
 	def buscarVuelosConLugar(List<Vuelo> lista) {

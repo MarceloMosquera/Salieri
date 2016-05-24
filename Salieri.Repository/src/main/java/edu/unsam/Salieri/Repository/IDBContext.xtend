@@ -10,6 +10,6 @@ interface IDBContext {
 
 	def IRepoAeropuertos repoAeropuertos()
 	
-	
+	def IRepoLogConsultas repoLogConsultas()
 
 }

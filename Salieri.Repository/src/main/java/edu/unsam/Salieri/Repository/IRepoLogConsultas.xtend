@@ -10,5 +10,7 @@ interface IRepoLogConsultas {
 	def List<Consulta> buscarConsultas()
 	
 	def void agregarConsulta(Consulta unaConsulta)
+	
+	def List<Consulta> listarTodas()
 
 }

@@ -23,4 +23,8 @@ class RepoLogConsultas implements IRepoLogConsultas {
 	override buscarConsultas() {
 	}
 	
+	override listarTodas() {
+		consultas
+	}
+	
 }

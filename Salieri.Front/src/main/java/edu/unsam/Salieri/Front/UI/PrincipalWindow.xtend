@@ -1,6 +1,8 @@
 package edu.unsam.Salieri.Front.UI
 
 import edu.unsam.Salieri.Domain.Reserva
+import edu.unsam.Salieri.Front.AppModel.ConsultaVuelosAppModel
+import edu.unsam.Salieri.Front.AppModel.LogConsultasAppModel
 import edu.unsam.Salieri.Front.AppModel.PrincipalAppModel
 import edu.unsam.Salieri.Util.SSDate
 import java.awt.Color
@@ -12,10 +14,9 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.windows.Dialog
-import edu.unsam.Salieri.Front.AppModel.ConsultaVuelosAppModel
 
 class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 
@@ -148,7 +149,10 @@ class PrincipalWindow extends SimpleWindow<PrincipalAppModel> {
 	}
 
 	def consultaLogs() {
-		null
+		this.openDialog(
+			new LogConsultasWindow(this, new LogConsultasAppModel())
+		)
+		
 	}
 
 	override close() {

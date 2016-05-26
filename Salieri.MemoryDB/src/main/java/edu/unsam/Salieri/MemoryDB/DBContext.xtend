@@ -166,5 +166,9 @@ class DBContext implements IDBContext {
 		
 		
 	}
+	
+	override repoLogConsultas() {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
 
 }

@@ -12,6 +12,7 @@ class LogConsultasAppModel extends BaseAppModel {
 
 	Date fechaDesde
 	Date fechaHasta
+	List<Consulta> consultas
 	
 	Consulta consultaSeleccionada = null
 	
@@ -20,8 +21,11 @@ class LogConsultasAppModel extends BaseAppModel {
 		fechaHasta = null
 	}
 
-	def List<Consulta> consultas (){
-		this.DBContext().repoLogConsultas.listarTodas
-	}
+//	def List<Consulta> consultas (){
+//		this.DBContext().repoLogConsultas.listarTodas
+//	}
 		
+	def void buscar(){
+		consultas = this.DBContext().repoLogConsultas.buscarConsultas(fechaDesde, fechaHasta, usuarioLogueado)
+	}	
 }

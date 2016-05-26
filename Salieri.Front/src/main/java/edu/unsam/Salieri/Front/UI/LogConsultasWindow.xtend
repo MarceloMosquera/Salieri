@@ -102,6 +102,12 @@ class LogConsultasWindow extends TransactionalDialog<LogConsultasAppModel> {
 			onClick [|verVuelos]
 			bindEnabled(elementSelected)
 		]
+	var panelHorizonal2 = new Panel(panel).layout = new HorizontalLayout
+		new Button(panelHorizonal2) => [
+			caption = "Buscar"
+			width = 150
+			onClick [|modelObject.buscar]
+		]
 	}
 	
 

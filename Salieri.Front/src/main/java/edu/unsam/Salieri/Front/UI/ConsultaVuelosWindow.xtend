@@ -159,7 +159,6 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 			caption = "Reservar"
 			width = 150
 			onClick [|
-//				modelObject.guardarConsulta(vueloSeleccionado)
 				this.openDialog(new DetalleVueloWindow(
 					this,
 					new DetalleVueloAppModel(modelObject.vueloSeleccionado, modelObject.vueloBusqueda.montoMax )
@@ -172,7 +171,6 @@ class ConsultaVuelosWindow extends TransactionalDialog<ConsultaVuelosAppModel> {
 			caption = "Volver"
 			width = 150
 			onClick [|
-//				modelObject.guardarConsulta(vueloSeleccionado)
 				accept
 			]
 		]

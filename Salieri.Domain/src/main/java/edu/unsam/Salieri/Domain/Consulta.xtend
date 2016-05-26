@@ -33,7 +33,7 @@ class Consulta {
 	}
 	
 	override toString(){
-		"fecha consula:" + fechaConsulta.toString// + ", usuario:" usuarioConsulta.nombre + ", destino: " + consultaDestino.nombre 
+		"fecha consula:" + fechaConsulta.toString 
 	}
 	
 	//asi me olvido del ", "

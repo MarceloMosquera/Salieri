@@ -5,7 +5,6 @@ import edu.unsam.Salieri.Domain.Consulta
 import edu.unsam.Salieri.Domain.Usuario
 import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Domain.VueloBusqueda
-import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.ObservableUtils
@@ -18,8 +17,8 @@ class ConsultaVuelosAppModel extends BaseAppModel {
 
 	String mensaje
 	VueloBusqueda vueloBusqueda = new VueloBusqueda
-	List<Vuelo> vuelosEncontrados = new ArrayList<Vuelo>
 	Vuelo vueloSeleccionado = null
+	List<Vuelo> vuelosEncontrados = null
 
 	def List<Aeropuerto> aeropuertosOrigen() {
 		this.DBContext().repoAeropuertos.todos()
@@ -30,18 +29,18 @@ class ConsultaVuelosAppModel extends BaseAppModel {
 	}
 
 	def buscar() {
-		vuelosEncontrados = null
-		vuelosEncontrados = vueloBusqueda.buscarVuelos(this.DBContext().repoVuelos.todos())
+		vueloBusqueda.vuelosConsultados =  DBContext.repoVuelos.buscar(vueloBusqueda)
 		guardarConsulta(vueloBusqueda,usuarioLogueado)
+		vuelosEncontrados = vueloBusqueda.vuelosConsultados
 	}
 	
 	def buscarSinConsulta() {
-		vuelosEncontrados = null
-		vuelosEncontrados = vueloBusqueda.buscarVuelos(this.DBContext().repoVuelos.todos())
+		vueloBusqueda.vuelosConsultados = DBContext.repoVuelos.buscar(vueloBusqueda)
+		vuelosEncontrados = vueloBusqueda.vuelosConsultados
 	}
 
 	@Dependencies("vuelosEncontrados")
-	def void actualizarLista() {
+	def actualizarLista() {
 		ObservableUtils.firePropertyChanged(this, "vuelosEncontrados", buscarSinConsulta())
 		ObservableUtils.firePropertyChanged(this, "vueloSeleccionado", getVueloSeleccionado())
 	}

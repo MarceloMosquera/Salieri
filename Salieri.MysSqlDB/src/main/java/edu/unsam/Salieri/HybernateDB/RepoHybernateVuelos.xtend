@@ -8,6 +8,7 @@ import java.util.List
 import edu.unsam.Salieri.Domain.VueloBusqueda
 import org.hibernate.HibernateException
 import org.hibernate.FetchMode
+import org.hibernate.criterion.CriteriaSpecification
 
 class RepoHybernateVuelos extends RepoHybernateBase<Vuelo> implements IRepoVuelos {
 
@@ -37,14 +38,18 @@ class RepoHybernateVuelos extends RepoHybernateBase<Vuelo> implements IRepoVuelo
 		val session = openSession
 		try {
 			var c = session.createCriteria(getEntityType)
+		
+			
 			addRestrictionIfNotNull(c, "origen", unBusqueda.origen )
 			addRestrictionIfNotNull(c,"destino", unBusqueda.destino )
 			addRestrictionIfNotNull(c,"fechaSalida", unBusqueda.fechaMin )
 			addRestrictionIfNotNull(c,"fechaSalida", unBusqueda.fechaMax )
 			
-//			c.createAlias("asientos", "asientoss") //.setFetchMode("asientos", FetchMode.JOIN)
-//                .add(Restrictions.eq("asientoss.disponible", true));        
-//			
+			c.createAlias("asientos", "asientos") 
+                .add(Restrictions.eq("asientos.disponible", true));        
+			
+			 c.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+			
 			c.list()
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)

@@ -16,6 +16,7 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import edu.unsam.Salieri.Domain.VueloConsulta
 
 class DetalleLogWindow extends TransactionalDialog<LogDetalleVuelosConsultasAppModel> {
 
@@ -47,7 +48,7 @@ class DetalleLogWindow extends TransactionalDialog<LogDetalleVuelosConsultasAppM
 	}
 	
 	def crearColumna(String titulo, String binder, Table grilla){
-		new Column<Vuelo>(grilla) => [
+		new Column<VueloConsulta>(grilla) => [
 			fixedSize = 150
 			title = titulo
 			bindContentsToProperty(binder)
@@ -56,7 +57,7 @@ class DetalleLogWindow extends TransactionalDialog<LogDetalleVuelosConsultasAppM
 	
 	//caso de necesitar transformer
 	def crearColumna(String titulo, String binder,Transformer transformer, Table grilla){
-			new Column<Vuelo>(grilla) => [
+			new Column<VueloConsulta>(grilla) => [
 				fixedSize = 150
 				title = titulo
 				bindContentsToProperty(binder).transformer = transformer
@@ -79,7 +80,7 @@ class DetalleLogWindow extends TransactionalDialog<LogDetalleVuelosConsultasAppM
 		new Label(panelVertical1 ) => [
 			text = "Vuelos"
 		]
-		val gridVuelos = new Table(panelVertical1 , typeof(Vuelo)) => [
+		val gridVuelos = new Table(panelVertical1 , typeof(VueloConsulta)) => [
 			height = 200
 			numberVisibleRows = 6
 			bindItemsToProperty("consultaSeleccionada.vuelosConsultados")
@@ -92,8 +93,8 @@ class DetalleLogWindow extends TransactionalDialog<LogDetalleVuelosConsultasAppM
 		crearColumna("Salida","fechaSalida",[fecha|SSDate.toShow(fecha)],gridVuelos)
 		crearColumna("Llegada","fechaArribo",[fecha|SSDate.toShow(fecha)],gridVuelos)
 		
-		crearColumna("Tramos","cantidadDeEscalas",gridVuelos)
-		crearColumna("Asientos Libres","cantidadAsientosLibres",gridVuelos)
+		crearColumna("Tramos","escalas",gridVuelos)
+		crearColumna("Asientos Libres","asientos",gridVuelos)
 	}
 		
 	def createBotones(Panel panel) {

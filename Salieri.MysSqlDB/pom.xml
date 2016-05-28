@@ -15,11 +15,11 @@
 	</properties>
 
 	<dependencies>
-	  	<dependency>
-  		<groupId>edu.unsam</groupId>
-  		<artifactId>Salieri.Domain</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
+		<dependency>
+			<groupId>edu.unsam</groupId>
+			<artifactId>Salieri.Domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.uqbar-project</groupId>
 			<artifactId>uqbar-domain</artifactId>
@@ -57,11 +57,15 @@
 			<version>5.1.35</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.mongodb</groupId>
-		    <artifactId>mongo-java-driver</artifactId>
-		    <version>3.2.2</version>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.2.2</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.mongodb.morphia</groupId>
+			<artifactId>morphia</artifactId>
+			<version>1.1.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>edu.unsam</groupId>
@@ -79,19 +83,19 @@
 		<artifactId>uqbar-xtend-parent</artifactId>
 		<version>2.7.3</version>
 	</parent>
-	  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.5.1</version>
-          <configuration>
-            <source>1.8</source>
-		    <target>1.8</target>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.5.1</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>

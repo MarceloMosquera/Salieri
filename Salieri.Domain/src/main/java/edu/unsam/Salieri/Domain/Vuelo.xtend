@@ -13,18 +13,23 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
+import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Observable
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
+import org.mongodb.morphia.annotations.Transient
+import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
 @Entity
+//@org.mongodb.morphia.annotations.Entity
 class Vuelo {
 		@Id
 	@GeneratedValue
 	private Long id
+	
+//	@org.mongodb.morphia.annotations.Id ObjectId idd
 	
 	@Column(length=10)
 	String nroVuelo

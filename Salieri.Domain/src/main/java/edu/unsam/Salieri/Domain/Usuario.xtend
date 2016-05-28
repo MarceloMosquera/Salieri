@@ -4,16 +4,21 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
 @Entity
+@org.mongodb.morphia.annotations.Entity
 class Usuario {
 	@Id
 	@GeneratedValue
 	public Long id
+	
+	@org.mongodb.morphia.annotations.Id ObjectId idd
+
 	
 	@Column(length=20)
 	String nick

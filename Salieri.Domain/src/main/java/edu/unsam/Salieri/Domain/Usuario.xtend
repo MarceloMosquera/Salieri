@@ -4,8 +4,8 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.mongodb.morphia.annotations.Transient
 import org.uqbar.commons.utils.Observable
 
 @Accessors
@@ -14,16 +14,16 @@ import org.uqbar.commons.utils.Observable
 @org.mongodb.morphia.annotations.Entity
 class Usuario {
 	@Id
+	@org.mongodb.morphia.annotations.Id
 	@GeneratedValue
 	public Long id
-	
-	@org.mongodb.morphia.annotations.Id ObjectId idd
-
 	
 	@Column(length=20)
 	String nick
 	@Column(length=50)
 	String nombre
+	
+	@Transient
 	@Column(length=10)
 	String password
 

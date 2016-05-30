@@ -9,6 +9,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongodb.morphia.annotations.Entity
 import org.mongodb.morphia.annotations.Id
 import org.uqbar.commons.utils.Observable
+import org.mongodb.morphia.annotations.Transient
 
 @Accessors
 @Observable
@@ -23,7 +24,10 @@ class Consulta {
 	Date consultaFechaMin
 	Date consultaFechaMax
 	float consultaMontoMax
+	
+	@Transient
 	List<VueloConsulta> vuelosConsultados
+	
 	Usuario usuarioConsulta
 		
 	new(VueloBusqueda vueloBusqueda, Usuario usuario){
@@ -44,7 +48,7 @@ class Consulta {
 		"fecha consula:" + fechaConsulta.toString 
 	}
 	
-	//TODO: Dejar mas linda esta mierdaaa (si no la necesitamos al final borrarla)
+
 	def void convertirVuelos(List<Vuelo> vuelos){
 	val j = vuelos.size
 	var int i

@@ -9,7 +9,7 @@ interface IRepoLogConsultas {
 
 	def void quitarConsulta(Consulta unaConsulta)
 
-	def List<Consulta> buscarConsultas(Date fechaMin,Date fechaMax, Usuario usuario)
+	def List<Consulta> buscarConsultas(Consulta unEjemplo)
 	
 	def void agregarConsulta(Consulta unaConsulta)
 	

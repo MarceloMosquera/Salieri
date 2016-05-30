@@ -26,6 +26,10 @@ class LogConsultasAppModel extends BaseAppModel {
 //	}
 		
 	def void buscar(){
-		consultas = this.DBContext().repoLogConsultas.buscarConsultas(fechaDesde, fechaHasta, usuarioLogueado)
+		var ejemplo = new Consulta ()
+		ejemplo.consultaFechaMin = fechaDesde
+		ejemplo.consultaFechaMax = fechaHasta
+		ejemplo.usuarioConsulta = usuarioLogueado
+		consultas = this.DBContext().repoLogConsultas.buscarConsultas(ejemplo)
 	}	
 }

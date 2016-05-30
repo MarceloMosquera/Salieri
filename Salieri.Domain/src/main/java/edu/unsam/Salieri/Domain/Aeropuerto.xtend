@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import org.mongodb.morphia.annotations.Transient
 
 @Accessors
 @Observable
@@ -34,7 +35,9 @@ class Aeropuerto {
 		pais = unPais
 	}
 
+	@Transient
 	static Aeropuerto _aeropuertoVacio = new Aeropuerto("", "", "")
+
 
 	def static Aeropuerto aeropuertoVacio() {
 		_aeropuertoVacio

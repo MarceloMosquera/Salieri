@@ -35,13 +35,13 @@ class RepoLogConsultas extends RepoAbstracto<Consulta> implements IRepoLogConsul
 
 	override searchByExample(Consulta consultaEjemplo) {
 		val query = ds.createQuery(Consulta)
-//		query.field("usuarioConsulta.id").equal(consultaEjemplo.usuarioConsulta.id)
-//		if (consultaEjemplo.consultaFechaMin != null) {
-//			query.field("fechaConsulta").greaterThanOrEq(consultaEjemplo.consultaFechaMin)
-//		}
-//		if (consultaEjemplo.consultaFechaMin != null) {
-//			query.field("fechaConsulta").lessThanOrEq(consultaEjemplo.consultaFechaMax)
-//		}
+		query.field("usuarioConsulta._id").equal(consultaEjemplo.usuarioConsulta.id)
+		if (consultaEjemplo.consultaFechaMin != null) {
+			query.field("fechaConsulta").greaterThanOrEq(consultaEjemplo.consultaFechaMin)
+		}
+		if (consultaEjemplo.consultaFechaMin != null) {
+			query.field("fechaConsulta").lessThanOrEq(consultaEjemplo.consultaFechaMax)
+		}
 		query.asList
 	}
 	

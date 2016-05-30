@@ -11,7 +11,7 @@ import org.uqbar.commons.utils.Observable
 @Entity
 @Observable
 class VueloConsulta {
-	@Id ObjectId idd
+	@Id ObjectId id
 
 	String nroVuelo
 

@@ -29,6 +29,7 @@ abstract class RepoAbstracto<T> {
 				ds.ensureIndexes
 			]
 			println("Conectado a MongoDB. Bases: " + ds.getDB.collectionNames)
+			morphia.getMapper().getOptions().setStoreEmpties(true)
 		}
 	}
 

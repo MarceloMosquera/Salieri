@@ -25,7 +25,7 @@ class Consulta {
 	Date consultaFechaMax
 	float consultaMontoMax
 	
-	@Transient
+
 	List<VueloConsulta> vuelosConsultados
 	
 	Usuario usuarioConsulta

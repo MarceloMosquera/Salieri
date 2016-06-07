@@ -1,0 +1,30 @@
+Adicionalmente deben resolver los siguientes requerimientos, en el motor de la tecnología elegida (ej: consultas de MongoDB):
+●	saber qué usuarios consultaron vuelos a Mar del Plata
+
+db.Consulta.find({ "consultaDestino.nombre": "Mar del Plata (MDQ)" }, {"usuarioConsulta.nombre": 1}).pretty()
+
+
+●	saber cuál fue el vuelo con más consultas
+db.Consulta.aggregate(
+[
+ { $unwind: '$vuelosConsultados' },
+ {$group: { _id: '$vuelosConsultados.nroVuelo',
+            cantidadDeconsulta: {$sum: 1}
+ }},
+ {$sort: {'cantidadDeconsulta': -1}},
+ {$limit: 1}
+]
+).pretty()
+
+
+●	saber cuántos usuarios hicieron consultas por monto
+
+db.Consulta.aggregate(
+[
+ {$match: { "consultaMontoMax" : { $exists : true, $ne : 0.0 } } },
+ {$group: { _id: '$usuario',
+            cantidadDeconsulta: {$sum: 1}
+ }},
+ {$sort: {'cantidadDeconsulta': -1}}
+]
+).pretty()

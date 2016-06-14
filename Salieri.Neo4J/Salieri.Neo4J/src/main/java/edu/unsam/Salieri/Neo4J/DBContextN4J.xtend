@@ -1,5 +1,6 @@
 package edu.unsam.Salieri.Neo4J
 
+import MongoDB.RepoLogConsultas
 import edu.unsam.Salieri.Repository.IDBContext
 import edu.unsam.Salieri.Repository.IRepoAeropuertos
 import edu.unsam.Salieri.Repository.IRepoLogConsultas
@@ -48,10 +49,11 @@ class DBContextN4J implements IDBContext {
 
 	override repoLogConsultas() {
 		if (_repoLogConsultas == null) {
-			_repoLogConsultas = new RepoNeo4JLogConsultas()
+			_repoLogConsultas = new RepoLogConsultas()
 		}
 		_repoLogConsultas;
 	}
+
 
 	
 }

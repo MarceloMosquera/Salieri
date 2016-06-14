@@ -8,7 +8,10 @@ class Neo4JAbstractRepo {
 	
 	protected	GraphDatabaseService graphDb
 
+	DBContextN4J dbcontext
+	
 	protected new() {
+		dbcontext = new DBContextN4J
 		graphDb = GraphDatabaseProvider.instance.graphDb
 	}
 
@@ -17,5 +20,7 @@ class Neo4JAbstractRepo {
 			transaction.close
 		}
 	}
+	
+	
 	
 }

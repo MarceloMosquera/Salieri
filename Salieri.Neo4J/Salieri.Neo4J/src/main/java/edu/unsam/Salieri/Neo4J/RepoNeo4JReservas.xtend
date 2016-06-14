@@ -17,7 +17,7 @@ class RepoNeo4JReservas extends Neo4JAbstractRepo implements IRepoReservas {
 	new() {
 	}
 
-	def List<Reserva> getPeliculas(String valor) {
+	def List<Reserva> getReservas(String valor) {
 		val transaction = graphDb.beginTx
 		try {
 			getNodosReservas(valor).map [ Node node |
@@ -46,22 +46,11 @@ class RepoNeo4JReservas extends Neo4JAbstractRepo implements IRepoReservas {
 			if (fechaBajaNodo != null) {
 				fechaBaja = fechaBajaNodo
 			}
-			usuario = nodeReserva.getProperty("usuario") as Usuario
+//				val rel_actuaron = nodePelicula.getRelationships(RelacionesPelicula.ACTED_IN)
+			val rel_usuario = nodeReserva.getRelationships(RelacionesReserva.RESERVA_USUARIO)
+			usuario = rel_usuario.getProperty(RelacionesReserva.RESERVA_USUARIO,"usuario") as Usuario
 			asiento = nodeReserva.getProperty("asiento") as Asiento
 			vuelo = nodeReserva.getProperty("vuelo") as Vuelo
-
-//			if (deep) { 
-//				val rel_actuaron = nodePelicula.getRelationships(RelacionesPelicula.ACTED_IN)
-//				personajes = rel_actuaron.map [
-//					rel | new Personaje => [
-//						id = rel.id
-//						val rolesPersonaje = rel.getProperty("roles", []) as String[]
-//						roles = new ArrayList(rolesPersonaje)
-//						val nodeActor = rel.startNode // hay que saber como navegar
-//						actor = nodeActor.convertToActor
-//					]
-//				].toList
-//		}			
 		]
 	}
 
@@ -108,22 +97,25 @@ class RepoNeo4JReservas extends Neo4JAbstractRepo implements IRepoReservas {
 	}
 
 	override List<Reserva> buscarReservaDelUsuario(Usuario unUsuario) {
+		// trame todas las relaciones Usuario_Asiento
 	}
 
 	private def void actualizarReserva(Reserva reserva, Node nodeReserva) {
 		nodeReserva => [
+			if(reserva.fechaBaja !=null){
 			setProperty("fechaBaja", reserva.fechaBaja)
+			}
 			// Borro las relaciones que tenga ese nodo
 			relationships.forEach[it.delete]
 			// Creo relaciones nuevas
 //TODO: Corregir esto que no va a funcionar una mierda, necesitamos que se puedan comunicar entre los repos
-			val Node nodeUsuario = DBContextN4J.getRepoUsuario.getNodoUsuarioById(reserva.usuario.id)
+			val Node nodeUsuario = DBContextN4J.repoUsuarios.getNodoUsuarioById(reserva.usuario.id)
 			val relUsuario = nodeUsuario.createRelationshipTo(it, RelacionesReserva.RESERVA_USUARIO)
 
-			val Node nodeVuelo = DBContextN4J.getRepoVuelo.getNodoVueloById(reserva.vuelo.id)
+			val Node nodeVuelo = DBContextN4J.repoVuelos.getNodoVueloById(reserva.vuelo.id)
 			val relVuelo = nodeUsuario.createRelationshipTo(it, RelacionesReserva.RESERVA_VUELO)
 
-			val Node nodeAsiento = DBContextN4J.getRepoVuelo.getAsientoDelVueloById(reserva.asiento.id)
+			val Node nodeAsiento = DBContextN4J.repoVuelos.getAsientoDelVueloById(reserva.asiento.id)
 			val relAsiento = nodeUsuario.createRelationshipTo(it, RelacionesReserva.RESERVA_ASIENTO)
 
 		// como lo hiso dodain con una lista

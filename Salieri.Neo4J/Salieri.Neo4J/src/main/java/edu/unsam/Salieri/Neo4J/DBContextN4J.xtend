@@ -1,6 +1,6 @@
 package edu.unsam.Salieri.Neo4J
 
-import MongoDB.RepoLogConsultas
+//import MongoDB.RepoLogConsultas
 import edu.unsam.Salieri.Repository.IDBContext
 import edu.unsam.Salieri.Repository.IRepoAeropuertos
 import edu.unsam.Salieri.Repository.IRepoLogConsultas
@@ -15,6 +15,15 @@ class DBContextN4J implements IDBContext {
 	static IRepoReservas _repoReservas = null
 	static IRepoAeropuertos _repoAeropuertos = null
 	static IRepoLogConsultas _repoLogConsultas = null
+
+	private static DBContextN4J instance
+	def static DBContextN4J getInstance() {
+		if (instance == null) {
+			instance = new DBContextN4J
+		}
+		instance
+	}
+
 
 	override IRepoUsuarios repoUsuarios() {
 		if (_repoUsuarios == null) {
@@ -49,7 +58,7 @@ class DBContextN4J implements IDBContext {
 
 	override repoLogConsultas() {
 		if (_repoLogConsultas == null) {
-			_repoLogConsultas = new RepoLogConsultas()
+			_repoLogConsultas = new RepoNeo4JLogConsultas()
 		}
 		_repoLogConsultas;
 	}

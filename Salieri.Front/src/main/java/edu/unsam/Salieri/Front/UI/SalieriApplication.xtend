@@ -1,9 +1,10 @@
 package edu.unsam.Salieri.Front.UI
 
-import edu.unsam.Salieri.HybernateDB.DBContextSql
+//import edu.unsam.Salieri.HybernateDB.DBContextSql
 import edu.unsam.Salieri.Repository.IDBContext
 import org.uqbar.arena.Application
 import org.uqbar.commons.utils.ApplicationContext
+import edu.unsam.Salieri.Neo4J.DBContextN4J
 
 class SalieriApplication extends Application {
 	
@@ -12,7 +13,7 @@ class SalieriApplication extends Application {
 	}
 	
 	override protected createMainWindow() {
-		ApplicationContext.instance.configureSingleton(typeof(IDBContext), new DBContextSql)
+		ApplicationContext.instance.configureSingleton(typeof(IDBContext), DBContextN4J.instance)
 		return new LoginWindow(this)
 	}
 	

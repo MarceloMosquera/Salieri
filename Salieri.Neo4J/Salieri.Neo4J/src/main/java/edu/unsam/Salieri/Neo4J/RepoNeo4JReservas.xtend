@@ -28,7 +28,6 @@ class RepoNeo4JReservas extends Neo4JAbstractRepo implements IRepoReservas {
 		}
 	}
 
-//TODO: Necesario??
 	def Reserva getReserva(Long id) {
 		val transaction = graphDb.beginTx
 		try {
@@ -48,7 +47,7 @@ class RepoNeo4JReservas extends Neo4JAbstractRepo implements IRepoReservas {
 			}
 //				val rel_actuaron = nodePelicula.getRelationships(RelacionesPelicula.ACTED_IN)
 			val rel_usuario = nodeReserva.getRelationships(RelacionesReserva.RESERVA_USUARIO)
-			usuario = rel_usuario.getProperty(RelacionesReserva.RESERVA_USUARIO,"usuario") as Usuario
+			//usuario = rel_usuario.getProperty(RelacionesReserva.RESERVA_USUARIO,"usuario") as Usuario
 			asiento = nodeReserva.getProperty("asiento") as Asiento
 			vuelo = nodeReserva.getProperty("vuelo") as Vuelo
 		]
@@ -60,7 +59,7 @@ class RepoNeo4JReservas extends Neo4JAbstractRepo implements IRepoReservas {
 			var Node nodoReserva = null
 			if (reserva.id == null) {
 				nodoReserva = graphDb.createNode
-				nodoReserva.addLabel(labelReserva)
+				//nodoReserva.addLabel(labelReserva)
 			} else {
 				nodoReserva = getNodoReserva(reserva.id)
 			}
@@ -105,18 +104,17 @@ class RepoNeo4JReservas extends Neo4JAbstractRepo implements IRepoReservas {
 			if(reserva.fechaBaja !=null){
 			setProperty("fechaBaja", reserva.fechaBaja)
 			}
-			// Borro las relaciones que tenga ese nodo
-			relationships.forEach[it.delete]
-			// Creo relaciones nuevas
-//TODO: Corregir esto que no va a funcionar una mierda, necesitamos que se puedan comunicar entre los repos
-			val Node nodeUsuario = DBContextN4J.repoUsuarios.getNodoUsuarioById(reserva.usuario.id)
-			val relUsuario = nodeUsuario.createRelationshipTo(it, RelacionesReserva.RESERVA_USUARIO)
-
-			val Node nodeVuelo = DBContextN4J.repoVuelos.getNodoVueloById(reserva.vuelo.id)
-			val relVuelo = nodeUsuario.createRelationshipTo(it, RelacionesReserva.RESERVA_VUELO)
-
-			val Node nodeAsiento = DBContextN4J.repoVuelos.getAsientoDelVueloById(reserva.asiento.id)
-			val relAsiento = nodeUsuario.createRelationshipTo(it, RelacionesReserva.RESERVA_ASIENTO)
+//			// Borro las relaciones que tenga ese nodo
+//			relationships.forEach[it.delete]
+//			// Creo relaciones nuevas
+//			val Node nodeUsuario = DBContextN4J.repoUsuarios.getNodoUsuarioById(reserva.usuario.id)
+//			val relUsuario = nodeUsuario.createRelationshipTo(it, RelacionesReserva.RESERVA_USUARIO)
+//
+//			val Node nodeVuelo = DBContextN4J.repoVuelos.getNodoVueloById(reserva.vuelo.id)
+//			val relVuelo = nodeUsuario.createRelationshipTo(it, RelacionesReserva.RESERVA_VUELO)
+//
+//			val Node nodeAsiento = DBContextN4J.repoVuelos.getAsientoDelVueloById(reserva.asiento.id)
+//			val relAsiento = nodeUsuario.createRelationshipTo(it, RelacionesReserva.RESERVA_ASIENTO)
 
 		// como lo hiso dodain con una lista
 //			reserva.personajes.forEach [ personaje |
@@ -132,9 +130,5 @@ class RepoNeo4JReservas extends Neo4JAbstractRepo implements IRepoReservas {
 		]
 	}
 
-
-	private def Label labelReserva() {
-		Label.label("Reserv")
-	}
 
 }

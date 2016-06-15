@@ -27,11 +27,6 @@
 		</dependency>
 		<dependency>
 			<groupId>edu.unsam</groupId>
-			<artifactId>Salieri.MemoryDB</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>edu.unsam</groupId>
 			<artifactId>Salieri.Repository</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
@@ -42,8 +37,8 @@
 			<version>4.12</version>
 		</dependency>
 		<dependency>
-			<groupId>Salieri.HybernateDB</groupId>
-			<artifactId>Salieri.HybernateDB</artifactId>
+			<groupId>Salieri.Neo4J</groupId>
+			<artifactId>Salieri.Neo4J</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

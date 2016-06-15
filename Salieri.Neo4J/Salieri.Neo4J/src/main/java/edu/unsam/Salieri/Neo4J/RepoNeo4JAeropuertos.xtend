@@ -1,7 +1,6 @@
 package edu.unsam.Salieri.Neo4J
 
 import edu.unsam.Salieri.Domain.Aeropuerto
-import edu.unsam.Salieri.Domain.Usuario
 import edu.unsam.Salieri.Repository.IRepoAeropuertos
 import java.util.Iterator
 import java.util.List
@@ -16,15 +15,14 @@ class RepoNeo4JAeropuertos extends Neo4JAbstractRepo implements IRepoAeropuertos
 		try {
 			var Node nodoAeropuerto = null
 			if (unAeropuerto.id == null) {
-				nodoAeropuerto = graphDb.createNode
-				nodoAeropuerto.addLabel(labelAeropuerto)
+				nodoAeropuerto = graphDb.createNode(EntityLabels.AEROPUERTO)
 			} else {
 				nodoAeropuerto = getNodoAeropuerto(unAeropuerto.id)
 			}
 			nodoAeropuerto => [
 				setProperty("nombre", unAeropuerto.nombre)
-				setProperty("password", unAeropuerto.ciudad)
-				setProperty("nick", unAeropuerto.pais)
+				setProperty("ciudad", unAeropuerto.ciudad)
+				setProperty("pais", unAeropuerto.pais)
 			]
 			transaction.success
 			unAeropuerto.id = nodoAeropuerto.id
@@ -33,7 +31,7 @@ class RepoNeo4JAeropuertos extends Neo4JAbstractRepo implements IRepoAeropuertos
 		}
 	}
 
-	private def Node getNodoAeropuerto(Long id) {
+	protected def Node getNodoAeropuerto(Long id) {
 		basicSearch("ID(aero) = " + id).head
 	}
 
@@ -59,9 +57,6 @@ class RepoNeo4JAeropuertos extends Neo4JAbstractRepo implements IRepoAeropuertos
 		return aeropuerto_column
 	}
 
-	private def Label labelAeropuerto() {
-		Label.label("Aeropuerto")
-	}
 
 	def convertToAeropuerto(Node nodeAeropuerto) {
 		new Aeropuerto => [

@@ -14,8 +14,7 @@ class RepoNeo4JUsuarios extends Neo4JAbstractRepo implements IRepoUsuarios {
 		try {
 			var Node nodoUsuario = null
 			if (usuario.id == null) {
-				nodoUsuario = graphDb.createNode
-				nodoUsuario.addLabel(labelUsuario)
+				nodoUsuario = graphDb.createNode(EntityLabels.USUARIO)
 			} else {
 				nodoUsuario = getNodoUsuario(usuario.id)
 			}
@@ -53,9 +52,7 @@ class RepoNeo4JUsuarios extends Neo4JAbstractRepo implements IRepoUsuarios {
 		return usuario_column
 	}
 
-	private def Label labelUsuario() {
-		Label.label("Usuario")
-	}
+
 
 	def convertToUsuario(Node nodeUsuario) {
 		new Usuario => [

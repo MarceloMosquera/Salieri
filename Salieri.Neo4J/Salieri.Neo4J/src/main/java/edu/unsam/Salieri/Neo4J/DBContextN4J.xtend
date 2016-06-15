@@ -63,6 +63,9 @@ class DBContextN4J implements IDBContext {
 		_repoLogConsultas;
 	}
 
-
+	def void cleanDB()
+	{
+		
+	}
 	
 }

@@ -11,6 +11,7 @@ import org.uqbar.arena.bootstrap.Bootstrap
 import edu.unsam.Salieri.Domain.TarifaEspecial
 import edu.unsam.Salieri.Domain.TarifaBandaNegativa
 import edu.unsam.Salieri.Neo4J.DBContextN4J
+import edu.unsam.Salieri.Neo4J.RepoNeo4JUsuarios
 
 class SalieriBootstrap implements Bootstrap {
 	DBContextN4J context = new DBContextN4J
@@ -20,8 +21,10 @@ class SalieriBootstrap implements Bootstrap {
 	}
 
 	override run() {
-		if (isPending) {			
-		init
+		if (isPending) {	
+			val repoUsuario = new RepoNeo4JUsuarios
+			repoUsuario.cleanDB()
+			init
 		}
 	}
 
@@ -65,7 +68,7 @@ class SalieriBootstrap implements Bootstrap {
 			agregarAeropuerto(new Aeropuerto("El Bolsón (EHL)", "Río Negro", "Argentina"))
 			agregarAeropuerto(new Aeropuerto("El Calafate (FTE)", "Santa Cruz", "Argentina"))
 		]
-/*
+
 		val n2346 = new Vuelo("N2346", "LAN AR", ezeiza, mendoza, new Date(), SSDate.p("20160630 10:00"), 500)
 		val i9573 = new Vuelo("I9573", "Aerolinas Argentinas", marDelPlata, guarulhos, SSDate.p("20160516 8:15"),
 			SSDate.p("20160516 18:00"), 1000)
@@ -125,7 +128,7 @@ class SalieriBootstrap implements Bootstrap {
 		context.repoVuelos.agregarVuelo(i9573)
 		context.repoVuelos.agregarVuelo(f956)
 		context.repoVuelos.agregarVuelo(f666)
-
+/* 
 		val asiento1 = n2346.obtenerAsiento(1, 0)
 		val asiento2 = n2346.obtenerAsiento(1, 1)
 		val asiento3 = i9573.obtenerAsiento(1, 2)

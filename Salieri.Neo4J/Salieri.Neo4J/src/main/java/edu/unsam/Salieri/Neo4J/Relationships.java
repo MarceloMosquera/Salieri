@@ -4,6 +4,6 @@ import org.neo4j.graphdb.RelationshipType;
 
 public enum Relationships implements RelationshipType {
 
-	VUELO_AEROPUERTO_ORIGEN, VUELO_AEROPUERTO_DESTINO, RESERVA
+	VUELO_AEROPUERTO_ORIGEN, VUELO_AEROPUERTO_DESTINO, VUELO_ASIENTO, RESERVA
 	
 }

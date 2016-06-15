@@ -19,11 +19,7 @@ class RepoNeo4JAeropuertos extends Neo4JAbstractRepo implements IRepoAeropuertos
 			} else {
 				nodoAeropuerto = getNodoAeropuerto(unAeropuerto.id)
 			}
-			nodoAeropuerto => [
-				setProperty("nombre", unAeropuerto.nombre)
-				setProperty("ciudad", unAeropuerto.ciudad)
-				setProperty("pais", unAeropuerto.pais)
-			]
+			convertToNode(unAeropuerto, nodoAeropuerto)
 			transaction.success
 			unAeropuerto.id = nodoAeropuerto.id
 		} finally {
@@ -32,7 +28,7 @@ class RepoNeo4JAeropuertos extends Neo4JAbstractRepo implements IRepoAeropuertos
 	}
 
 	protected def Node getNodoAeropuerto(Long id) {
-		basicSearch("ID(aero) = " + id).head
+		basicSearch(" where ID(aero) = " + id).head
 	}
 
 	override void quitarAeropuerto(Aeropuerto unAeropuerto) {
@@ -48,11 +44,11 @@ class RepoNeo4JAeropuertos extends Neo4JAbstractRepo implements IRepoAeropuertos
 	}
 
 	override Aeropuerto buscarAeropuertoPorNombre(String aeropuertoNombre) {
-		convertToAeropuerto(basicSearch(" where aero.nombre =" + aeropuertoNombre).head)
+		convertToAeropuerto(basicSearch(" where aero.nombre = '" + aeropuertoNombre+"' ").head)
 	}
 
 	private def basicSearch(String where) {
-		val Result result = graphDb.execute("match (aero:Aeropuerto)" + where + " return aero")
+		val Result result = graphDb.execute("match (aero:" + EntityLabels.AEROPUERTO.toString() + ") " + where + " return aero")
 		val Iterator<Node> aeropuerto_column = result.columnAs("aero")
 		return aeropuerto_column
 	}
@@ -64,6 +60,13 @@ class RepoNeo4JAeropuertos extends Neo4JAbstractRepo implements IRepoAeropuertos
 			nombre = nodeAeropuerto.getProperty("nombre") as String
 			ciudad = nodeAeropuerto.getProperty("ciudad") as String
 			pais = nodeAeropuerto.getProperty("pais") as String
+		]
+	}
+	def convertToNode(Aeropuerto unAeropuerto, Node nodoAeropuerto) {
+		nodoAeropuerto => [
+			setProperty("nombre", unAeropuerto.nombre+"")
+			setProperty("ciudad", unAeropuerto.ciudad+"")
+			setProperty("pais", unAeropuerto.pais+"")
 		]
 	}
 }

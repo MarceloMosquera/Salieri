@@ -16,6 +16,7 @@ import edu.unsam.Salieri.Domain.Escala
 import edu.unsam.Salieri.Domain.TarifaEspecial
 import edu.unsam.Salieri.Domain.TarifaBandaNegativa
 import edu.unsam.Salieri.Domain.TarifaComun
+import edu.unsam.Salieri.Domain.Aeropuerto
 
 class RepoNeo4JVuelos  extends Neo4JAbstractRepo implements IRepoVuelos {
 	
@@ -53,15 +54,37 @@ class RepoNeo4JVuelos  extends Neo4JAbstractRepo implements IRepoVuelos {
 		basicSearch("").map[node|convertToVuelo(node)].toList
 	}
 	
-	override buscar(VueloBusqueda unBusqueda) {
-//		
-//		
-//			addRestrictionIfNotNull(c, "origen", unBusqueda.origen)
-//			addRestrictionIfNotNull(c, "destino", unBusqueda.destino)
+	override buscar(VueloBusqueda unaBusqueda) {
+		var match = ""
+		var where = ""
+		if ((unaBusqueda.origen != null) &&(unaBusqueda.origen.nombre != "") )
+		{
+			if ((unaBusqueda.destino != null) &&(unaBusqueda.destino.nombre != "") )
+			{
+				match = " (v:VUELO)-[:VUELO_AEROPUERTO_DESTINO]->(ori:AEROPUERTO), (v)-[:VUELO_AEROPUERTO_ESCALA]->(esc:AEROPUERTO), (v)-[:VUELO_AEROPUERTO_DESTINO]->(dest:AEROPUERTO)  "
+				where = " ID(ori) = " + unaBusqueda.origen.id + " or ID(esc) = " + unaBusqueda.origen.id + 
+					" or ID(dest) = "+ unaBusqueda.destino.id + " or ID(esc) = " + unaBusqueda.destino.id 
+			}
+			else {
+				match = " (v:VUELO)-[:VUELO_AEROPUERTO_ORIGEN]->(ori:AEROPUERTO), (v)-[:VUELO_AEROPUERTO_ESCALA]->(esc:AEROPUERTO) "
+				where = " ID(ori) = " + unaBusqueda.origen.id + " or ID(esc) = " + unaBusqueda.origen.id
+			}
+		}
+		if ((unaBusqueda.destino != null) &&(unaBusqueda.destino.nombre != "") )
+		{
+			match = " (v:VUELO)-[:VUELO_AEROPUERTO_DESTINO]->(dest:AEROPUERTO), (v)-[:VUELO_AEROPUERTO_ESCALA]->(esc:AEROPUERTO) "
+			where = " ID(dest) = " + unaBusqueda.destino.id + " or ID(dest) = " + unaBusqueda.destino.id
+		}
+
 //			addRestrictionIfNotNullDate(c, "fechaSalida", unBusqueda.fechaMin, unBusqueda.fechaMax)
 //			addRestrictionIfNot0(c, "tarifaDefault", unBusqueda.montoMax)
 //			c.createAlias("asientos", "asientos").add(Restrictions.eq("asientos.disponible", true))
-		basicSearch("").map[node|convertToVuelo(node)].toList
+		if (where != "") where = " where " + where
+		if (match == "") match = "(v:VUELO)"
+		
+		val Result result = graphDb.execute("match "+ match + " " + where + " return distinct (v)")
+		val Iterator<Node> vuelo_column = result.columnAs("v")			
+		vuelo_column.map[node|convertToVuelo(node)].toList
 	}
 
 	

@@ -17,7 +17,7 @@ class SalieriBootstrap implements Bootstrap {
 	DBContextN4J context = new DBContextN4J
 
 	override isPending() {
-		false
+		true
 	}
 
 	override run() {
@@ -77,16 +77,18 @@ class SalieriBootstrap implements Bootstrap {
 			SSDate.p("20160516 20:00"), 2000)
 
 		f956 => [
-//			agregarEscala(new Escala(
+			agregarEscala(new Escala(
 //				context.repoAeropuertos.buscarAeropuertoPorNombre("El Calafate (FTE)"),
-//				SSDate.p("20160515 17:00"),
-//				SSDate.p("20160515 17:30")
-//			))
-//			agregarEscala(new Escala(
+				mendoza,
+				SSDate.p("20160515 17:00"),
+				SSDate.p("20160515 17:30")
+			))
+			agregarEscala(new Escala(
 //				context.repoAeropuertos.buscarAeropuertoPorNombre("El Bolsón (EHL)"),
-//				SSDate.p("20160516 01:00"),
-//				SSDate.p("20160516 01:30")
-//			))
+				marDelPlata,
+				SSDate.p("20160516 01:00"),
+				SSDate.p("20160516 01:30")
+			))
 //			agregarEscala(new Escala(
 //				context.repoAeropuertos.buscarAeropuertoPorNombre("Dolores (VDR)"),
 //				SSDate.p("20160516 13:00"),
@@ -95,33 +97,34 @@ class SalieriBootstrap implements Bootstrap {
 			obtenerAsientosDeFila(1).forEach [ asiento |
 				asiento.tarifa = new TarifaEspecial(100)
 			]
-//			obtenerAsientosDeFila(4).forEach [ asiento |
-//				asiento.tarifa = new TarifaBandaNegativa
-//
-//			]
+			obtenerAsientosDeFila(4).forEach [ asiento |
+				asiento.tarifa = new TarifaBandaNegativa
+			]
 						
 		]
-//
-		var f666 = new Vuelo("F66", "Maiden Ar", guarulhos, ezeiza, SSDate.p("20160520 8:15"),
+
+		var f666 = new Vuelo("F666", "Maiden Ar", guarulhos, ezeiza, SSDate.p("20160520 8:15"),
 			SSDate.p("20160521 20:00"), 3000)
 
-//		f666 => [
-//			agregarEscala(new Escala(
+		f666 => [
+			agregarEscala(new Escala(
 //				context.repoAeropuertos.buscarAeropuertoPorNombre("Dolores (VDR)"),
-//				SSDate.p("20160520 13:00"),
-//				SSDate.p("20160520 13:30")
-//			))
-//			agregarEscala(new Escala(
+				mendoza,
+				SSDate.p("20160520 13:00"),
+				SSDate.p("20160520 13:30")
+			))
+			agregarEscala(new Escala(
 //				context.repoAeropuertos.buscarAeropuertoPorNombre("El Bolsón (EHL)"),
-//				SSDate.p("20160521 01:00"),
-//				SSDate.p("20160521 01:30")
-//			))
+				marDelPlata,
+				SSDate.p("20160521 01:00"),
+				SSDate.p("20160521 01:30")
+			))
 //			agregarEscala(new Escala(
 //				context.repoAeropuertos.buscarAeropuertoPorNombre("El Calafate (FTE)"),
 //				SSDate.p("20160521 17:00"),
 //				SSDate.p("20160521 17:30")
 //			))
-//		]
+		]
 
 		context.repoVuelos.agregarVuelo(n2346)
 		context.repoVuelos.agregarVuelo(i9573)

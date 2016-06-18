@@ -128,11 +128,11 @@ class RepoNeo4JVuelos  extends Neo4JAbstractRepo implements IRepoVuelos {
 			]
 			
 			unVuelo.escalas.forEach[ escala |
-				var Node nodoEscala = getNodoById(EntityLabels.AEROPUERTO, escala.aeropuerto.id)
-				var rel = createRelationshipTo(nodoEscala, Relationships.VUELO_AEROPUERTO_ESCALA)
+				var Node nodoAerop = getNodoById(EntityLabels.AEROPUERTO, escala.aeropuerto.id)
+				var rel = createRelationshipTo(nodoAerop, Relationships.VUELO_AEROPUERTO_ESCALA)
 				rel.setProperty("orden", escala.orden)
 				rel.setProperty("fechaSalida", SSDate.toPersist(escala.fechaSalida))
-				rel.setProperty("fechaLlegada", SSDate.toPersist(escala.fechaSalida))
+				rel.setProperty("fechaLlegada", SSDate.toPersist(escala.fechaLlegada))
 				escala.id = rel.id
 			]
 		]

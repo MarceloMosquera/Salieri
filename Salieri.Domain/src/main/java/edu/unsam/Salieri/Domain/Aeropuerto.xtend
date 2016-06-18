@@ -15,7 +15,7 @@ class Aeropuerto {
 
 	@Id
 	@GeneratedValue
-	public Long id
+	private Long id
 
 	@Column
 	String nombre

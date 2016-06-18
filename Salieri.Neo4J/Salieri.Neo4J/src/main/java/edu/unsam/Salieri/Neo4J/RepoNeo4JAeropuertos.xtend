@@ -17,7 +17,7 @@ class RepoNeo4JAeropuertos extends Neo4JAbstractRepo implements IRepoAeropuertos
 			if (unAeropuerto.id == null) {
 				nodoAeropuerto = graphDb.createNode(EntityLabels.AEROPUERTO)
 			} else {
-				nodoAeropuerto = getNodoAeropuerto(unAeropuerto.id)
+				nodoAeropuerto = getNodoById(EntityLabels.AEROPUERTO, unAeropuerto.id)
 			}
 			convertToNode(unAeropuerto, nodoAeropuerto)
 			transaction.success
@@ -25,10 +25,6 @@ class RepoNeo4JAeropuertos extends Neo4JAbstractRepo implements IRepoAeropuertos
 		} finally {
 			cerrarTransaccion(transaction)
 		}
-	}
-
-	protected def Node getNodoAeropuerto(Long id) {
-		basicSearch(" where ID(aero) = " + id).head
 	}
 
 	override void quitarAeropuerto(Aeropuerto unAeropuerto) {

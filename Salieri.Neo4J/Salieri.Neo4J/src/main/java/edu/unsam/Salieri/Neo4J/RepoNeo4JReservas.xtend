@@ -5,12 +5,14 @@ import edu.unsam.Salieri.Domain.Reserva
 import edu.unsam.Salieri.Domain.Usuario
 import edu.unsam.Salieri.Domain.Vuelo
 import edu.unsam.Salieri.Repository.IRepoReservas
+import edu.unsam.Salieri.Util.SSDate
 import java.util.Date
 import java.util.Iterator
 import java.util.List
-import org.neo4j.graphdb.Label
 import org.neo4j.graphdb.Node
 import org.neo4j.graphdb.Result
+import java.util.ArrayList
+import org.neo4j.graphdb.Relationship
 
 class RepoNeo4JReservas extends Neo4JAbstractRepo implements IRepoReservas {
 
@@ -46,43 +48,62 @@ class RepoNeo4JReservas extends Neo4JAbstractRepo implements IRepoReservas {
 				fechaBaja = fechaBajaNodo
 			}
 //				val rel_actuaron = nodePelicula.getRelationships(RelacionesPelicula.ACTED_IN)
-			val rel_usuario = nodeReserva.getRelationships(RelacionesReserva.RESERVA_USUARIO)
+			val rel_usuario = nodeReserva.getRelationships(Relationships.RESERVA)
 			//usuario = rel_usuario.getProperty(RelacionesReserva.RESERVA_USUARIO,"usuario") as Usuario
 			asiento = nodeReserva.getProperty("asiento") as Asiento
 			vuelo = nodeReserva.getProperty("vuelo") as Vuelo
 		]
 	}
+	
+	def convertToReserva(Relationship relReserva, boolean deep) {
+		var repoVuelos = new RepoNeo4JVuelos
+		var reserva = new Reserva => [
+			id = relReserva.id
+			fecha = SSDate.p(relReserva.getProperty("fechaSalida") as String)
+//			var fechabaja = relReserva.getProperty("fechaBaja") as String
+//			if (fechabaja != ""){
+//				fechaBaja = SSDate.p(fechabaja)
+//			}
+		]
+		var relVuelo = relReserva.endNode.getRelationships(Relationships.VUELO_ASIENTO)
+		reserva.vuelo = repoVuelos.convertToVuelo(relVuelo.head.startNode)
+		reserva.asiento = repoVuelos.convertToAsiento(relReserva.endNode, reserva.vuelo)
+		reserva
+	}
 
 	def void saveOrUpdateReserva(Reserva reserva) {
 		val transaction = graphDb.beginTx
 		try {
-			var Node nodoReserva = null
-			if (reserva.id == null) {
-				nodoReserva = graphDb.createNode
-				//nodoReserva.addLabel(labelReserva)
-			} else {
-				nodoReserva = getNodoReserva(reserva.id)
+			var nodeUsuario = getNodoById(EntityLabels.USUARIO, reserva.usuario.id)
+			var nodeAsiento = getNodoById(EntityLabels.ASIENTO, reserva.asiento.id)
+//			var relReserva = nodeUsuario.getRelationships(Relationships.RESERVA)
+//				.findFirst[rel | rel.endNode.equals(nodeAsiento)]
+			var relReserva = nodeUsuario.createRelationshipTo(nodeAsiento, Relationships.RESERVA)
+			relReserva.setProperty("fechaSalida", SSDate.toPersist(reserva.fecha))
+			if (reserva.fechaBaja != null){
+				relReserva.setProperty("fechaBaja", SSDate.toPersist(reserva.fechaBaja))
 			}
-			actualizarReserva(reserva, nodoReserva)
+			nodeAsiento.setProperty("disponible", reserva.asiento.disponible)
 			transaction.success
-			reserva.id = nodoReserva.id
+			reserva.id = relReserva.id
 		} finally {
 			cerrarTransaccion(transaction)
 		}
 	}
 
-	// TODO: revisar como buscar nuestros nodos
+
+
 	private def getNodosReservas(String valor) {
-		basicSearch("peli.title =~ '(?i).*" + valor + ".*'")
+		basicSearch("reserva.title =~ '(?i).*" + valor + ".*'")
 	}
 
 	private def Node getNodoReserva(Long id) {
-		basicSearch("ID(peli) = " + id).head
+		basicSearch("ID(reserva) = " + id).head
 	}
 
 	private def basicSearch(String where) {
-		val Result result = graphDb.execute("match (peli:Movie) where " + where + " return peli")
-		val Iterator<Node> peli_column = result.columnAs("peli")
+		val Result result = graphDb.execute("match (reserva:Movie) where " + where + " return reserva")
+		val Iterator<Node> peli_column = result.columnAs("reserva")
 		return peli_column
 	}
 
@@ -96,7 +117,9 @@ class RepoNeo4JReservas extends Neo4JAbstractRepo implements IRepoReservas {
 	}
 
 	override List<Reserva> buscarReservaDelUsuario(Usuario unUsuario) {
-		// trame todas las relaciones Usuario_Asiento
+		var nodeUsuario = getNodoById(EntityLabels.USUARIO, unUsuario.id)
+		nodeUsuario.getRelationships(Relationships.RESERVA)
+			.map[rel|convertToReserva(rel, true)].toList
 	}
 
 	private def void actualizarReserva(Reserva reserva, Node nodeReserva) {

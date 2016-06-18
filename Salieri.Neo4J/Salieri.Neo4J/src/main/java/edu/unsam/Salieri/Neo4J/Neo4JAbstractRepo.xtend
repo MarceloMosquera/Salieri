@@ -1,8 +1,10 @@
 package edu.unsam.Salieri.Neo4J
 
-import edu.unsam.Salieri.Repository.IRepoReservas
 import org.neo4j.graphdb.GraphDatabaseService
 import org.neo4j.graphdb.Transaction
+import org.neo4j.graphdb.Node
+import org.neo4j.graphdb.Result
+import java.util.Iterator
 
 class Neo4JAbstractRepo {
 	
@@ -21,6 +23,13 @@ class Neo4JAbstractRepo {
 		}
 	}
 	
+	
+	protected def Node getNodoById(EntityLabels label, Long id) {
+		val Result result = graphDb.execute("match (entity:" + label.toString() + ") where ID(entity) = " + id + " return entity")
+		val Iterator<Node> entity_column = result.columnAs("entity")
+		return entity_column.head
+	}
+
 	
 	
 }

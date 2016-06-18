@@ -18,7 +18,7 @@ class RepoNeo4JUsuarios extends Neo4JAbstractRepo implements IRepoUsuarios {
 			if (usuario.id == null) {
 				nodoUsuario = graphDb.createNode(EntityLabels.USUARIO)
 			} else {
-				nodoUsuario = getNodoUsuario(usuario.id)
+				nodoUsuario = getNodoById(EntityLabels.USUARIO, usuario.id)
 			}
 			convertToNode(usuario,nodoUsuario)
 			transaction.success
@@ -27,10 +27,6 @@ class RepoNeo4JUsuarios extends Neo4JAbstractRepo implements IRepoUsuarios {
 			cerrarTransaccion(transaction)
 		}
 
-	}
-
-	private def Node getNodoUsuario(Long id) {
-		basicSearch(" where ID(user) = " + id).head
 	}
 
 	override quitarUsuario(Usuario usuario) {

@@ -77,58 +77,57 @@ class SalieriBootstrap implements Bootstrap {
 			SSDate.p("20160516 20:00"), 2000)
 
 		f956 => [
-			agregarEscala(new Escala(
-				context.repoAeropuertos.buscarAeropuertoPorNombre("El Calafate (FTE)"),
-				SSDate.p("20160515 17:00"),
-				SSDate.p("20160515 17:30")
-			))
-			agregarEscala(new Escala(
-				context.repoAeropuertos.buscarAeropuertoPorNombre("El Bolsón (EHL)"),
-				SSDate.p("20160516 01:00"),
-				SSDate.p("20160516 01:30")
-			))
-			agregarEscala(new Escala(
-				context.repoAeropuertos.buscarAeropuertoPorNombre("Dolores (VDR)"),
-				SSDate.p("20160516 13:00"),
-				SSDate.p("20160516 13:30")
-			))
+//			agregarEscala(new Escala(
+//				context.repoAeropuertos.buscarAeropuertoPorNombre("El Calafate (FTE)"),
+//				SSDate.p("20160515 17:00"),
+//				SSDate.p("20160515 17:30")
+//			))
+//			agregarEscala(new Escala(
+//				context.repoAeropuertos.buscarAeropuertoPorNombre("El Bolsón (EHL)"),
+//				SSDate.p("20160516 01:00"),
+//				SSDate.p("20160516 01:30")
+//			))
+//			agregarEscala(new Escala(
+//				context.repoAeropuertos.buscarAeropuertoPorNombre("Dolores (VDR)"),
+//				SSDate.p("20160516 13:00"),
+//				SSDate.p("20160516 13:30")
+//			))
 			obtenerAsientosDeFila(1).forEach [ asiento |
 				asiento.tarifa = new TarifaEspecial(100)
-
 			]
-			obtenerAsientosDeFila(4).forEach [ asiento |
-				asiento.tarifa = new TarifaBandaNegativa
-
-			]
+//			obtenerAsientosDeFila(4).forEach [ asiento |
+//				asiento.tarifa = new TarifaBandaNegativa
+//
+//			]
 						
 		]
-
+//
 		var f666 = new Vuelo("F66", "Maiden Ar", guarulhos, ezeiza, SSDate.p("20160520 8:15"),
 			SSDate.p("20160521 20:00"), 3000)
 
-		f666 => [
-			agregarEscala(new Escala(
-				context.repoAeropuertos.buscarAeropuertoPorNombre("Dolores (VDR)"),
-				SSDate.p("20160520 13:00"),
-				SSDate.p("20160520 13:30")
-			))
-			agregarEscala(new Escala(
-				context.repoAeropuertos.buscarAeropuertoPorNombre("El Bolsón (EHL)"),
-				SSDate.p("20160521 01:00"),
-				SSDate.p("20160521 01:30")
-			))
-			agregarEscala(new Escala(
-				context.repoAeropuertos.buscarAeropuertoPorNombre("El Calafate (FTE)"),
-				SSDate.p("20160521 17:00"),
-				SSDate.p("20160521 17:30")
-			))
-		]
+//		f666 => [
+//			agregarEscala(new Escala(
+//				context.repoAeropuertos.buscarAeropuertoPorNombre("Dolores (VDR)"),
+//				SSDate.p("20160520 13:00"),
+//				SSDate.p("20160520 13:30")
+//			))
+//			agregarEscala(new Escala(
+//				context.repoAeropuertos.buscarAeropuertoPorNombre("El Bolsón (EHL)"),
+//				SSDate.p("20160521 01:00"),
+//				SSDate.p("20160521 01:30")
+//			))
+//			agregarEscala(new Escala(
+//				context.repoAeropuertos.buscarAeropuertoPorNombre("El Calafate (FTE)"),
+//				SSDate.p("20160521 17:00"),
+//				SSDate.p("20160521 17:30")
+//			))
+//		]
 
 		context.repoVuelos.agregarVuelo(n2346)
 		context.repoVuelos.agregarVuelo(i9573)
 		context.repoVuelos.agregarVuelo(f956)
 		context.repoVuelos.agregarVuelo(f666)
-/* 
+
 		val asiento1 = n2346.obtenerAsiento(1, 0)
 		val asiento2 = n2346.obtenerAsiento(1, 1)
 		val asiento3 = i9573.obtenerAsiento(1, 2)
@@ -142,7 +141,7 @@ class SalieriBootstrap implements Bootstrap {
 		context.repoReservas.agregarReserva(new Reserva(asiento6, nicolas, n2346))
 		context.repoReservas.agregarReserva(new Reserva(asiento4, marcelo, i9573))
 
-		*/
+		
 	}
 
 }

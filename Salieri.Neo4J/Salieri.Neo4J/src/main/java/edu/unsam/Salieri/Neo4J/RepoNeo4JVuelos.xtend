@@ -13,6 +13,9 @@ import java.util.ArrayList
 import org.neo4j.graphdb.Relationship
 import java.util.HashSet
 import edu.unsam.Salieri.Domain.Escala
+import edu.unsam.Salieri.Domain.TarifaEspecial
+import edu.unsam.Salieri.Domain.TarifaBandaNegativa
+import edu.unsam.Salieri.Domain.TarifaComun
 
 class RepoNeo4JVuelos  extends Neo4JAbstractRepo implements IRepoVuelos {
 	
@@ -119,6 +122,9 @@ class RepoNeo4JVuelos  extends Neo4JAbstractRepo implements IRepoVuelos {
 				]
 				createRelationshipTo(nodoAsiento, Relationships.VUELO_ASIENTO)
 				asiento.id = nodoAsiento.id
+				var Node nodoTarifa = graphDb.createNode(EntityLabels.TARIFA)
+				nodoTarifa.setProperty("tipo", asiento.tarifa.tipo)
+				nodoAsiento.createRelationshipTo(nodoTarifa, Relationships.ASIENTO_TARIFA)
 			]
 			
 			unVuelo.escalas.forEach[ escala |
@@ -140,6 +146,12 @@ class RepoNeo4JVuelos  extends Neo4JAbstractRepo implements IRepoVuelos {
 			//tarifa = nodo.getProperty("tarifa") as Float
 			disponible = nodo.getProperty("disponible") as Boolean
 			vuelo = unVuelo
+			val relTarifa = nodo.getRelationships(Relationships.ASIENTO_TARIFA).head
+			var Node nodoTarifa = relTarifa.endNode
+			var tipo = nodoTarifa.getProperty("tipo") as Integer 
+			if (tipo == 1) tarifa = new TarifaEspecial(100)
+			if (tipo == 2) tarifa = new TarifaBandaNegativa()
+			if (tipo == 3) tarifa = new TarifaComun()
 		]
 	}	
 	def convertToEscala(Relationship rel)	{

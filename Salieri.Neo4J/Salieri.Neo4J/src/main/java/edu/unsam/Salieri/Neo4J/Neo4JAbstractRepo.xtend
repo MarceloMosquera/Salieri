@@ -5,6 +5,7 @@ import org.neo4j.graphdb.Transaction
 import org.neo4j.graphdb.Node
 import org.neo4j.graphdb.Result
 import java.util.Iterator
+import org.neo4j.graphdb.Relationship
 
 class Neo4JAbstractRepo {
 	
@@ -30,6 +31,11 @@ class Neo4JAbstractRepo {
 		return entity_column.head
 	}
 
+	protected def Relationship getRelationById(Relationships relation, Long id) {
+		val Result result = graphDb.execute("match p=()-[rel:" + relation.toString() + "]->() where ID(rel) = " + id + " return rel")
+		val Iterator<Relationship> rel_column = result.columnAs("rel")
+		return rel_column.head
+	}
 	
 	
 }

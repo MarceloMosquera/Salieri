@@ -17,7 +17,7 @@ class SalieriBootstrap implements Bootstrap {
 	DBContextN4J context = new DBContextN4J
 
 	override isPending() {
-		true
+		false
 	}
 
 	override run() {

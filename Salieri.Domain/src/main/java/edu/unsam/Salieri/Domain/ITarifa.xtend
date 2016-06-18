@@ -17,24 +17,25 @@ import org.uqbar.commons.utils.Observable
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="tipoTarifa", discriminatorType=DiscriminatorType.INTEGER)
-abstract class ITarifa {
-
-	@Id
-	@GeneratedValue
-	private Long id
+interface ITarifa {
 
 	def float obtenerPrecio(Vuelo vuelo)
-
+	def int tipo()
 }
 
 @Observable
 @Accessors
 @Entity
 @DiscriminatorValue("1")
-class TarifaEspecial extends ITarifa {
+class TarifaEspecial implements ITarifa {
 
+	@Id
+	@GeneratedValue
+	private Long id
 	@Column
 	float descuentoTarifa
+
+	static int tipo = 1
 
 	new() {
 	}
@@ -46,14 +47,21 @@ class TarifaEspecial extends ITarifa {
 	override obtenerPrecio(Vuelo vuelo) {
 		vuelo.tarifaDefault - descuentoTarifa
 	}
-
+	override  int tipo(){
+		tipo
+	}
 }
 
 @Observable
 @Accessors
 @Entity
 @DiscriminatorValue("2")
-class TarifaBandaNegativa extends ITarifa {
+class TarifaBandaNegativa implements ITarifa {
+
+	@Id
+	@GeneratedValue
+	private Long id
+	static int tipo = 2
 
 	new() {
 	}
@@ -73,14 +81,21 @@ class TarifaBandaNegativa extends ITarifa {
 		val fecha = cal.getTime();
 		fecha.before(new Date())
 	}
-
+	override  int tipo(){
+		tipo
+	}
 }
 
 @Observable
 @Accessors
 @Entity
 @DiscriminatorValue("3")
-class TarifaComun extends ITarifa {
+class TarifaComun implements ITarifa {
+
+	@Id
+	@GeneratedValue
+	private Long id
+	static int tipo = 3
 
 	new() {
 	}
@@ -89,5 +104,7 @@ class TarifaComun extends ITarifa {
 	override obtenerPrecio(Vuelo vuelo) {
 		vuelo.tarifaDefault
 	}
-
+	override  int tipo(){
+		tipo
+	}
 }

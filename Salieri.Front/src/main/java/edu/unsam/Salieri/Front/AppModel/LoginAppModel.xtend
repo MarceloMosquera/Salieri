@@ -8,8 +8,8 @@ import edu.unsam.Salieri.Domain.Usuario
 @Observable
 class LoginAppModel extends BaseAppModel{
 
-	String nombreUsuarioABuscar
-	String contrasenia
+	String nombreUsuarioABuscar = "ivan"
+	String contrasenia = "ivan"
 	Usuario usuarioLogin
 	String mensaje
 	

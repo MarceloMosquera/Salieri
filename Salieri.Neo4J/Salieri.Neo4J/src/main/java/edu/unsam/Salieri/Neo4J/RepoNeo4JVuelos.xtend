@@ -18,12 +18,12 @@ import edu.unsam.Salieri.Domain.TarifaBandaNegativa
 import edu.unsam.Salieri.Domain.TarifaComun
 import edu.unsam.Salieri.Domain.Aeropuerto
 
-class RepoNeo4JVuelos  extends Neo4JAbstractRepo implements IRepoVuelos {
-	
+class RepoNeo4JVuelos extends Neo4JAbstractRepo implements IRepoVuelos {
+
 	override void agregarVuelo(Vuelo unVuelo) {
 		val transaction = graphDb.beginTx
 		try {
-			
+
 			var Node nodoVuelo = null
 			if (unVuelo.id == null) {
 				nodoVuelo = graphDb.createNode(EntityLabels.VUELO)
@@ -36,90 +36,91 @@ class RepoNeo4JVuelos  extends Neo4JAbstractRepo implements IRepoVuelos {
 		} finally {
 			cerrarTransaccion(transaction)
 		}
-		
+
 	}
-	
 
 	private def basicSearch(String where) {
-		val Result result = graphDb.execute("match (vuelo:" + EntityLabels.VUELO.toString() + ") " + where + " return vuelo")
+		val Result result = graphDb.execute("match (vuelo:" + EntityLabels.VUELO.toString() + ") " + where +
+			" return vuelo")
 		val Iterator<Node> vuelo_column = result.columnAs("vuelo")
 		return vuelo_column
 	}
-	
+
 	override quitarVuelo(Vuelo unVuelo) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
-	
+
 	override todos() {
 		basicSearch("").map[node|convertToVuelo(node)].toList
 	}
-	
+
 	override buscar(VueloBusqueda unaBusqueda) {
+		var query = "match (v:VUELO)-[:VUELO_AEROPUERTO_ORIGEN]->(ori:AEROPUERTO),(v)-[:VUELO_AEROPUERTO_DESTINO]->(des:AEROPUERTO)
+					where 1=1"
+
+		var union = "UNION match (v:VUELO)-[:VUELO_AEROPUERTO_ESCALA]->(escOri:AEROPUERTO),(v)-[:VUELO_AEROPUERTO_ESCALA]->(escDes:AEROPUERTO)  
+					where 1=1"
 		var match = ""
 		var where = ""
-		if ((unaBusqueda.origen != null) &&(unaBusqueda.origen.nombre != "") )
-		{
-			if ((unaBusqueda.destino != null) &&(unaBusqueda.destino.nombre != "") )
-			{
-				match = " (v:VUELO)-[:VUELO_AEROPUERTO_DESTINO]->(ori:AEROPUERTO), (v)-[:VUELO_AEROPUERTO_ESCALA]->(esc:AEROPUERTO), (v)-[:VUELO_AEROPUERTO_DESTINO]->(dest:AEROPUERTO)  "
-				where = " ID(ori) = " + unaBusqueda.origen.id + " or ID(esc) = " + unaBusqueda.origen.id + 
-					" or ID(dest) = "+ unaBusqueda.destino.id + " or ID(esc) = " + unaBusqueda.destino.id 
-			}
-			else {
-				match = " (v:VUELO)-[:VUELO_AEROPUERTO_ORIGEN]->(ori:AEROPUERTO), (v)-[:VUELO_AEROPUERTO_ESCALA]->(esc:AEROPUERTO) "
-				where = " ID(ori) = " + unaBusqueda.origen.id + " or ID(esc) = " + unaBusqueda.origen.id
-			}
+		if (unaBusqueda.origen != null && (unaBusqueda.origen.nombre != "")) {
+			query += " AND ID(ori) = " + unaBusqueda.origen.id
+			union += " AND ID(escOri) = " + unaBusqueda.origen.id
 		}
-		if ((unaBusqueda.destino != null) &&(unaBusqueda.destino.nombre != "") )
-		{
-			match = " (v:VUELO)-[:VUELO_AEROPUERTO_DESTINO]->(dest:AEROPUERTO), (v)-[:VUELO_AEROPUERTO_ESCALA]->(esc:AEROPUERTO) "
-			where = " ID(dest) = " + unaBusqueda.destino.id + " or ID(dest) = " + unaBusqueda.destino.id
+		if (unaBusqueda.destino != null && (unaBusqueda.destino.nombre != "")) {
+			query += " AND ID(des) = " + unaBusqueda.destino.id
+			union += " AND ID(escDes) = " + unaBusqueda.destino.id
+		}
+		if (unaBusqueda.montoMax != 0) {
+			query += " AND (v.tarifaDefault <= " + unaBusqueda.montoMax + ")"
+			union += " AND (v.tarifaDefault <= " + unaBusqueda.montoMax + ")"
+		}
+		if (unaBusqueda.fechaMin != null) {
+			query += " AND (v.fechaSalida >= '" + SSDate.toPersist(unaBusqueda.fechaMin)+ "')"
+			union += " AND (v.fechaSalida >= '" + SSDate.toPersist(unaBusqueda.fechaMin)+ "')"
+		}
+		if (unaBusqueda.fechaMax != null) {
+			query += " AND (v.fechaSalida <= '" + SSDate.toPersist(unaBusqueda.fechaMax) + "')"
+			union += " AND (v.fechaSalida <= '" + SSDate.toPersist(unaBusqueda.fechaMax) + "')"
 		}
 
-//			addRestrictionIfNotNullDate(c, "fechaSalida", unBusqueda.fechaMin, unBusqueda.fechaMax)
-//			addRestrictionIfNot0(c, "tarifaDefault", unBusqueda.montoMax)
-//			c.createAlias("asientos", "asientos").add(Restrictions.eq("asientos.disponible", true))
-		if (where != "") where = " where " + where
-		if (match == "") match = "(v:VUELO)"
-		
-		val Result result = graphDb.execute("match "+ match + " " + where + " return distinct (v)")
-		val Iterator<Node> vuelo_column = result.columnAs("v")			
+		val Result result = graphDb.execute(query + " return(v) " + union + " return(v);")
+//					val Result result = graphDb.execute("match " + match + " " + where + " return(v)")
+		val Iterator<Node> vuelo_column = result.columnAs("v")
 		vuelo_column.map[node|convertToVuelo(node)].toList
 	}
 
-	
 	def convertToVuelo(Node nodeVuelo) {
 		val repoAero = new RepoNeo4JAeropuertos
-				
+
 		new Vuelo => [
 			id = nodeVuelo.id
 			nroVuelo = nodeVuelo.getProperty("nroVuelo") as String
 			aerolinea = nodeVuelo.getProperty("aerolinea") as String
-			fechaSalida =  SSDate.p(nodeVuelo.getProperty("fechaSalida") as String)
+			fechaSalida = SSDate.p(nodeVuelo.getProperty("fechaSalida") as String)
 			fechaArribo = SSDate.p(nodeVuelo.getProperty("fechaArribo") as String)
 			tarifaDefault = nodeVuelo.getProperty("tarifaDefault") as Float
-			
+
 			val relOrigen = nodeVuelo.getRelationships(Relationships.VUELO_AEROPUERTO_ORIGEN)
-			origen = repoAero.convertToAeropuerto( relOrigen.last.endNode)
+			origen = repoAero.convertToAeropuerto(relOrigen.last.endNode)
 
 			val relDestino = nodeVuelo.getRelationships(Relationships.VUELO_AEROPUERTO_DESTINO)
-			destino = repoAero.convertToAeropuerto( relDestino.last.endNode)
+			destino = repoAero.convertToAeropuerto(relDestino.last.endNode)
 
 			val relAsientos = nodeVuelo.getRelationships(Relationships.VUELO_ASIENTO)
 			asientos = new ArrayList
-			relAsientos.forEach[rel | 
+			relAsientos.forEach [ rel |
 				asientos.add(convertToAsiento(rel.endNode, it))
 			]
-			
+
 			val relEscalas = nodeVuelo.getRelationships(Relationships.VUELO_AEROPUERTO_ESCALA)
 			escalas = new HashSet
-			relEscalas.forEach[rel | 
+			relEscalas.forEach [ rel |
 				escalas.add(convertToEscala(rel))
 			]
 
 		]
 	}
-	
+
 	def convertToNode(Vuelo unVuelo, Node nodeVuelo) {
 
 		nodeVuelo => [
@@ -135,12 +136,12 @@ class RepoNeo4JVuelos  extends Neo4JAbstractRepo implements IRepoVuelos {
 			val nodeAeroDest = getNodoById(EntityLabels.AEROPUERTO, unVuelo.destino.id)
 			createRelationshipTo(nodeAeroDest, Relationships.VUELO_AEROPUERTO_DESTINO)
 
-			unVuelo.asientos.forEach[ asiento |
+			unVuelo.asientos.forEach [ asiento |
 				var Node nodoAsiento = graphDb.createNode(EntityLabels.ASIENTO)
 				nodoAsiento => [
 					setProperty("fila", asiento.fila)
 					setProperty("ubicacion", asiento.ubicacion)
-					//setProperty("tarifa", asiento.tarifa)
+					// setProperty("tarifa", asiento.tarifa)
 					setProperty("disponible", asiento.disponible)
 				]
 				createRelationshipTo(nodoAsiento, Relationships.VUELO_ASIENTO)
@@ -149,8 +150,8 @@ class RepoNeo4JVuelos  extends Neo4JAbstractRepo implements IRepoVuelos {
 				nodoTarifa.setProperty("tipo", asiento.tarifa.tipo)
 				nodoAsiento.createRelationshipTo(nodoTarifa, Relationships.ASIENTO_TARIFA)
 			]
-			
-			unVuelo.escalas.forEach[ escala |
+
+			unVuelo.escalas.forEach [ escala |
 				var Node nodoAerop = getNodoById(EntityLabels.AEROPUERTO, escala.aeropuerto.id)
 				var rel = createRelationshipTo(nodoAerop, Relationships.VUELO_AEROPUERTO_ESCALA)
 				rel.setProperty("orden", escala.orden)
@@ -161,32 +162,33 @@ class RepoNeo4JVuelos  extends Neo4JAbstractRepo implements IRepoVuelos {
 		]
 	}
 
-	def convertToAsiento(Node nodo, Vuelo unVuelo)	{
+	def convertToAsiento(Node nodo, Vuelo unVuelo) {
 		new Asiento => [
 			id = nodo.id
 			fila = nodo.getProperty("fila") as Integer
 			ubicacion = nodo.getProperty("ubicacion") as Integer
-			//tarifa = nodo.getProperty("tarifa") as Float
+			// tarifa = nodo.getProperty("tarifa") as Float
 			disponible = nodo.getProperty("disponible") as Boolean
 			vuelo = unVuelo
 			val relTarifa = nodo.getRelationships(Relationships.ASIENTO_TARIFA).head
 			var Node nodoTarifa = relTarifa.endNode
-			var tipo = nodoTarifa.getProperty("tipo") as Integer 
-			if (tipo == 1) tarifa = new TarifaEspecial(100)
-			if (tipo == 2) tarifa = new TarifaBandaNegativa()
-			if (tipo == 3) tarifa = new TarifaComun()
+			var tipo = nodoTarifa.getProperty("tipo") as Integer
+			if(tipo == 1) tarifa = new TarifaEspecial(100)
+			if(tipo == 2) tarifa = new TarifaBandaNegativa()
+			if(tipo == 3) tarifa = new TarifaComun()
 		]
-	}	
-	def convertToEscala(Relationship rel)	{
+	}
+
+	def convertToEscala(Relationship rel) {
 		val repoAero = new RepoNeo4JAeropuertos
-		
+
 		new Escala => [
 			id = rel.id
-			orden = rel.getProperty("orden") as Integer 
+			orden = rel.getProperty("orden") as Integer
 			aeropuerto = repoAero.convertToAeropuerto(rel.endNode)
 			fechaSalida = SSDate.p(rel.getProperty("fechaSalida") as String)
 			fechaLlegada = SSDate.p(rel.getProperty("fechaLlegada") as String)
 		]
-	}	
-	
+	}
+
 }

@@ -70,7 +70,7 @@ class RepoHybernateVuelos extends RepoHybernateBase<Vuelo> implements IRepoVuelo
 
 	def addRestrictionIfNot0(Criteria criteria, String propertyName, Float value) {
 		if (value > 0) {
-			criteria.add(Restrictions.ge(propertyName, value));
+			criteria.add(Restrictions.le(propertyName, value));
 		}
 	}
 }
